@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 export default function Footer() {
   return (
-    <div className="bg-gray-900 text-gray-200">
+    <div className="bg-green-800 text-gray-100">
       {/* Footer Section */}
       <footer className="py-12">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-12">
@@ -73,8 +73,8 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="text-center text-gray-500 mt-8">
-          <p>&copy; 2024 Book Haven. All Rights Reserved.</p>
+        <div className="text-center text-gray-400 mt-8">
+          <p>&copy; 2024 EcoBin. All Rights Reserved. Promoting a Greener Tomorrow.</p>
         </div>
       </footer>
     </div>

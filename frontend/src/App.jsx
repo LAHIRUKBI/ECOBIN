@@ -18,9 +18,6 @@ import Books from './Pages/Books'
 import Footer from './Components/Footer'
 import EmployeeProfile from './Pages/Employee_profile';
 import BookDetails from './Pages/Book_details'
-import Importance_of_Learning from './Pages/Importance_of_Learning'
-import Learning_Makes_a_Person_Rich from './Pages/Learning_Makes_a_Person_Rich'
-import Benefits_of_learning_to_read from './Pages/Benefits_of_learning_to_read'
 import Payment from './Pages/Payment'
 import Order from './Pages/Order'
 import About_Us from './Pages/About_Us'
@@ -53,9 +50,6 @@ export default function App() {
       <Route path="/books" element={<Books />} />
       <Route path="/employee_profile/:username" element={<EmployeeProfile />} />
       <Route path="/book_details/:id" element={<BookDetails />} />
-      <Route path="/importance_of_Learning" element={<Importance_of_Learning />} />
-      <Route path="/learning_Makes_a_Person_Rich" element={<Learning_Makes_a_Person_Rich />} />
-      <Route path="/benefits_of_learning_to_read" element={<Benefits_of_learning_to_read />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/order" element={<Order />} />
       <Route path="/about_Us" element={<About_Us />} />
