@@ -13,13 +13,12 @@ export default function Add_product() {
 
   const navigate = useNavigate();
 
-  const bookCategories = {
-    "Fiction Genres": ["Fantasy", "Mystery", "Thriller", "Historical Fiction", "Romance"],
-    "Non-Fiction Genres": ["Biography", "Self-Help", "Travel", "Science", "Philosophy"],
-    "Literary Classics": ["Shakespearean Plays", "19th Century Literature", "Modern Classics", "American Literature", "European Literature"],
-    "Young Adult and Children's Books": ["Middle Grade Fiction", "Young Adult Fantasy", "Children's Picture Books", "Teen Romance", "Adventure Books for Kids"],
-    "Specialty and Niche Books": ["Cookbooks", "Graphic Novels", "Poetry", "Art and Design", "Photography"],
-    "Health and Wellness Books": ["Mental Health", "Fitness", "Nutrition", "Mindfulness", "Alternative Medicine"],
+  // Updated categories and services relevant to SmartBIN
+  const serviceCategories = {
+    "Waste Collection": ["Residential Collection", "Commercial Collection", "Bulk Waste Pickup", "Special Waste Collection"],
+    "Recycling Services": ["Plastic Recycling", "Paper Recycling", "Metal Recycling", "Electronic Waste Recycling", "Glass Recycling"],
+    "Composting": ["Organic Waste Composting", "Garden Waste Composting"],
+    "Product Creation": ["Recycled Plastic Products", "Upcycled Wooden Products", "Eco-Friendly Household Goods"],
   };
 
   const handleSubmit = async (e) => {
@@ -39,7 +38,7 @@ export default function Add_product() {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
-      alert('Product added successfully!');
+      alert('Service added successfully!');
       setFormData({
         mainCategory: '',
         type: '',
@@ -50,7 +49,7 @@ export default function Add_product() {
 
       navigate('/productview');
     } catch (error) {
-      console.error('Error adding product:', error);
+      console.error('Error adding service:', error);
     }
   };
 
@@ -67,27 +66,27 @@ export default function Add_product() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 p-10">
+    <div className="flex flex-col items-center min-h-screen bg-gradient-to-br from-green-100 to-green-300 p-10">
       <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-8">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Add Your Book to the Catalog
+          Add Your Service to the Ecobin Catalog
         </h1>
         <p className="text-center text-gray-600 mb-8">
-          Fill out the form below to showcase your book in our catalog.
+          Fill out the form below to showcase your services in our SmartBIN system.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Main Category Selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Main Book Category</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Service Category</label>
             <select
               className="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring focus:ring-blue-400 focus:outline-none"
               value={formData.mainCategory}
               onChange={handleMainCategoryChange}
               required
             >
-              <option value="" disabled>Select main book category</option>
-              {Object.keys(bookCategories).map((category, index) => (
+              <option value="" disabled>Select service category</option>
+              {Object.keys(serviceCategories).map((category, index) => (
                 <option key={index} value={category}>{category}</option>
               ))}
             </select>
@@ -96,15 +95,15 @@ export default function Add_product() {
           {/* Subcategory (Type) */}
           {formData.mainCategory && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Type of Book</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Type of Service</label>
               <select
                 className="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring focus:ring-blue-400 focus:outline-none"
                 value={formData.type}
                 onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                 required
               >
-                <option value="" disabled>Select book type</option>
-                {bookCategories[formData.mainCategory].map((type, index) => (
+                <option value="" disabled>Select service type</option>
+                {serviceCategories[formData.mainCategory].map((type, index) => (
                   <option key={index} value={type}>{type}</option>
                 ))}
               </select>
@@ -129,7 +128,7 @@ export default function Add_product() {
             <textarea
               className="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring focus:ring-blue-400 focus:outline-none"
               rows="4"
-              placeholder="Write a brief introduction for your book."
+              placeholder="Write a brief introduction for your service."
               value={formData.introduction}
               onChange={(e) => setFormData({ ...formData, introduction: e.target.value })}
               required
@@ -138,7 +137,7 @@ export default function Add_product() {
 
           {/* Image Upload */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Upload Book Image</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Upload Service Image</label>
             <input
               type="file"
               accept="image/*"
@@ -150,9 +149,9 @@ export default function Add_product() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium text-lg shadow hover:bg-blue-700 transition-all"
+            className="w-full bg-green-600 text-white py-3 rounded-lg font-medium text-lg shadow hover:bg-green-700 transition-all"
           >
-            Add Book to Catalog
+            Add Service to Catalog
           </button>
         </form>
       </div>
