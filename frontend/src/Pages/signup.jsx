@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaBook, FaUser, FaPhoneAlt, FaMapMarkedAlt, FaLock } from 'react-icons/fa';
+import { FaRecycle, FaUser, FaPhoneAlt, FaMapMarkedAlt, FaLock } from 'react-icons/fa';
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -53,13 +53,13 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-green-100 px-4">
       <div className="flex flex-col lg:flex-row w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
         {/* Left Section */}
         <div className="w-full lg:w-1/2 p-6 lg:p-12 bg-gray-50">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 text-center">Hello!</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 text-center">Welcome to EcoBin!</h2>
           <p className="text-gray-600 text-center mb-6">
-            Please sign up to continue.
+            Join us in making the world a greener place.
           </p>
           <form onSubmit={handleSubmit}>
             {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
@@ -109,7 +109,7 @@ export default function Signup() {
             </div>
             <button
               type="submit"
-              className={`w-full p-3 text-white bg-blue-600 rounded hover:bg-blue-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`w-full p-3 text-white bg-green-600 rounded hover:bg-green-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
               disabled={loading}
             >
               {loading ? 'Signing Up...' : 'Sign Up'}
@@ -117,20 +117,19 @@ export default function Signup() {
           </form>
         </div>
         {/* Right Section */}
-        <div className="flex lg:flex-col w-full lg:w-1/2 bg-blue-100 items-center justify-center p-6">
+        <div className="flex lg:flex-col w-full lg:w-1/2 bg-green-200 items-center justify-center p-6">
           <div className="text-center">
             <div className="mb-4">
-              <div className="bg-yellow-400 p-6 rounded-full text-white text-3xl">
-                <FaBook /> {/* Book Icon */}
+              <div className="bg-green-500 p-6 rounded-full text-white text-3xl">
+                <FaRecycle /> {/* Recycling Icon */}
               </div>
             </div>
-            <h2 className="text-xl md:text-2xl font-bold text-gray-800">Book Haven</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-gray-800">EcoBin</h2>
             <p className="text-gray-600 text-sm md:text-base">Already have an account?</p>
-            <Link to="/signin" className="text-blue-600 mt-2 inline-block hover:underline text-sm md:text-base">Sign In</Link>
+            <Link to="/signin" className="text-green-600 mt-2 inline-block hover:underline text-sm md:text-base">Sign In</Link>
           </div>
         </div>
       </div>
     </div>
   );
-  
 }
