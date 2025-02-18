@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaHome, FaBook, FaInfoCircle, FaEnvelope, FaUserCircle, FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
+import { FaHome, FaRecycle, FaInfoCircle, FaEnvelope, FaUserCircle, FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false); // Mobile menu toggle
@@ -9,15 +9,15 @@ export default function Navigation() {
 
   const handleLogout = () => {
     localStorage.removeItem("email");
-    navigate("/"); 
+    navigate("/");
   };
 
   return (
-    <nav className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-8 py-5 shadow-lg relative">
+    <nav className="bg-gradient-to-r from-green-600 to-green-500 text-white px-8 py-5 shadow-lg relative">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <a href="/" className="text-2xl font-serif font-bold text-white flex items-center space-x-2">
-          <span>Book Haven</span>
+          <span>EcoBin</span>
         </a>
 
         {/* Mobile menu toggle */}
@@ -34,21 +34,21 @@ export default function Navigation() {
             menuOpen ? "block" : "hidden"
           }`}
         >
-          <Link to="/" className="flex items-center space-x-2 hover:text-teal-200">
+          <Link to="/" className="flex items-center space-x-2 hover:text-green-200">
             <FaHome />
             <span>Home</span>
           </Link>
           {email && (
-            <Link to="/books" className="flex items-center space-x-2 hover:text-teal-200">
-              <FaBook />
-              <span>Books</span>
+            <Link to="/Books" className="flex items-center space-x-2 hover:text-green-200">
+              <FaRecycle />
+              <span>Recycling Order</span>
             </Link>
           )}
-          <Link to="/about_Us" className="flex items-center space-x-2 hover:text-teal-200">
+          <Link to="/about_us" className="flex items-center space-x-2 hover:text-green-200">
             <FaInfoCircle />
             <span>About Us</span>
           </Link>
-          <Link to="/contact" className="flex items-center space-x-2 hover:text-teal-200">
+          <Link to="/contact" className="flex items-center space-x-2 hover:text-green-200">
             <FaEnvelope />
             <span>Contact</span>
           </Link>
@@ -60,25 +60,24 @@ export default function Navigation() {
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => navigate(`/employee_profile/${email}`)}
-                className="flex items-center space-x-2 text-lg font-semibold px-4 py-2 rounded-md bg-teal-600 shadow-md hover:bg-teal-700 transition duration-300"
+                className="flex items-center space-x-2 text-lg font-semibold px-4 py-2 rounded-md bg-green-700 shadow-md hover:bg-green-800 transition duration-300"
               >
                 <FaUserCircle />
                 <span>{email}</span>
               </button>
-             
             </div>
           ) : (
             <div className="flex space-x-4">
               <Link
                 to="/signup"
-                className="flex items-center space-x-2 bg-teal-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-teal-700 transition duration-300"
+                className="flex items-center space-x-2 bg-green-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-800 transition duration-300"
               >
                 <FaUserCircle />
                 <span>Sign Up</span>
               </Link>
               <Link
-                to="/Shop_workers_Login"
-                className="flex items-center space-x-2 border border-teal-600 text-teal-100 px-4 py-2 rounded-lg font-semibold hover:bg-teal-600 hover:text-white transition duration-300"
+                to="/shop_workers_login"
+                className="flex items-center space-x-2 border border-green-600 text-green-100 px-4 py-2 rounded-lg font-semibold hover:bg-green-600 hover:text-white transition duration-300"
               >
                 <FaUserCircle />
               </Link>
