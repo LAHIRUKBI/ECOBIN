@@ -2,13 +2,18 @@ import Payment from '../model/payment.model.js';
 
 export const createPayment = async (req, res, next) => {
   try {
-    const { bookId, bookTitle, totalPrice, quantity, formData, bankData } = req.body;
+    console.log("Received Payment Data:", req.body); // Log the received data
+
+    const { bookId, bookTitle, totalPrice, formData, bankData } = req.body;
+
+    if (!bookId || !bookTitle || !totalPrice || !formData || !bankData) {
+      return res.status(400).json({ success: false, message: "Missing required fields" });
+    }
 
     const newPayment = new Payment({
       bookId,
       bookTitle,
       totalPrice,
-      quantity,
       customerName: formData.name,
       customerAddress: formData.address,
       customerPhone: formData.phone,
@@ -17,12 +22,17 @@ export const createPayment = async (req, res, next) => {
     });
 
     const savedPayment = await newPayment.save();
+    console.log("Saved Payment:", savedPayment); // Log saved data
 
     res.status(201).json({ success: true, data: savedPayment });
   } catch (err) {
+    console.error("Payment Save Error:", err);
     next(err);
   }
 };
+
+
+
 
 
 
