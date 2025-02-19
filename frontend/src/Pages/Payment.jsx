@@ -5,7 +5,7 @@ import { FaShippingFast } from "react-icons/fa";
 export default function Payment() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { bookTitle, totalPrice, quantity, bookId } = location.state || {};
+  const { bookTitle, totalPrice, bookId } = location.state || {};
 
   const [formData, setFormData] = useState({
     name: "",
@@ -86,7 +86,6 @@ export default function Payment() {
           bookId,
           bookTitle,  // Add bookTitle here
           totalPrice,
-          quantity,
           formData,
           bankData,
         }),
