@@ -8,7 +8,7 @@ export default function Order_confirm() {
     // Fetch all orders from the database
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/orders/list');
+        const response = await axios.get('http://localhost:3000/api/payment');
         setOrders(response.data.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -48,7 +48,6 @@ export default function Order_confirm() {
                 <th className="border-b border-gray-200 p-4">Address</th>
                 <th className="border-b border-gray-200 p-4">Phone</th>
                 <th className="border-b border-gray-200 p-4">Total Price</th>
-                <th className="border-b border-gray-200 p-4">Quantity</th>
                 <th className="border-b border-gray-200 p-4">Bank Name</th>
                 <th className="border-b border-gray-200 p-4">Payment Date</th>
                 <th className="border-b border-gray-200 p-4">Actions</th>
@@ -63,7 +62,6 @@ export default function Order_confirm() {
                   <td className="border-b border-gray-200 p-4">{order.customerAddress}</td>
                   <td className="border-b border-gray-200 p-4">{order.customerPhone}</td>
                   <td className="border-b border-gray-200 p-4 font-semibold">${order.totalPrice.toFixed(2)}</td>
-                  <td className="border-b border-gray-200 p-4">{order.quantity}</td>
                   <td className="border-b border-gray-200 p-4">{order.bankName}</td>
                   <td className="border-b border-gray-200 p-4">
                     {new Date(order.paymentDate).toLocaleDateString()}
