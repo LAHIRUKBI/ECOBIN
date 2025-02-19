@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const paymentSchema = new mongoose.Schema({
-  bookId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+  bookId: { type: String, required: true },
   bookTitle: { type: String, required: true },
   totalPrice: { type: Number, required: true },
   customerName: { type: String, required: true },
@@ -9,9 +9,7 @@ const paymentSchema = new mongoose.Schema({
   customerPhone: { type: String, required: true },
   customerEmail: { type: String, required: true },
   bankName: { type: String, required: true },
-  paymentDate: { type: Date, default: Date.now },
-});
-
+}, { timestamps: true });
 
 const Payment = mongoose.model('Payment', paymentSchema);
 
