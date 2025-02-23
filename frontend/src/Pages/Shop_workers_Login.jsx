@@ -53,8 +53,8 @@ export default function Admin_Login() {
           case "Stock and product Manager":
             navigate("/Book_manager_home");
             break;
-          case "Delivery Manager":
-            navigate("/deliverymanagerhome");
+          case "Collect Manager":
+            navigate("/collectmanagerhome");
             break;
           default:
             setCompanyError("Invalid section selected.");
@@ -278,7 +278,7 @@ export default function Admin_Login() {
                   >
                     <option value="">Select Section</option>
                     <option value="Stock and product Manager">Stock and product Manager</option>
-                    <option value="Delivery Manager">Delivery Manager</option>
+                    <option value="Collect Manager">Collect Manager</option>
                   </select>
                 </div>
               </div>
