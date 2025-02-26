@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaRecycle } from "react-icons/fa";
 import axios from "axios";
-import { FaQuoteLeft } from "react-icons/fa";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -11,7 +10,6 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
 
-  // Fetch products when the Home page is loaded
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -25,48 +23,34 @@ export default function Home() {
     };
 
     fetchProducts();
-
-    // Auto-scroll to Introduction section after 3 seconds
     setTimeout(() => {
       window.scrollTo({
         top: document.getElementById("introduction").offsetTop,
         behavior: "smooth",
       });
-    }, 3000); // Adjust time as needed
+    }, 3000);
   }, []);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
+  const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
     setCurrentStep(1);
   };
-
-  const nextStep = () => {
-    if (currentStep < 4) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const finishGuide = () => {
-    closeModal();
-  };
+  const nextStep = () => currentStep < 4 && setCurrentStep(currentStep + 1);
+  const finishGuide = () => closeModal();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center text-gray-700">Loading...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="text-center text-red-500">{error}</div>;
   }
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-teal-600 to-cyan-400 py-24 h-screen">
-        {/* Video Background */}
+      <section className="relative bg-gradient-to-r from-teal-600 to-cyan-400 py-32 h-screen">
         <div className="absolute inset-0 overflow-hidden">
           <video
             className="absolute inset-0 w-full h-full object-cover brightness-50"
@@ -76,13 +60,10 @@ export default function Home() {
             loop
             playsInline
             aria-label="Background Video"
-          ></video>
+          />
         </div>
-
-        {/* Overlay to Enhance Contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/80"></div>
 
-        {/* Animated Hero Content */}
         <div className="relative z-10 container mx-auto flex flex-col items-center justify-center h-full text-center space-y-6">
           <h1 className="text-5xl md:text-7xl font-bold text-white drop-shadow-lg animate__animated animate__fadeInDown">
             Welcome to EcoBin
@@ -92,7 +73,7 @@ export default function Home() {
           </p>
           <button
             onClick={openModal}
-            className="flex items-center bg-green-500 hover:bg-green-600 text-white py-4 px-8 rounded-full text-lg shadow-xl transform hover:scale-110 transition duration-300 animate__animated animate__fadeIn animate__delay-2s"
+            className="flex items-center bg-green-500 hover:bg-green-600 text-white py-4 px-8 rounded-full text-lg shadow-xl transform hover:scale-110 transition duration-300"
           >
             <FaRecycle className="inline mr-2 text-2xl" /> Explore Our Recycled Creations
           </button>
@@ -106,7 +87,7 @@ export default function Home() {
       {/* Modal for Get Started */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-gradient-to-br from-teal-500 to-cyan-400 rounded-lg p-8 w-4/5 md:w-1/2 lg:w-1/3">
+          <div className="bg-gradient-to-br from-teal-500 to-cyan-400 rounded-lg p-8 w-4/5 md:w-1/2 lg:w-1/3 shadow-xl">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold text-white">Get Started</h2>
               <button
@@ -118,60 +99,19 @@ export default function Home() {
             </div>
 
             {/* Step Content */}
-            {currentStep === 1 && (
-              <div>
-                <p className="mt-4 text-lg text-white">
-                  Welcome to EcoBin! This guide will help you get started with our
-                  platform and make the most of our eco-friendly waste management
-                  services.
-                </p>
-              </div>
-            )}
-
-            {currentStep === 2 && (
-              <div>
-                <p className="mt-4 text-lg text-white">
-                  To begin using our waste collection services, you need to register
-                  and sign in. Once registered, a "Services" tab will appear in the
-                  navigation bar, allowing you to schedule waste pickups.
-                </p>
-              </div>
-            )}
-
-            {currentStep === 3 && (
-              <div>
-                <p className="mt-4 text-lg text-white">
-                  On the homepage, you'll find details about our recycling process and
-                  how your waste contributes to sustainable products. Additionally,
-                  you can explore categories like Eco Products and Recycling Tips.
-                </p>
-              </div>
-            )}
-
-            {currentStep === 4 && (
-              <div>
-                <p className="mt-4 text-lg text-white">
-                  That's it! You've completed the guide. Now, you're ready to explore
-                  EcoBin. If you need help at any time, feel free to revisit this
-                  guide.
-                </p>
-              </div>
-            )}
+            {currentStep === 1 && <p className="mt-4 text-lg text-white">Welcome to EcoBin! This guide will help you get started with our eco-friendly waste management services.</p>}
+            {currentStep === 2 && <p className="mt-4 text-lg text-white">To use our waste collection services, register and sign in. Then, you can schedule pickups through the "Services" tab.</p>}
+            {currentStep === 3 && <p className="mt-4 text-lg text-white">Explore our homepage for details about our recycling process and discover eco-friendly products and tips!</p>}
+            {currentStep === 4 && <p className="mt-4 text-lg text-white">You're all set! Explore EcoBin and take part in the recycling revolution.</p>}
 
             {/* Navigation buttons */}
             <div className="mt-6 text-center space-x-4">
               {currentStep < 4 ? (
-                <button
-                  onClick={nextStep}
-                  className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-full text-lg"
-                >
+                <button onClick={nextStep} className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-full text-lg">
                   Next
                 </button>
               ) : (
-                <button
-                  onClick={finishGuide}
-                  className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-full text-lg"
-                >
+                <button onClick={finishGuide} className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-full text-lg">
                   Finish
                 </button>
               )}
@@ -182,18 +122,11 @@ export default function Home() {
 
       {/* EcoBin Resources Section */}
       <section className="relative py-24 bg-gray-50 text-gray-900">
-        {/* Background Decorations */}
         <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-white opacity-40"></div>
-        <div className="absolute -top-10 -left-10 w-40 h-40 bg-green-400 rounded-full opacity-30 blur-3xl"></div>
-        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-lime-300 rounded-full opacity-30 blur-3xl"></div>
 
         <div className="relative z-10 container mx-auto px-6 text-center">
-          <h2 className="text-5xl font-bold text-green-600 mb-8 tracking-wide uppercase drop-shadow-lg">
-            EcoBin Resources
-          </h2>
-          <p className="text-lg text-gray-700 mb-12 max-w-3xl mx-auto">
-            Discover the power of sustainability and eco-friendly solutions through our curated educational content.
-          </p>
+          <h2 className="text-5xl font-bold text-green-600 mb-8 tracking-wide uppercase drop-shadow-lg">EcoBin Resources</h2>
+          <p className="text-lg text-gray-700 mb-12 max-w-3xl mx-auto">Discover the power of sustainability and eco-friendly solutions through our curated educational content.</p>
 
           {/* Card Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -227,12 +160,8 @@ export default function Home() {
                     className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="mt-6 text-2xl font-semibold text-gray-900 group-hover:text-green-600 transition duration-300">
-                  {resource.title}
-                </h3>
-                <p className="text-gray-600 mt-3 leading-relaxed">
-                  {resource.description}
-                </p>
+                <h3 className="mt-6 text-2xl font-semibold text-gray-900 group-hover:text-green-600 transition duration-300">{resource.title}</h3>
+                <p className="text-gray-600 mt-3 leading-relaxed">{resource.description}</p>
                 <Link
                   to={resource.link}
                   className="mt-6 inline-block bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-full text-lg shadow-md transition-all duration-300 transform hover:-translate-y-1"
