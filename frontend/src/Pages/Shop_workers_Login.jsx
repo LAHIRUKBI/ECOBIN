@@ -50,7 +50,7 @@ export default function Admin_Login() {
           case "Staff Manager":
             navigate("/staffmanagerhome");
             break;
-          case "Stock and product Manager":
+          case "Service Manager":
             navigate("/Book_manager_home");
             break;
           case "Collect Manager":
@@ -277,7 +277,7 @@ export default function Admin_Login() {
                     className="w-full bg-transparent border-none focus:outline-none text-gray-900"
                   >
                     <option value="">Select Section</option>
-                    <option value="Stock and product Manager">Stock and product Manager</option>
+                    <option value="Service Manager">Service Manager</option>
                     <option value="Collect Manager">Collect Manager</option>
                   </select>
                 </div>

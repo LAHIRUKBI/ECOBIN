@@ -124,7 +124,7 @@ export default function Employee_register() {
                     onChange={handleChange}
                   >
                     <option value="">Select Section</option>
-                    <option value="Stock and product Manager">Stock and product Manager</option>
+                    <option value="Service Manager">Service Manager</option>
                     <option value="Collect Manager">Collect Manager</option>
                   </select>
                 </div>
