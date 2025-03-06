@@ -126,6 +126,7 @@ export default function Employee_register() {
                     <option value="">Select Section</option>
                     <option value="Service Manager">Service Manager</option>
                     <option value="Collect Manager">Collect Manager</option>
+                    <option value="Product Manager">Product Manager</option>
                   </select>
                 </div>
                 <div className="flex items-center gap-4 bg-gray-100 p-3 rounded-md shadow-lg">
