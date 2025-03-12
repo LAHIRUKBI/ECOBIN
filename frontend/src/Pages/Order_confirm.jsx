@@ -47,7 +47,15 @@ export default function Order_confirm() {
                   <td className="border-b border-gray-200 p-4 font-semibold">${order.totalPrice.toFixed(2)}</td>
                   <td className="border-b border-gray-200 p-4">{order.bankName}</td>
                   <td className="border-b border-gray-200 p-4">
-                    {/* No delete button */}
+                    <button
+                      className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                      onClick={() => {
+                        // Implement action logic for sending to collector here
+                        alert(`Order ${order._id} sent to collector.`);
+                      }}
+                    >
+                      Send to Collector
+                    </button>
                   </td>
                 </tr>
               ))}

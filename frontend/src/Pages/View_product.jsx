@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { FaBook, FaTag } from 'react-icons/fa';
+import { FaRecycle, FaDollarSign, FaStar, FaClock } from 'react-icons/fa'; // Changed Icons
 
 export default function View_product() {
   const [products, setProducts] = useState([]);
@@ -56,70 +56,79 @@ export default function View_product() {
         <h2 className="text-4xl font-bold text-center mb-12 text-teal-600 drop-shadow-lg">
           Our Products
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.length > 0 ? (
             products.map((product) => (
               <div
                 key={product._id}
-                className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out hover:shadow-2xl"
+                className="bg-white p-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300 ease-in-out hover:shadow-xl"
               >
-                <div className="flex justify-between">
-                  {/* Left Side: Main Category, Type, and Image */}
-                  <div className="flex flex-col w-1/2">
-                    {/* Main Category Box */}
-                    <div className="mb-4 text-left">
-                      <div className="inline-block bg-teal-100 text-teal-600 py-2 px-4 rounded-full text-lg font-semibold shadow-md">
-                        <FaBook className="mr-2 inline-block" />
-                        {product.mainCategory}
-                      </div>
+                <div className="flex flex-col items-center">
+                  {/* Main Category Box */}
+                  <div className="mb-4 text-center">
+                    <div className="inline-block bg-teal-100 text-teal-600 py-1 px-3 rounded-full text-lg font-semibold shadow-md">
+                      <FaRecycle className="mr-2 inline-block" />
+                      {product.mainCategory}
                     </div>
-
-                    {/* Product Type */}
-                    <div className="mb-4 text-left">
-                      <h4 className="text-xl text-gray-700 font-semibold">{product.type}</h4>
-                    </div>
-
-                    {/* Product Image */}
-                    {product.image && (
-                      <img
-                        src={`http://localhost:3000/${product.image}`} // Use the correct path
-                        alt={product.type}
-                        className="w-full h-auto mb-4 rounded-lg object-contain"
-                      />
-                    )}
                   </div>
 
-                  {/* Right Side: Introduction, Price, and Buttons */}
-                  <div className="w-1/2 pl-8">
-                    {/* Introduction */}
-                    <p className="text-sm text-gray-600 mb-4 w-full">
-                      <strong>Introduction:</strong> {product.introduction}
-                    </p>
+                  {/* Product Type */}
+                  <div className="mb-2 text-center">
+                    <h4 className="text-lg text-gray-700 font-semibold">{product.type}</h4>
+                  </div>
 
+                  {/* Product Image */}
+                  {product.image && (
+                    <img
+                      src={`http://localhost:3000/${product.image}`} // Use the correct path
+                      alt={product.type}
+                      className="w-32 h-32 mb-4 object-contain rounded-lg"
+                    />
+                  )}
+
+                  {/* Introduction */}
+                  <p className="text-xs text-gray-600 mb-4 w-full text-center">
+                    <strong>Introduction:</strong> {product.introduction}
+                  </p>
+
+                  {/* Price, serviceTime, Priority (Horizontal Layout) */}
+                  <div className="flex justify-between w-full mb-4">
                     {/* Price */}
-                    <div className="text-center text-gray-800 text-lg font-bold mb-4">
-                      <FaTag className="inline-block mr-2 text-teal-600" />
-                      <span className="text-2xl">${product.price}</span>
+                    <div className="text-center text-gray-800 text-lg font-bold">
+                      <FaDollarSign className="inline-block mr-2 text-teal-600" />
+                      <span className="text-xl">${product.price}</span>
                     </div>
 
-                    {/* Buttons: Update & Delete */}
-                    <div className="flex justify-between space-x-4 mt-4">
-                      {/* Update Button */}
-                      <Link
-                        to={`/updateproduct/${product._id}`}
-                        className="w-full bg-teal-500 hover:bg-teal-600 text-white py-2 px-4 rounded-lg font-semibold shadow-md transition-colors duration-300"
-                      >
-                        Update
-                      </Link>
-
-                      {/* Delete Button */}
-                      <button
-                        onClick={() => handleDelete(product._id)}
-                        className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg font-semibold shadow-md transition-colors duration-300"
-                      >
-                        Delete
-                      </button>
+                    {/* serviceTime */}
+                    <div className="text-center text-gray-800 text-sm font-semibold">
+                      <FaClock className="inline-block mr-2 text-teal-600" />
+                      <span className="text-lg">{product.serviceTime}</span>
                     </div>
+
+                    {/* Priority */}
+                    <div className="text-center text-gray-800 text-sm font-semibold">
+                      <FaStar className="inline-block mr-2 text-teal-600" />
+                      <span className="text-lg">{product.priority}</span>
+                    </div>
+                  </div>
+
+                  {/* Buttons: Update & Delete */}
+                  <div className="flex justify-between w-full space-x-2 mt-4">
+                    {/* Update Button */}
+                    <Link
+                      to={`/updateproduct/${product._id}`}
+                      className="w-full bg-teal-500 hover:bg-teal-600 text-white py-1 px-2 rounded-lg font-semibold shadow-md transition-colors duration-300"
+                    >
+                      Update
+                    </Link>
+
+                    {/* Delete Button */}
+                    <button
+                      onClick={() => handleDelete(product._id)}
+                      className="w-full bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-lg font-semibold shadow-md transition-colors duration-300"
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>

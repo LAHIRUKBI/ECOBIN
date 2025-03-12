@@ -25,9 +25,9 @@ export const addProduct = [
   upload.single('image'), // Handle image upload
   async (req, res) => {
     try {
-      const { mainCategory, type, price, introduction } = req.body;
+      const { mainCategory, type, price, introduction, serviceTime, priority } = req.body;
 
-      if (!mainCategory || !type || !price || !introduction) {
+      if (!mainCategory || !type || !price || !introduction || !serviceTime || !priority) {
         return res.status(400).json({ message: 'All fields are required' });
       }
 
@@ -36,6 +36,8 @@ export const addProduct = [
         type,
         price,
         introduction,
+        serviceTime,
+        priority,
         image: req.file ? req.file.path : null, // Save image path
       });
 
@@ -47,6 +49,7 @@ export const addProduct = [
     }
   },
 ];
+
 
 
 
