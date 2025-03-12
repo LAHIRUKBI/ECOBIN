@@ -46,7 +46,7 @@ export default function EcoBin() {
       <section className="bg-green-600 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Welcome to EcoBin</h1>
-          <p className="text-lg mb-6">Explore eco-friendly products made from recycled materials.</p>
+          <p className="text-lg mb-6">Explore eco-friendly Services.</p>
 
           <div className="flex justify-center mb-8">
             <div className="relative w-1/2 md:w-1/3">
@@ -66,7 +66,7 @@ export default function EcoBin() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8 text-green-600">
-            Browse Our Eco-Friendly Products
+            Browse Our Eco-Friendly Services
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProducts.length > 0 ? (

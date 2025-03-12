@@ -9,6 +9,8 @@ export default function Add_product() {
     price: '',
     introduction: '',
     image: null,
+    serviceTime: '', // New field for service time
+    priority: '',    // New field for service priority
   });
 
   const navigate = useNavigate();
@@ -29,6 +31,8 @@ export default function Add_product() {
     data.append('type', formData.type);
     data.append('price', formData.price);
     data.append('introduction', formData.introduction);
+    data.append('serviceTime', formData.serviceTime); // Adding service time to the data
+    data.append('priority', formData.priority);       // Adding priority to the data
     if (formData.image) {
       data.append('image', formData.image);
     }
@@ -45,6 +49,8 @@ export default function Add_product() {
         price: '',
         introduction: '',
         image: null,
+        serviceTime: '',
+        priority: '',  // Reset new fields
       });
 
       navigate('/productview');
@@ -133,6 +139,40 @@ export default function Add_product() {
               onChange={(e) => setFormData({ ...formData, introduction: e.target.value })}
               required
             ></textarea>
+          </div>
+
+          {/* Service Time (Time to Complete) */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Service Time (in days)</label>
+            <select
+              className="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring focus:ring-blue-400 focus:outline-none"
+              value={formData.serviceTime}
+              onChange={(e) => setFormData({ ...formData, serviceTime: e.target.value })}
+              required
+            >
+              <option value="" disabled>Select service completion time</option>
+              <option value="1">1 Day</option>
+              <option value="3">3 Days</option>
+              <option value="7">1 Week</option>
+              <option value="14">2 Weeks</option>
+              <option value="30">1 Month</option>
+            </select>
+          </div>
+
+          {/* Priority */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+            <select
+              className="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring focus:ring-blue-400 focus:outline-none"
+              value={formData.priority}
+              onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
+              required
+            >
+              <option value="" disabled>Select priority</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
           </div>
 
           {/* Image Upload */}
