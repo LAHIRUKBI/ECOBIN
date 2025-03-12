@@ -37,7 +37,7 @@ export default function Stockmanager_home() {
               />
             </div>
             <div>
-              <h2 className="text-xl font-semibold">Stock Manager</h2>
+              <h2 className="text-xl font-semibold">Service Manager</h2>
               <p className="text-gray-300 text-sm">Dashboard</p>
             </div>
           </div>
@@ -74,8 +74,8 @@ export default function Stockmanager_home() {
         <div className="max-w-5xl w-full">
           {/* Overview Section */}
           <section className="text-center mb-16">
-            <h1 className="text-4xl font-bold text-teal-600 mb-4">Welcome to the Stock Manager Dashboard</h1>
-            <p className="text-lg text-gray-700">Manage your inventory, track stock levels, and add new products effortlessly.</p>
+            <h1 className="text-4xl font-bold text-teal-600 mb-4">Welcome to the Service Manager Dashboard</h1>
+            <p className="text-lg text-gray-700">Manage services, add services, and add updates services.</p>
           </section>
 
           {/* Action Section */}
