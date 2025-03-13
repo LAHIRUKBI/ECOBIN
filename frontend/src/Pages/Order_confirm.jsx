@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { FaHome, FaCheckCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 export default function Order_confirm() {
   const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch all orders from the database
@@ -19,52 +22,84 @@ export default function Order_confirm() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200">
-      <h1 className="text-4xl font-extrabold text-gray-800 mb-8">Order Confirmation</h1>
-      {orders.length > 0 ? (
-        <div className="w-full max-w-7xl overflow-x-auto p-6 bg-white shadow-md rounded-lg">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-gray-100 text-gray-800 uppercase text-sm leading-normal">
-                <th className="border-b border-gray-200 p-4">Customer Email</th>
-                <th className="border-b border-gray-200 p-4">Services Title</th>
-                <th className="border-b border-gray-200 p-4">Customer Name</th>
-                <th className="border-b border-gray-200 p-4">Address</th>
-                <th className="border-b border-gray-200 p-4">Phone</th>
-                <th className="border-b border-gray-200 p-4">Total Price</th>
-                <th className="border-b border-gray-200 p-4">Bank Name</th>
-                <th className="border-b border-gray-200 p-4">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id} className="hover:bg-gray-50 text-gray-700 text-sm">
-                  <td className="border-b border-gray-200 p-4">{order.customerEmail}</td>
-                  <td className="border-b border-gray-200 p-4">{order.bookTitle}</td>
-                  <td className="border-b border-gray-200 p-4">{order.customerName}</td>
-                  <td className="border-b border-gray-200 p-4">{order.customerAddress}</td>
-                  <td className="border-b border-gray-200 p-4">{order.customerPhone}</td>
-                  <td className="border-b border-gray-200 p-4 font-semibold">${order.totalPrice.toFixed(2)}</td>
-                  <td className="border-b border-gray-200 p-4">{order.bankName}</td>
-                  <td className="border-b border-gray-200 p-4">
-                    <button
-                      className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                      onClick={() => {
-                        // Implement action logic for sending to collector here
-                        alert(`Order ${order._id} sent to collector.`);
-                      }}
-                    >
-                      Send to Collector
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <div className="flex min-h-screen bg-gray-100">
+      {/* Sidebar */}
+      <aside className="w-72 bg-green-700 text-white shadow-lg p-6 flex flex-col">
+        <div className="flex items-center space-x-4 border-b border-green-500 pb-4">
+          <div className="bg-white rounded-full w-14 h-14 flex items-center justify-center">
+            <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
+          </div>
+          <div>
+            <h2 className="text-xl font-semibold">Service Manager</h2>
+            <p className="text-gray-300 text-sm">Dashboard</p>
+          </div>
         </div>
-      ) : (
-        <p className="text-gray-500 text-lg">No orders found.</p>
-      )}
+        <nav className="mt-6 flex flex-col space-y-4">
+          <button onClick={() => navigate('/Book_manager_home')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaHome className="mr-3" /> Add Product
+          </button>
+          <button onClick={() => navigate('/addbook')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaHome className="mr-3" /> Add Product
+          </button>
+          <button onClick={() => navigate('/productview')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaCheckCircle className="mr-3" /> View Products
+          </button>
+          <button onClick={() => navigate('/orderconfirm')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaCheckCircle className="mr-3" /> View Confirm Orders
+          </button>
+        </nav>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col items-center justify-center w-full py-12 px-6">
+        <div className="max-w-5xl w-full">
+          <h1 className="text-4xl font-extrabold text-gray-800 mb-8">Order Confirmation</h1>
+          {orders.length > 0 ? (
+            <div className="w-full max-w-7xl overflow-x-auto p-6 bg-white shadow-md rounded-lg">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-gray-100 text-gray-800 uppercase text-sm leading-normal">
+                    <th className="border-b border-gray-200 p-4">Customer Email</th>
+                    <th className="border-b border-gray-200 p-4">Services Title</th>
+                    <th className="border-b border-gray-200 p-4">Customer Name</th>
+                    <th className="border-b border-gray-200 p-4">Address</th>
+                    <th className="border-b border-gray-200 p-4">Phone</th>
+                    <th className="border-b border-gray-200 p-4">Total Price</th>
+                    <th className="border-b border-gray-200 p-4">Bank Name</th>
+                    <th className="border-b border-gray-200 p-4">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order) => (
+                    <tr key={order._id} className="hover:bg-gray-50 text-gray-700 text-sm">
+                      <td className="border-b border-gray-200 p-4">{order.customerEmail}</td>
+                      <td className="border-b border-gray-200 p-4">{order.bookTitle}</td>
+                      <td className="border-b border-gray-200 p-4">{order.customerName}</td>
+                      <td className="border-b border-gray-200 p-4">{order.customerAddress}</td>
+                      <td className="border-b border-gray-200 p-4">{order.customerPhone}</td>
+                      <td className="border-b border-gray-200 p-4 font-semibold">${order.totalPrice.toFixed(2)}</td>
+                      <td className="border-b border-gray-200 p-4">{order.bankName}</td>
+                      <td className="border-b border-gray-200 p-4">
+                        <button
+                          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                          onClick={() => {
+                            // Implement action logic for sending to collector here
+                            alert(`Order ${order._id} sent to collector.`);
+                          }}
+                        >
+                          Send to Collector
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="text-gray-500 text-lg">No orders found.</p>
+          )}
+        </div>
+      </main>
     </div>
   );
 }
