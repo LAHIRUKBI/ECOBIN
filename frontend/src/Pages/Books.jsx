@@ -34,102 +34,87 @@ export default function EcoBin() {
   }, [searchQuery, products]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center text-xl font-semibold text-gray-700 mt-10">Loading...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="text-center text-xl text-red-600 font-semibold mt-10">{error}</div>;
   }
 
   return (
-    <div className="min-h-screen bg-green-50 text-gray-800">
-      <section className="bg-green-600 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">Welcome to EcoBin</h1>
-          <p className="text-lg mb-6">Explore eco-friendly Services.</p>
-
-          <div className="flex justify-center mb-8">
-            <div className="relative w-1/2 md:w-1/3">
-              <input
-                type="text"
-                placeholder="Search Eco-Friendly Products..."
-                className="w-full p-3 rounded-lg shadow-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <FaSearch className="absolute top-3 right-3 text-gray-600" />
-            </div>
-          </div>
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100 text-gray-800">
+      <section className="bg-green-700 text-white py-16 text-center rounded-b-3xl shadow-lg">
+        <h1 className="text-5xl font-bold mb-4">Welcome to EcoBin</h1>
+        <p className="text-lg mb-6">Discover eco-friendly services that make a difference.</p>
+        <div className="relative w-4/5 md:w-1/3 mx-auto">
+          <input
+            type="text"
+            placeholder="Search Eco-Friendly Products..."
+            className="w-full p-4 rounded-full shadow-md text-gray-700 focus:outline-none focus:ring-4 focus:ring-green-400"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <FaSearch className="absolute top-4 right-4 text-gray-600" />
         </div>
       </section>
 
       <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8 text-green-600">
-            Browse Our Eco-Friendly Services
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map((product) => (
-                <div
-                  key={product._id}
-                  className="bg-white p-4 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out hover:shadow-2xl"
-                >
-                  <div className="flex flex-col items-center">
-                    <div className="mb-4 text-left w-full">
-                      <div className="inline-block bg-green-100 text-green-600 py-2 px-4 rounded-full text-sm font-semibold shadow-md">
-                        <FaRecycle className="mr-2 inline-block" />
-                        {product.mainCategory}
-                      </div>
+        <h2 className="text-4xl font-bold text-center text-green-700 mb-10">Browse Our Eco-Friendly Services</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-6">
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <div
+                key={product._id}
+                className="bg-white p-6 rounded-3xl shadow-xl transform hover:scale-105 transition duration-300 hover:shadow-2xl"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="mb-4">
+                    <span className="inline-block bg-green-200 text-green-800 py-2 px-4 rounded-full text-sm font-semibold">
+                      <FaRecycle className="mr-2 inline-block" />
+                      {product.mainCategory}
+                    </span>
+                  </div>
+
+                  <h4 className="text-xl font-semibold text-gray-700">{product.type}</h4>
+
+                  {product.image && (
+                    <img
+                      src={`http://localhost:3000/${product.image}`}
+                      alt={product.type}
+                      className="w-full h-40 object-cover rounded-lg mt-4"
+                    />
+                  )}
+
+                  <p className="text-sm text-gray-600 mt-4">{product.introduction}</p>
+
+                  <div className="flex justify-between mt-4 w-full">
+                    <div className="text-gray-800 text-sm font-bold">
+                      <FaClock className="inline-block mr-2 text-green-600" />
+                      {product.serviceTime}
                     </div>
-
-                    <div className="mb-4 text-left text-center">
-                      <h4 className="text-lg text-gray-700 font-semibold">{product.type}</h4>
-                    </div>
-
-                    {product.image && (
-                      <img
-                        src={`http://localhost:3000/${product.image}`}
-                        alt={product.type}
-                        className="w-full h-auto mb-4 rounded-lg object-contain max-w-xs"
-                      />
-                    )}
-
-                    <p className="text-sm text-gray-600 mb-4 w-full text-center">
-                      <strong>Introduction:</strong> {product.introduction}
-                    </p>
-
-                    <div className="flex justify-between mb-4 w-full">
-                      <div className="text-center text-gray-800 text-sm font-bold">
-                        <FaClock className="inline-block mr-2 text-green-600" />
-                        <span>{product.serviceTime}</span>
-                      </div>
-                      <div className="text-center text-gray-800 text-sm font-bold">
-                        <FaStar className="inline-block mr-2 text-green-600" />
-                        <span>{product.priority}</span>
-                      </div>
-                    </div>
-
-                    <div className="text-center text-gray-800 text-xl font-bold mb-4">
-                      <FaTag className="inline-block mr-2 text-green-600" />
-                      <span className="text-2xl">${product.price}</span>
-                    </div>
-
-                    <div className="mt-4 text-center">
-                      <Link
-                        to={`/book_details/${product._id}`}
-                        className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg font-semibold shadow-md transition-colors duration-300"
-                      >
-                        Request Service
-                      </Link>
+                    <div className="text-gray-800 text-sm font-bold">
+                      <FaStar className="inline-block mr-2 text-green-600" />
+                      {product.priority}
                     </div>
                   </div>
+
+                  <div className="text-xl font-bold mt-4 text-green-700">
+                    <FaTag className="inline-block mr-2" />
+                    <span>${product.price}</span>
+                  </div>
+
+                  <Link
+                    to={`/book_details/${product._id}`}
+                    className="bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-full font-semibold shadow-md mt-4 transition duration-300"
+                  >
+                    Request Service
+                  </Link>
                 </div>
-              ))
-            ) : (
-              <p className="text-center text-gray-600">No eco-friendly products available</p>
-            )}
-          </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-600">No eco-friendly products available</p>
+          )}
         </div>
       </section>
     </div>

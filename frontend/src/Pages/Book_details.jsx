@@ -37,37 +37,38 @@ export default function BookDetails() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-100 to-blue-50 py-8 px-4">
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-4xl w-full flex flex-col md:flex-row">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 to-lime-50 py-12 px-6">
+      <div className="bg-white shadow-xl rounded-xl overflow-hidden max-w-5xl w-full flex flex-col md:flex-row transition-transform transform">
         {/* Left Side - Book Details */}
-        <div className="flex-1 p-6 flex flex-col justify-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-3">{book.type}</h2>
-          <div className="bg-teal-500 text-white px-3 py-1 rounded-full inline-flex items-center text-sm font-semibold mb-3">
+        <div className="flex-1 p-8 flex flex-col justify-center">
+          <h2 className="text-3xl font-bold text-green-800 mb-4">{book.type}</h2>
+          <div className="bg-green-600 text-white px-3 py-1 rounded-full inline-flex items-center text-sm font-semibold mb-4">
             <FaBook className="mr-2 text-sm" /> {book.mainCategory}
           </div>
-          <p className="text-sm text-gray-700 mb-3">{book.introduction}</p>
+          <p className="text-gray-700 leading-relaxed mb-5">{book.introduction}</p>
           {book.image && (
             <img
               src={`http://localhost:3000/${book.image}`}
               alt={book.type}
-              className="w-full h-40 object-cover rounded-md shadow-sm"
+              className="w-full h-48 object-cover rounded-lg shadow-md border border-green-300"
             />
           )}
         </div>
-        
+
         {/* Right Side - Purchase Details */}
-        <div className="flex-1 bg-teal-600 text-white p-6 flex flex-col justify-center rounded-r-lg">
-          <div className="text-xl font-bold mb-3 flex items-center">
-            <FaTag className="inline-block mr-2 text-lg" /> RS {book.price}
+        <div className="flex-1 bg-green-700 text-white p-8 flex flex-col justify-center rounded-r-xl">
+          <div className="text-2xl font-semibold mb-4 flex items-center">
+            <FaTag className="inline-block mr-2 text-lg text-yellow-300" /> 
+            <span className="text-yellow-300">RS {book.price}</span>
           </div>
-          <div className="flex justify-center space-x-4 mb-4">
-            <FaMoneyBill className="text-2xl hover:text-yellow-400 transition" />
-            <FaCreditCard className="text-2xl hover:text-yellow-400 transition" />
-            <FaPaypal className="text-2xl hover:text-yellow-400 transition" />
+          <div className="flex justify-center space-x-5 mb-5">
+            <FaMoneyBill className="text-3xl text-white hover:text-yellow-400 transition duration-300" />
+            <FaCreditCard className="text-3xl text-white hover:text-yellow-400 transition duration-300" />
+            <FaPaypal className="text-3xl text-white hover:text-yellow-400 transition duration-300" />
           </div>
           <button
             onClick={handleBuyClick}
-            className="mt-4 bg-yellow-400 hover:bg-yellow-500 text-teal-800 font-semibold py-3 px-6 rounded-md shadow-md transition-transform transform hover:scale-105 w-full text-sm"
+            className="mt-4 bg-yellow-400 hover:bg-yellow-500 text-green-800 font-bold py-3 px-6 rounded-lg shadow-lg transition-transform transform hover:scale-110 w-full text-lg"
           >
             Buy Now
           </button>
