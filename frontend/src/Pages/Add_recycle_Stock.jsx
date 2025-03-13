@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { FaDollarSign, FaClock, FaFlag, FaCamera, FaClipboardList, FaLayerGroup } from 'react-icons/fa';
 
 export default function Add_product() {
   const [formData, setFormData] = useState({
@@ -9,13 +10,12 @@ export default function Add_product() {
     price: '',
     introduction: '',
     image: null,
-    serviceTime: '', // New field for service time
-    priority: '',    // New field for service priority
+    serviceTime: '',
+    priority: '',
   });
 
   const navigate = useNavigate();
 
-  // Updated categories and services relevant to SmartBIN
   const serviceCategories = {
     "Waste Collection": ["Residential Collection", "Commercial Collection", "Bulk Waste Pickup", "Special Waste Collection"],
     "Recycling Services": ["Plastic Recycling", "Paper Recycling", "Metal Recycling", "Electronic Waste Recycling", "Glass Recycling"],
@@ -25,23 +25,15 @@ export default function Add_product() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const data = new FormData();
-    data.append('mainCategory', formData.mainCategory);
-    data.append('type', formData.type);
-    data.append('price', formData.price);
-    data.append('introduction', formData.introduction);
-    data.append('serviceTime', formData.serviceTime); // Adding service time to the data
-    data.append('priority', formData.priority);       // Adding priority to the data
-    if (formData.image) {
-      data.append('image', formData.image);
-    }
+    Object.keys(formData).forEach((key) => {
+      if (formData[key]) data.append(key, formData[key]);
+    });
 
     try {
       await axios.post('http://localhost:3000/api/products', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-
       alert('Service added successfully!');
       setFormData({
         mainCategory: '',
@@ -50,64 +42,34 @@ export default function Add_product() {
         introduction: '',
         image: null,
         serviceTime: '',
-        priority: '',  // Reset new fields
+        priority: '',
       });
-
       navigate('/productview');
     } catch (error) {
       console.error('Error adding service:', error);
     }
   };
 
-  const handleMainCategoryChange = (e) => {
-    setFormData({
-      ...formData,
-      mainCategory: e.target.value,
-      type: '',
-    });
-  };
-
-  const handleImageChange = (e) => {
-    setFormData({ ...formData, image: e.target.files[0] });
-  };
-
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gradient-to-br from-green-100 to-green-300 p-10">
-      <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Add Your Service to the Ecobin Catalog
-        </h1>
-        <p className="text-center text-gray-600 mb-8">
-          Fill out the form below to showcase your services in our SmartBIN system.
-        </p>
+    <div className="flex flex-col items-center min-h-screen bg-green-100 p-10">
+      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-lg p-10 border border-green-400">
+        <h1 className="text-4xl font-bold text-center text-green-900 mb-6">🌿 Add New Service</h1>
+        <p className="text-center text-green-700 mb-6">Contribute to a greener future with SmartBIN.</p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Main Category Selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Service Category</label>
-            <select
-              className="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring focus:ring-blue-400 focus:outline-none"
-              value={formData.mainCategory}
-              onChange={handleMainCategoryChange}
-              required
-            >
-              <option value="" disabled>Select service category</option>
+            <label className="text-green-900 font-semibold flex items-center gap-2"><FaLayerGroup /> Service Category</label>
+            <select className="w-full p-3 border rounded-lg focus:ring-green-500" value={formData.mainCategory} onChange={(e) => setFormData({ ...formData, mainCategory: e.target.value, type: '' })} required>
+              <option value="" disabled>Select a category</option>
               {Object.keys(serviceCategories).map((category, index) => (
                 <option key={index} value={category}>{category}</option>
               ))}
             </select>
           </div>
-
-          {/* Subcategory (Type) */}
           {formData.mainCategory && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Type of Service</label>
-              <select
-                className="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring focus:ring-blue-400 focus:outline-none"
-                value={formData.type}
-                onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                required
-              >
+              <label className="text-green-900 font-semibold flex items-center gap-2"><FaClipboardList /> Service Type</label>
+              <select className="w-full p-3 border rounded-lg focus:ring-green-500" value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })} required>
                 <option value="" disabled>Select service type</option>
                 {serviceCategories[formData.mainCategory].map((type, index) => (
                   <option key={index} value={type}>{type}</option>
@@ -116,83 +78,42 @@ export default function Add_product() {
             </div>
           )}
 
-          {/* Price */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Price (in $)</label>
-            <input
-              type="number"
-              className="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring focus:ring-blue-400 focus:outline-none"
-              value={formData.price}
-              onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-              required
-            />
+          <div className="grid grid-cols-3 gap-4">
+            <div>
+              <label className="text-green-900 font-semibold flex items-center gap-2"><FaDollarSign /> Price ($)</label>
+              <input type="number" className="w-full p-3 border rounded-lg focus:ring-green-500" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} required />
+            </div>
+            <div>
+              <label className="text-green-900 font-semibold flex items-center gap-2"><FaClock /> Service Time (Days)</label>
+              <select className="w-full p-3 border rounded-lg focus:ring-green-500" value={formData.serviceTime} onChange={(e) => setFormData({ ...formData, serviceTime: e.target.value })} required>
+                <option value="" disabled>Select duration</option>
+                {["1", "3", "7", "14", "30"].map((day) => (
+                  <option key={day} value={day}>{day} Days</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="text-green-900 font-semibold flex items-center gap-2"><FaFlag /> Priority</label>
+              <select className="w-full p-3 border rounded-lg focus:ring-green-500" value={formData.priority} onChange={(e) => setFormData({ ...formData, priority: e.target.value })} required>
+                <option value="" disabled>Select priority</option>
+                {["Low", "Medium", "High"].map((level) => (
+                  <option key={level} value={level}>{level}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
-          {/* Introduction */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Introduction</label>
-            <textarea
-              className="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring focus:ring-blue-400 focus:outline-none"
-              rows="4"
-              placeholder="Write a brief introduction for your service."
-              value={formData.introduction}
-              onChange={(e) => setFormData({ ...formData, introduction: e.target.value })}
-              required
-            ></textarea>
+            <label className="text-green-900 font-semibold">Introduction</label>
+            <textarea className="w-full p-3 border rounded-lg focus:ring-green-500" rows="4" placeholder="Briefly describe your service" value={formData.introduction} onChange={(e) => setFormData({ ...formData, introduction: e.target.value })} required></textarea>
           </div>
 
-          {/* Service Time (Time to Complete) */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Service Time (in days)</label>
-            <select
-              className="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring focus:ring-blue-400 focus:outline-none"
-              value={formData.serviceTime}
-              onChange={(e) => setFormData({ ...formData, serviceTime: e.target.value })}
-              required
-            >
-              <option value="" disabled>Select service completion time</option>
-              <option value="1">1 Day</option>
-              <option value="3">3 Days</option>
-              <option value="7">1 Week</option>
-              <option value="14">2 Weeks</option>
-              <option value="30">1 Month</option>
-            </select>
+            <label className="text-green-900 font-semibold flex items-center gap-2"><FaCamera /> Upload Image</label>
+            <input type="file" accept="image/*" onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })} className="w-full p-3 border rounded-lg focus:ring-green-500" />
           </div>
 
-          {/* Priority */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
-            <select
-              className="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring focus:ring-blue-400 focus:outline-none"
-              value={formData.priority}
-              onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
-              required
-            >
-              <option value="" disabled>Select priority</option>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-            </select>
-          </div>
-
-          {/* Image Upload */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Upload Service Image</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg"
-            />
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-green-600 text-white py-3 rounded-lg font-medium text-lg shadow hover:bg-green-700 transition-all"
-          >
-            Add Service to Catalog
-          </button>
+          <button type="submit" className="w-full bg-green-700 text-white py-3 rounded-lg font-bold text-lg shadow-lg hover:bg-green-800 transition-all">Add Service</button>
         </form>
       </div>
     </div>
