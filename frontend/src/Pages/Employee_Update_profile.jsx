@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  FaEnvelope,
-  FaPhone,
-  FaMapMarkerAlt,
-  FaUserEdit,
-} from "react-icons/fa";
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaUserEdit } from "react-icons/fa";
 
 export default function Employee_Update_profile() {
   const [employee, setEmployee] = useState({});
@@ -42,55 +37,55 @@ export default function Employee_Update_profile() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 py-12 px-6">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-50 to-green-200 py-12 px-6">
+      <div className="bg-white shadow-xl rounded-2xl p-10 w-full max-w-lg border border-green-300">
         {/* Header */}
         <div className="flex items-center justify-center mb-8">
-          <FaUserEdit className="text-4xl text-blue-500" />
-          <h2 className="text-3xl font-semibold text-gray-800 ml-2">Update Profile</h2>
+          <FaUserEdit className="text-5xl text-green-600" />
+          <h2 className="text-3xl font-bold text-green-800 ml-3">Update Profile</h2>
         </div>
 
         {/* Form Fields */}
         <div className="space-y-6">
           {/* Email Field */}
-          <div className="text-left">
-            <label className="block text-sm font-medium text-gray-700">Email (Read-only)</label>
-            <div className="flex items-center mt-1">
-              <FaEnvelope className="text-gray-400 mr-2" />
+          <div>
+            <label className="block text-sm font-semibold text-green-700">Email (Read-only)</label>
+            <div className="flex items-center mt-2 bg-green-100 rounded-lg p-3">
+              <FaEnvelope className="text-green-500 mr-3" />
               <input
                 type="text"
                 value={employee.email}
                 disabled
-                className="w-full border-gray-300 rounded-lg px-4 py-2 bg-gray-100 text-gray-500"
+                className="w-full bg-transparent text-green-700 outline-none"
               />
             </div>
           </div>
 
           {/* Phone Field */}
-          <div className="text-left">
-            <label className="block text-sm font-medium text-gray-700">Phone</label>
-            <div className="flex items-center mt-1">
-              <FaPhone className="text-gray-400 mr-2" />
+          <div>
+            <label className="block text-sm font-semibold text-green-700">Phone</label>
+            <div className="flex items-center mt-2 bg-green-50 border border-green-300 rounded-lg p-3">
+              <FaPhone className="text-green-500 mr-3" />
               <input
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full border-gray-300 rounded-lg px-4 py-2"
+                className="w-full bg-transparent text-green-700 outline-none"
                 placeholder="Enter your phone number"
               />
             </div>
           </div>
 
           {/* Address Field */}
-          <div className="text-left">
-            <label className="block text-sm font-medium text-gray-700">Address</label>
-            <div className="flex items-center mt-1">
-              <FaMapMarkerAlt className="text-gray-400 mr-2" />
+          <div>
+            <label className="block text-sm font-semibold text-green-700">Address</label>
+            <div className="flex items-center mt-2 bg-green-50 border border-green-300 rounded-lg p-3">
+              <FaMapMarkerAlt className="text-green-500 mr-3" />
               <input
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                className="w-full border-gray-300 rounded-lg px-4 py-2"
+                className="w-full bg-transparent text-green-700 outline-none"
                 placeholder="Enter your address"
               />
             </div>
@@ -98,16 +93,16 @@ export default function Employee_Update_profile() {
         </div>
 
         {/* Action Buttons */}
-        <div className="mt-8 flex justify-between items-center">
+        <div className="mt-8 flex justify-between">
           <button
             onClick={() => navigate("/employee_profile/:username")}
-            className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition duration-200"
+            className="px-6 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition duration-200 shadow"
           >
             Cancel
           </button>
           <button
             onClick={handleUpdate}
-            className="px-6 py-2 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 transition duration-200"
+            className="px-6 py-2 bg-green-600 text-white rounded-lg shadow-lg hover:bg-green-700 transition duration-200"
           >
             Update
           </button>
