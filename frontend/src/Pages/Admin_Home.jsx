@@ -39,7 +39,7 @@ export default function Admin_Home() {
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-gradient-to-br from-blue-700 to-indigo-600 text-white shadow-xl">
+      <aside className="w-72 bg-green-700 text-white shadow-lg p-6 flex flex-col">
         {/* Profile Section */}
         <div className="p-6 border-b border-indigo-400">
           <div className="flex items-center space-x-4">

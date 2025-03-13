@@ -74,47 +74,46 @@ export default function Admin_Login() {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen py-12 px-4">
+    <div className="bg-green-50 min-h-screen py-12 px-6">
       {/* Page Introduction */}
       <div className="w-full max-w-7xl mx-auto text-center mb-12">
-  {/* Title with refined styling */}
-  <h1 className="text-4xl font-semibold text-gray-800 mb-6 text-center leading-tight tracking-tight">
-    Welcome to the Login Portal
-  </h1>
+        {/* Title with refined styling */}
+        <h1 className="text-4xl font-semibold text-green-800 mb-6 text-center leading-tight tracking-tight">
+          Welcome to the Login Portal
+        </h1>
 
-  {/* Instructional Text with improved spacing and contrast */}
-  <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
-    Please select your role from the options below, then log in to access
-    the system. Ensure you're using the correct role to avoid any issues.
-  </p>
+        {/* Instructional Text with improved spacing and contrast */}
+        <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+          Please select your role from the options below, then log in to access
+          the system. Ensure you're using the correct role to avoid any issues.
+        </p>
 
-  {/* Login Type Selector with refined design */}
-  <div className="mb-6 flex justify-center items-center gap-6">
-    <div className="w-full max-w-xs">
-      <select
-        value={loginType}
-        onChange={(e) => setLoginType(e.target.value)}
-        className="w-full p-4 bg-white border border-gray-300 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300 ease-in-out hover:bg-indigo-50"
-      >
-        <option value="">Select Login Type</option>
-        <option value="Admin" className="flex items-center">
-          Admin Login
-        </option>
-        <option value="Staff" className="flex items-center">
-          Staff Login
-        </option>
-      </select>
-    </div>
-  </div>
-</div>
-
+        {/* Login Type Selector with refined design */}
+        <div className="mb-6 flex justify-center items-center gap-6">
+          <div className="w-full max-w-xs">
+            <select
+              value={loginType}
+              onChange={(e) => setLoginType(e.target.value)}
+              className="w-full p-4 bg-white border border-green-300 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 ease-in-out hover:bg-green-50"
+            >
+              <option value="">Select Login Type</option>
+              <option value="Admin" className="flex items-center">
+                Admin Login
+              </option>
+              <option value="Staff" className="flex items-center">
+                Staff Login
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
 
       {/* Login Container (displayed based on selection) */}
       <div className="flex justify-center w-full max-w-7xl mx-auto">
         {/* Show Admin Login Form */}
         {loginType === "Admin" && (
           <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-            <h2 className="text-3xl text-center font-semibold mb-6 text-gray-800 flex items-center justify-center">
+            <h2 className="text-3xl text-center font-semibold mb-6 text-green-800 flex items-center justify-center">
               <FaUserShield className="mr-2" /> Administrator Login
             </h2>
 
@@ -125,12 +124,12 @@ export default function Admin_Login() {
               <div className="mb-6">
                 <label
                   htmlFor="adminName"
-                  className="block text-sm font-medium mb-2 text-gray-800"
+                  className="block text-sm font-medium mb-2 text-green-800"
                 >
                   Name:
                 </label>
-                <div className="flex items-center bg-white p-3 rounded-md border border-gray-300">
-                  <FaIdCard className="text-gray-400 mr-3" />
+                <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
+                  <FaIdCard className="text-green-400 mr-3" />
                   <input
                     type="text"
                     id="adminName"
@@ -141,19 +140,19 @@ export default function Admin_Login() {
                         name: e.target.value,
                       })
                     }
-                    className="w-full bg-transparent border-none focus:outline-none text-gray-900"
+                    className="w-full bg-transparent border-none focus:outline-none text-green-800"
                   />
                 </div>
               </div>
               <div className="mb-6">
                 <label
                   htmlFor="institutionID"
-                  className="block text-sm font-medium mb-2 text-gray-800"
+                  className="block text-sm font-medium mb-2 text-green-800"
                 >
                   Institution ID:
                 </label>
-                <div className="flex items-center bg-white p-3 rounded-md border border-gray-300">
-                  <FaBuilding className="text-gray-400 mr-3" />
+                <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
+                  <FaBuilding className="text-green-400 mr-3" />
                   <input
                     type="text"
                     id="institutionID"
@@ -164,19 +163,19 @@ export default function Admin_Login() {
                         institutionID: e.target.value,
                       })
                     }
-                    className="w-full bg-transparent border-none focus:outline-none text-gray-900"
+                    className="w-full bg-transparent border-none focus:outline-none text-green-800"
                   />
                 </div>
               </div>
               <div className="mb-6">
                 <label
                   htmlFor="nic"
-                  className="block text-sm font-medium mb-2 text-gray-800"
+                  className="block text-sm font-medium mb-2 text-green-800"
                 >
                   NIC Number:
                 </label>
-                <div className="flex items-center bg-white p-3 rounded-md border border-gray-300">
-                  <FaKey className="text-gray-400 mr-3" />
+                <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
+                  <FaKey className="text-green-400 mr-3" />
                   <input
                     type="text"
                     id="nic"
@@ -187,13 +186,13 @@ export default function Admin_Login() {
                         nic: e.target.value,
                       })
                     }
-                    className="w-full bg-transparent border-none focus:outline-none text-gray-900"
+                    className="w-full bg-transparent border-none focus:outline-none text-green-800"
                   />
                 </div>
               </div>
               <button
                 type="submit"
-                className="w-full p-3 bg-indigo-700 text-white rounded-md hover:bg-indigo-800 focus:outline-none flex items-center justify-center"
+                className="w-full p-3 bg-green-700 text-white rounded-md hover:bg-green-800 focus:outline-none flex items-center justify-center"
               >
                 <MdLogin className="mr-2" /> Admin Login
               </button>
@@ -204,7 +203,7 @@ export default function Admin_Login() {
         {/* Show Staff Login Form */}
         {loginType === "Staff" && (
           <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-            <h2 className="text-3xl text-center font-semibold mb-6 text-gray-800 flex items-center justify-center">
+            <h2 className="text-3xl text-center font-semibold mb-6 text-green-800 flex items-center justify-center">
               <FaBuilding className="mr-2" /> Staff Login
             </h2>
             {companyError && (
@@ -216,12 +215,12 @@ export default function Admin_Login() {
               <div className="mb-6">
                 <label
                   htmlFor="companyNumber"
-                  className="block text-sm font-medium mb-2 text-gray-800"
+                  className="block text-sm font-medium mb-2 text-green-800"
                 >
                   Company Number:
                 </label>
-                <div className="flex items-center bg-white p-3 rounded-md border border-gray-300">
-                  <FaIdCard className="text-gray-400 mr-3" />
+                <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
+                  <FaIdCard className="text-green-400 mr-3" />
                   <input
                     type="text"
                     id="companyNumber"
@@ -232,19 +231,19 @@ export default function Admin_Login() {
                         companyNumber: e.target.value,
                       })
                     }
-                    className="w-full bg-transparent border-none focus:outline-none text-gray-900"
+                    className="w-full bg-transparent border-none focus:outline-none text-green-800"
                   />
                 </div>
               </div>
               <div className="mb-6">
                 <label
                   htmlFor="companyName"
-                  className="block text-sm font-medium mb-2 text-gray-800"
+                  className="block text-sm font-medium mb-2 text-green-800"
                 >
                   Name:
                 </label>
-                <div className="flex items-center bg-white p-3 rounded-md border border-gray-300">
-                  <FaBuilding className="text-gray-400 mr-3" />
+                <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
+                  <FaBuilding className="text-green-400 mr-3" />
                   <input
                     type="text"
                     id="companyName"
@@ -255,19 +254,19 @@ export default function Admin_Login() {
                         name: e.target.value,
                       })
                     }
-                    className="w-full bg-transparent border-none focus:outline-none text-gray-900"
+                    className="w-full bg-transparent border-none focus:outline-none text-green-800"
                   />
                 </div>
               </div>
               <div className="mb-6">
                 <label
                   htmlFor="section"
-                  className="block text-sm font-medium mb-2 text-gray-800"
+                  className="block text-sm font-medium mb-2 text-green-800"
                 >
                   Section:
                 </label>
-                <div className="flex items-center bg-white p-3 rounded-md border border-gray-300">
-                  <FaBuilding className="text-gray-400 mr-3" />
+                <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
+                  <FaBuilding className="text-green-400 mr-3" />
                   <select
                     id="section"
                     value={companyCredentials.section || ""}
@@ -277,7 +276,7 @@ export default function Admin_Login() {
                         section: e.target.value,
                       })
                     }
-                    className="w-full bg-transparent border-none focus:outline-none text-gray-900"
+                    className="w-full bg-transparent border-none focus:outline-none text-green-800"
                   >
                     <option value="">Select Section</option>
                     <option value="Service Manager">Service Manager</option>
@@ -299,12 +298,9 @@ export default function Admin_Login() {
 
       {/* Customer login link */}
       <div className="text-center mt-6">
-        <p className="text-gray-600">
-          Not a staff member?{" "}
-          <Link to="/signup" className="text-indigo-600 hover:underline">
-            Customer login
-          </Link>
-        </p>
+        <Link to="/customer-login" className="text-green-700">
+          Customer Login
+        </Link>
       </div>
     </div>
   );

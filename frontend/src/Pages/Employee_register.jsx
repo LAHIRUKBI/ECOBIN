@@ -45,7 +45,7 @@ export default function Employee_register() {
   return (
     <div className="flex min-h-screen bg-green-50">
       {/* Sidebar */}
-      <aside className="w-64 bg-gradient-to-br from-blue-700 to-indigo-600 text-white shadow-xl">
+      <aside className="w-72 bg-green-700 text-white shadow-lg p-6 flex flex-col">
         {/* Profile Section */}
         <div className="p-6 border-b border-teal-400">
           <div className="flex items-center space-x-4">
