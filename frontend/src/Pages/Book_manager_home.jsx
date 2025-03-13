@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaCheckCircle, FaBox, FaPlus, FaEye } from 'react-icons/fa';
+import { FaCheckCircle, FaBox, FaPlus, FaEye, FaHome } from 'react-icons/fa';
 import axios from 'axios';
 
 export default function Stockmanager_home() {
   const [totalProducts, setTotalProducts] = useState(0);
   const [outOfStock, setOutOfStock] = useState(0);
+  const [confirmedOrdersCount, setConfirmedOrdersCount] = useState(0);  // New state for confirmed orders count
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,52 +21,45 @@ export default function Stockmanager_home() {
       }
     };
 
+    const fetchConfirmedOrders = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/payment'); // Same API endpoint used in Order_confirm component
+        setConfirmedOrdersCount(response.data.data.length); // Set confirmed orders count
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      }
+    };
+
     fetchProducts();
+    fetchConfirmedOrders();
   }, []);
 
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-gradient-to-br from-blue-700 to-indigo-600 text-white shadow-xl">
-        <div className="p-6 border-b border-indigo-400">
-          <div className="flex items-center space-x-4">
-            <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center">
-              <img
-                src="src/images/profilelogo.png"
-                alt="Profile Icon"
-                className="rounded-full w-full h-full object-cover"
-              />
-            </div>
-            <div>
-              <h2 className="text-xl font-semibold">Service Manager</h2>
-              <p className="text-gray-300 text-sm">Dashboard</p>
-            </div>
+      <aside className="w-72 bg-green-700 text-white shadow-lg p-6 flex flex-col">
+        <div className="flex items-center space-x-4 border-b border-green-500 pb-4">
+          <div className="bg-white rounded-full w-14 h-14 flex items-center justify-center">
+            <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
+          </div>
+          <div>
+            <h2 className="text-xl font-semibold">Service Manager</h2>
+            <p className="text-gray-300 text-sm">Dashboard</p>
           </div>
         </div>
-        <nav className="mt-6">
-          <ul className="space-y-4">
-            <li
-              className="flex items-center p-4 hover:bg-indigo-500 rounded-md cursor-pointer transition-all"
-              onClick={() => navigate('/addbook')}
-            >
-              <FaPlus className="text-white text-lg mr-3" />
-              <span className="font-medium">Add Product</span>
-            </li>
-            <li
-              className="flex items-center p-4 hover:bg-indigo-500 rounded-md cursor-pointer transition-all"
-              onClick={() => navigate('/productview')}
-            >
-              <FaEye className="text-white text-lg mr-3" />
-              <span className="font-medium">View Products</span>
-            </li>
-            <li
-              className="flex items-center p-4 hover:bg-indigo-500 rounded-md cursor-pointer transition-all"
-              onClick={() => navigate('/orderconfirm')}
-            >
-              <FaCheckCircle className="text-white text-lg mr-3" />
-              <span className="font-medium">View Confirm Orders</span>
-            </li>
-          </ul>
+        <nav className="mt-6 flex flex-col space-y-4">
+          <button onClick={() => navigate('/Book_manager_home')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaHome className="mr-3" /> Add Product
+          </button>
+          <button onClick={() => navigate('/addbook')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaPlus className="mr-3" /> Add Product
+          </button>
+          <button onClick={() => navigate('/productview')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaEye className="mr-3" /> View Products
+          </button>
+          <button onClick={() => navigate('/orderconfirm')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaCheckCircle className="mr-3" /> View Confirm Orders
+          </button>
         </nav>
       </aside>
 
@@ -90,16 +84,13 @@ export default function Stockmanager_home() {
               </div>
             </div>
 
-            {/* View Confirm Orders */}
-            <div
-              className="group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl hover:scale-105 transition transform duration-300"
-              onClick={() => navigate('/orderconfirm')}
-            >
+            {/* View Confirm Orders Section */}
+            <div className="group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl hover:scale-105 transition transform duration-300">
               <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-green-700 opacity-80"></div>
               <div className="relative z-10 flex flex-col items-center justify-center text-white py-10">
                 <FaCheckCircle className="text-5xl mb-4" />
-                <h2 className="text-2xl font-semibold mb-2">View Confirm Orders</h2>
-                <p className="text-sm text-gray-200 text-center">Check all confirmed orders and manage order details effectively.</p>
+                <h2 className="text-2xl font-semibold mb-2">Confirmed Orders</h2>
+                <p className="text-3xl font-bold">{confirmedOrdersCount}</p> {/* Display confirmed orders count */}
               </div>
             </div>
           </div>
