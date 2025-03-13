@@ -9,6 +9,8 @@ export default function Stockmanager_home() {
   const [confirmedOrdersCount, setConfirmedOrdersCount] = useState(0);  // New state for confirmed orders count
   const navigate = useNavigate();
 
+  const staffName = localStorage.getItem('staffName');
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -43,7 +45,8 @@ export default function Stockmanager_home() {
             <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold">Service Manager</h2>
+          <h2 className="text-xl font-semibold">Welcome, {staffName}</h2>
+            
             <p className="text-gray-300 text-sm">Dashboard</p>
           </div>
         </div>
