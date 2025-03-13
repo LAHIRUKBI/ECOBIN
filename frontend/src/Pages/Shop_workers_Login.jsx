@@ -42,13 +42,16 @@ export default function Admin_Login() {
         "http://localhost:3000/api/employees/login",
         companyCredentials
       );
-
+  
       if (response.data.success) {
-        const { section } = companyCredentials;
-
+        const { section, name } = companyCredentials; // Capture the name here
+  
+        // Store the name in localStorage
+        localStorage.setItem("staffName", name);
+  
         switch (section) {
           case "Staff Manager":
-            navigate("/staffmanagerhome");
+            navigate("/stockmanagerhome");
             break;
           case "Service Manager":
             navigate("/Book_manager_home");
@@ -56,7 +59,7 @@ export default function Admin_Login() {
           case "Collect Manager":
             navigate("/collectmanagerhome");
             break;
-            case "Product Manager":
+          case "Product Manager":
             navigate("/producthome");
             break;
           default:
@@ -72,6 +75,7 @@ export default function Admin_Login() {
       setCompanyError("An error occurred during login. Please try again.");
     }
   };
+  
 
   return (
     <div className="bg-green-50 min-h-screen py-12 px-6">
