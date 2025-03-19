@@ -2,6 +2,25 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { FaGoogle } from "react-icons/fa";
+
+// Firebase Configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDHbK9kxqjljXysL1KhDjJqXKcOhXi9jt4",
+  authDomain: "ecobin-f9be5.firebaseapp.com",
+  projectId: "ecobin-f9be5",
+  storageBucket: "ecobin-f9be5.firebasestorage.app",
+  messagingSenderId: "923510235468",
+  appId: "1:923510235468:web:4740712b78f52c0a68afe9",
+  measurementId: "G-F2YJ92Z9F3"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
 export default function Signin() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -36,15 +55,48 @@ export default function Signin() {
       }
 
       setError(null);
-
       localStorage.setItem('email', formData.email);
       localStorage.setItem('userData', JSON.stringify(data.user));
 
-      navigate("/"); 
+      navigate("/");
     } catch (error) {
       console.error("Error:", error.message);
       setLoading(false);
       setError("An unexpected error occurred. Please try again.");
+    }
+  };
+
+  // 🔹 Google Sign-In Logic
+  const handleGoogleSignin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      // Send user details to MongoDB for verification/registration
+      const res = await fetch("http://localhost:3000/api/signup/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: user.email,
+          password: "google-auth", // Google users don't require passwords
+        }),
+      });
+
+      const data = await res.json();
+      
+      if (!res.ok) {
+        setError(data.message || 'Google Sign-in failed. Please try again.');
+        return;
+      }
+
+      setError(null);
+      localStorage.setItem('email', user.email);
+      localStorage.setItem('userData', JSON.stringify(data.user));
+
+      navigate("/");
+    } catch (error) {
+      console.error("Google Signin Error:", error.message);
+      setError("Google Sign-in failed. Please try again.");
     }
   };
 
@@ -55,6 +107,7 @@ export default function Signin() {
           <div className="w-full sm:w-3/5 md:w-2/3 p-4">
             <h2 className="text-gray-800 text-3xl font-extrabold text-center mb-4">Sign In</h2>
 
+            {/* Normal Sign-in Form */}
             <form onSubmit={handleSubmit}>
               {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
               <div className="mb-5">
@@ -100,13 +153,13 @@ export default function Signin() {
                 ) : 'Sign In'}
               </button>
             </form>
-          </div>
 
-          {/* Right Section */}
-          <div className="w-full sm:w-2/5 md:w-1/3 hidden md:block p-6">
-            <h3 className="text-gray-800 text-xl font-semibold mb-4">Welcome Back!</h3>
-            <p className="text-gray-600 mb-4">Sign in to continue exploring our platform and access your account information. We are glad to have you back.</p>
-            <p className="text-gray-500 text-sm">New here? <a href="/signup" className="text-blue-500 hover:underline">Create an account</a></p>
+            {/* Google Sign-in Button */}
+            <button onClick={handleGoogleSignin}
+              className="w-full p-3 mt-4 flex items-center justify-center bg-red-500 text-white rounded hover:bg-red-600">
+              <FaGoogle className="mr-2" /> Sign In with Google
+            </button>
+
           </div>
         </div>
       </div>
