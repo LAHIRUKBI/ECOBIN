@@ -101,48 +101,49 @@ export default function Signin() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-lightgray">
-      <div className="flex justify-center items-center flex-grow p-6">
-        <div className="relative z-10 flex w-full max-w-4xl bg-white bg-opacity-90 shadow-lg rounded-lg p-6 md:p-9 backdrop-filter backdrop-blur-lg transition-all duration-800 hover:shadow-2xl hover:bg-white hover:bg-opacity-100">
-          <div className="w-full sm:w-3/5 md:w-2/3 p-4">
-            <h2 className="text-gray-800 text-3xl font-extrabold text-center mb-4">Sign In</h2>
+    <div className="flex flex-col min-h-screen bg-gradient-to-t from-[#E8F0F6] to-[#FFFFFF]">
+      <div className="flex justify-center items-center flex-grow p-6 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')" }}>
+        <div className="relative z-10 flex w-full max-w-md bg-white rounded-xl shadow-lg p-8 backdrop-blur-sm">
+          <div className="w-full p-4">
+            <h2 className="text-[#3F4F69] text-3xl font-semibold text-center mb-6">Sign In</h2>
 
             {/* Normal Sign-in Form */}
             <form onSubmit={handleSubmit}>
               {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
+
               <div className="mb-5">
-                <label className="block text-sm font-medium text-gray-800" htmlFor="email">Email:</label>
+                <label className="block text-sm font-medium text-[#4F5B75]" htmlFor="email">Email:</label>
                 <div className="relative">
                   <input
                     type="email"
                     id="email"
                     placeholder="Email"
-                    className="mt-1 block w-full px-10 py-3 border border-gray-300 rounded-md shadow-sm bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm transition-all"
+                    className="mt-1 block w-full px-8 py-3 border border-[#C6D1E1] rounded-md shadow-sm bg-[#F9FAFB] text-[#4A4A4A] placeholder-[#A6B2C1] focus:outline-none focus:ring-2 focus:ring-[#A6C7F0] focus:border-[#A6C7F0] sm:text-sm transition-all"
                     onChange={handleChange}
                     required
                   />
-                  <FontAwesomeIcon icon={faEnvelope} className="absolute left-3 top-3 text-gray-500" />
+                  <FontAwesomeIcon icon={faEnvelope} className="absolute left-3 top-3 text-[#A6B2C1]" />
                 </div>
               </div>
 
               <div className="mb-5">
-                <label className="block text-sm font-medium text-gray-800" htmlFor="password">Password:</label>
+                <label className="block text-sm font-medium text-[#4F5B75]" htmlFor="password">Password:</label>
                 <div className="relative">
                   <input
                     type="password"
                     id="password"
                     placeholder="Password"
-                    className="mt-1 block w-full px-10 py-3 border border-gray-300 rounded-md shadow-sm bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm transition-all"
+                    className="mt-1 block w-full px-8 py-3 border border-[#C6D1E1] rounded-md shadow-sm bg-[#F9FAFB] text-[#4A4A4A] placeholder-[#A6B2C1] focus:outline-none focus:ring-2 focus:ring-[#A6C7F0] focus:border-[#A6C7F0] sm:text-sm transition-all"
                     onChange={handleChange}
                     required
                   />
-                  <FontAwesomeIcon icon={faLock} className="absolute left-3 top-3 text-gray-500" />
+                  <FontAwesomeIcon icon={faLock} className="absolute left-3 top-3 text-[#A6B2C1]" />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className={`w-full bg-gradient-to-r from-blue-500 to-blue-400 text-white py-3 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 shadow-md transition-all transform hover:scale-105 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`w-full bg-gradient-to-r from-[#67B7F7] to-[#4B99FF] text-white py-3 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#A6C7F0] focus:ring-offset-2 shadow-md transition-all transform hover:scale-105 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                 disabled={loading}
               >
                 {loading ? (
@@ -156,10 +157,14 @@ export default function Signin() {
 
             {/* Google Sign-in Button */}
             <button onClick={handleGoogleSignin}
-              className="w-full p-3 mt-4 flex items-center justify-center bg-red-500 text-white rounded hover:bg-red-600">
+              className="w-full p-3 mt-6 flex items-center justify-center bg-[#4285F4] text-white rounded-lg hover:bg-[#3367D6] transition-all">
               <FaGoogle className="mr-2" /> Sign In with Google
             </button>
 
+            {/* Footer Section */}
+            <div className="mt-6 text-center text-sm text-[#A6B2C1]">
+              <p>New to EcoBin? <a href="/signup" className="text-[#4B99FF] hover:underline">Create an Account</a></p>
+            </div>
           </div>
         </div>
       </div>
