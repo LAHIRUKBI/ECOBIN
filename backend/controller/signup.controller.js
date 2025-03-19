@@ -2,6 +2,8 @@ import User from '../model/signup.model.js';
 import bcrypt from 'bcrypt';
 
 
+
+
 // Signup method
 export const signup = async (req, res, next) => {
   console.log("Signup request received with data:", req.body);
@@ -31,26 +33,25 @@ export const signup = async (req, res, next) => {
 
 
 // Signin function
-export const signin = async (req, res, next) => {
-  const { email, password } = req.body;
+export const signin = async (req, res) => {
+  const { email, password, googleAuth } = req.body;
 
   try {
     const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: 'Invalid email or password.' });
+    if (!user) return res.status(400).json({ message: "User not found." });
+
+    if (googleAuth) {
+      // Google sign-in: Directly return user info since password is not needed
+      return res.status(200).json({ user });
     }
 
+    // Normal sign-in: Check password
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid email or password.' });
-    }
+    if (!isMatch) return res.status(400).json({ message: "Invalid credentials." });
 
-    console.log("User signed in successfully!");
-    // Send user data in response
-    res.status(200).json({ success: true, message: 'Signed in successfully!', user });
+    res.status(200).json({ user });
   } catch (error) {
-    console.error("Signin error:", error);
-    next(error);
+    res.status(500).json({ message: "Server error." });
   }
 };
 
