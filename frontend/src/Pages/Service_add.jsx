@@ -45,7 +45,7 @@ export default function Service_add() {
         serviceTime: '',
         priority: '',
       });
-      navigate('/productview');
+      navigate('/Service_view');
     } catch (error) {
       console.error('Error adding service:', error);
     }

@@ -28,11 +28,14 @@ export default function Service_view() {
   }, []);
 
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:3000/api/products/${id}`);
-      setProducts(products.filter((product) => product._id !== id));
-    } catch (error) {
-      setError('Error deleting product');
+    const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:3000/api/products/${id}`);
+        setProducts(products.filter((product) => product._id !== id));
+      } catch (error) {
+        setError('Error deleting product');
+      }
     }
   };
 
@@ -77,7 +80,7 @@ export default function Service_view() {
       <main className="flex-1 flex flex-col items-center justify-center w-full py-12 px-6">
         <div className="max-w-5xl w-full">
           <h2 className="text-4xl font-bold text-center mb-12 text-teal-600 drop-shadow-lg">
-            Our Services
+            Our Company Services
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-6">
             {products.length > 0 ? (
@@ -139,7 +142,7 @@ export default function Service_view() {
                     <div className="flex justify-between w-full space-x-2 mt-4">
                       {/* Update Button */}
                       <Link
-                        to={`/updateproduct/${product._id}`}
+                        to={`/Service_update/${product._id}`}
                         className="w-full bg-teal-500 hover:bg-teal-600 text-white py-1 px-2 rounded-lg font-semibold shadow-md transition-colors duration-300"
                       >
                         Update

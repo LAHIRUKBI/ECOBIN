@@ -13,7 +13,7 @@ import Employee_home from './Pages/Employee_home'
 import Service_add from './Pages/Service_add'
 import Add_stocks from './Pages/Add_stocks'
 import Service_view from './Pages/Service_view'
-import Product_update from './Pages/Product_update'
+import Service_update from './Pages/Service_update'
 import Books from './Pages/Books'
 import Footer from './Components/Footer'
 import EmployeeProfile from './Pages/Employee_profile';
@@ -48,7 +48,7 @@ export default function App() {
       <Route path="/Service_add" element={<Service_add />} />
       <Route path="/addstock" element={<Add_stocks />} />
       <Route path="/Service_view" element={<Service_view />} />
-      <Route path="/updateproduct/:id" element={<Product_update />} />
+      <Route path="/Service_update/:id" element={<Service_update />} />
       <Route path="/books" element={<Books />} />
       <Route path="/employee_profile/:username" element={<EmployeeProfile />} />
       <Route path="/book_details/:id" element={<BookDetails />} />
