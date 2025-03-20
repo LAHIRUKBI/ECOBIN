@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { FaRecycle, FaTag, FaSearch, FaStar, FaClock } from "react-icons/fa";
+import { FaRecycle, FaSearch, FaStar } from "react-icons/fa";
 
 export default function EcoBin() {
   const [products, setProducts] = useState([]);
@@ -42,15 +42,15 @@ export default function EcoBin() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100 text-gray-800">
-      <section className="bg-green-700 text-white py-16 text-center rounded-b-3xl shadow-lg">
-        <h1 className="text-5xl font-bold mb-4">Welcome to EcoBin</h1>
-        <p className="text-lg mb-6">Discover eco-friendly services that make a difference.</p>
+    <div className="min-h-screen bg-gradient-to-b from-white-50 to-green-200 text-gray-800">
+      <section className="bg-green-800 text-white py-16 text-center rounded-b-3xl shadow-xl">
+        <h1 className="text-5xl font-extrabold mb-4">EcoBin: Eco-Friendly Solutions</h1>
+        <p className="text-xl mb-6">Join the green revolution! Explore sustainable and eco-conscious products.</p>
         <div className="relative w-4/5 md:w-1/3 mx-auto">
           <input
             type="text"
-            placeholder="Search Eco-Friendly Products..."
-            className="w-full p-4 rounded-full shadow-md text-gray-700 focus:outline-none focus:ring-4 focus:ring-green-400"
+            placeholder="Search for Eco-Friendly Products..."
+            className="w-full p-4 rounded-full shadow-lg text-gray-800 focus:outline-none focus:ring-4 focus:ring-green-400"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -59,13 +59,13 @@ export default function EcoBin() {
       </section>
 
       <section className="py-16">
-        <h2 className="text-4xl font-bold text-center text-green-700 mb-10">Browse Our Eco-Friendly Services</h2>
+        <h2 className="text-3xl font-bold text-center text-green-800 mb-10">Eco-Friendly Services</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-6">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <div
                 key={product._id}
-                className="bg-white p-6 rounded-3xl shadow-xl transform hover:scale-105 transition duration-300 hover:shadow-2xl"
+                className="bg-white p-6 rounded-3xl shadow-lg transform hover:scale-105 transition duration-300 hover:shadow-2xl"
               >
                 <div className="flex flex-col items-center text-center">
                   <div className="mb-4">
@@ -75,13 +75,13 @@ export default function EcoBin() {
                     </span>
                   </div>
 
-                  <h4 className="text-xl font-semibold text-gray-700">{product.type}</h4>
+                  <h4 className="text-2xl font-semibold text-gray-800">{product.type}</h4>
 
                   {product.image && (
                     <img
                       src={`http://localhost:3000/${product.image}`}
                       alt={product.type}
-                      className="w-full h-40 object-cover rounded-lg mt-4"
+                      className="w-full h-48 object-cover rounded-xl mt-4"
                     />
                   )}
 
@@ -89,23 +89,24 @@ export default function EcoBin() {
 
                   <div className="flex justify-between mt-4 w-full">
                     <div className="text-gray-800 text-sm font-bold">
-                      <FaClock className="inline-block mr-2 text-green-600" />
-                      {product.serviceTime}
+                      <span className="inline-block mr-2 text-green-600">
+                        Estimated Time to Complete:
+                      </span>
+                      {product.serviceTime} days
                     </div>
                     <div className="text-gray-800 text-sm font-bold">
-                      <FaStar className="inline-block mr-2 text-green-600" />
+                      <FaStar className="inline-block mr-2 text-yellow-500" />
                       {product.priority}
                     </div>
                   </div>
 
-                  <div className="text-xl font-bold mt-4 text-green-700">
-                    <FaTag className="inline-block mr-2" />
+                  <div className="text-xl font-semibold mt-4 text-green-700">
                     <span>${product.price}</span>
                   </div>
 
                   <Link
                     to={`/book_details/${product._id}`}
-                    className="bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-full font-semibold shadow-md mt-4 transition duration-300"
+                    className="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-full font-semibold shadow-lg mt-4 transition duration-300"
                   >
                     Request Service
                   </Link>
