@@ -39,6 +39,12 @@ export default function Payment() {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
+
+    // Allow only letters and spaces for name and address
+    if ((name === "name" || name === "address") && /[^a-zA-Z\s]/.test(value)) {
+      return; // Prevent invalid characters
+    }
+
     setFormData({
       ...formData,
       [name]: value,
@@ -47,6 +53,23 @@ export default function Payment() {
 
   const handleBankChange = (e) => {
     const { name, value } = e.target;
+
+    // Validate card number (only allow numbers and limit it to 16 digits)
+    if (name === "cardNumber" && /[^0-9]/.test(value)) {
+      return; // Prevent non-numeric characters
+    }
+    if (name === "cardNumber" && value.length > 16) {
+      return; // Prevent more than 16 digits
+    }
+
+    // Validate CVV (only allow numbers and limit it to 3 digits)
+    if (name === "cvv" && /[^0-9]/.test(value)) {
+      return; // Prevent non-numeric characters
+    }
+    if (name === "cvv" && value.length > 3) {
+      return; // Prevent more than 3 digits
+    }
+
     setBankData({
       ...bankData,
       [name]: value,
@@ -80,7 +103,11 @@ export default function Payment() {
     }
   };
 
-  const isFormValid = Object.values(formData).every((value) => value) && Object.values(bankData).every((value) => value);
+  const isFormValid =
+    Object.values(formData).every((value) => value) &&
+    Object.values(bankData).every((value) => value) &&
+    bankData.cardNumber.length === 16 &&
+    bankData.cvv.length === 3;
 
   if (!bookTitle) return <div className="text-center text-green-600 font-bold text-lg">Loading...</div>;
 
