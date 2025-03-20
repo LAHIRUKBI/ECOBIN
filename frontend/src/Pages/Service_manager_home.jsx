@@ -82,7 +82,7 @@ export default function Service_manager_home() {
               <div className="absolute inset-0 bg-gradient-to-br from-yellow-500 to-yellow-700 opacity-80"></div>
               <div className="relative z-10 flex flex-col items-center justify-center text-white py-10">
                 <FaBox className="text-5xl mb-4" />
-                <h2 className="text-2xl font-semibold mb-2">Total Products</h2>
+                <h2 className="text-2xl font-semibold mb-2">Available Services</h2>
                 <p className="text-3xl font-bold">{totalProducts}</p>
               </div>
             </div>
@@ -92,7 +92,7 @@ export default function Service_manager_home() {
               <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-green-700 opacity-80"></div>
               <div className="relative z-10 flex flex-col items-center justify-center text-white py-10">
                 <FaCheckCircle className="text-5xl mb-4" />
-                <h2 className="text-2xl font-semibold mb-2">Confirmed Orders</h2>
+                <h2 className="text-2xl font-semibold mb-2">Customer request Orders</h2>
                 <p className="text-3xl font-bold">{confirmedOrdersCount}</p> {/* Display confirmed orders count */}
               </div>
             </div>

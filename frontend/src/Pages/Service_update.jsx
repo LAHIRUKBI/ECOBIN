@@ -45,13 +45,22 @@ export default function Product_update() {
     try {
       const response = await axios.put(`http://localhost:3000/api/products/${id}`, formData);
       if (response.status === 200) {
-        navigate("/productview");
+        navigate("/Service_view");
       } else {
         setError("Failed to update product");
       }
     } catch (error) {
       setError("Error updating product");
     }
+  };
+
+  const isFormValid = () => {
+    return (
+      formData.price &&
+      formData.introduction &&
+      formData.serviceTime &&
+      formData.priority
+    );
   };
 
   if (loading) {
@@ -75,6 +84,7 @@ export default function Product_update() {
               value={formData[field]}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-lg"
+              disabled={field === "mainCategory" || field === "type"}  // Make these fields non-editable
             />
           </div>
         ))}
@@ -122,8 +132,9 @@ export default function Product_update() {
         <button
           type="submit"
           className="bg-teal-500 hover:bg-teal-600 text-white py-2 px-6 rounded-lg font-semibold"
+          disabled={!isFormValid()} // Disable button if form is not valid
         >
-          Update Product
+          Update Service
         </button>
       </form>
     </div>

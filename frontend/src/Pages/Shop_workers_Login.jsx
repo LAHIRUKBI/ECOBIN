@@ -54,7 +54,7 @@ export default function Admin_Login() {
             navigate("/stockmanagerhome");
             break;
           case "Service Manager":
-            navigate("/Book_manager_home");
+            navigate("/Service_manager_home");
             break;
           case "Collect Manager":
             navigate("/collectmanagerhome");
