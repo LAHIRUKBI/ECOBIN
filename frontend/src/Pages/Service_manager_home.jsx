@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaCheckCircle, FaBox, FaPlus, FaEye, FaHome } from 'react-icons/fa';
 import axios from 'axios';
 
-export default function Stockmanager_home() {
+export default function Service_manager_home() {
   const [totalProducts, setTotalProducts] = useState(0);
   const [outOfStock, setOutOfStock] = useState(0);
   const [confirmedOrdersCount, setConfirmedOrdersCount] = useState(0);  // New state for confirmed orders count
@@ -51,16 +51,16 @@ export default function Stockmanager_home() {
           </div>
         </div>
         <nav className="mt-6 flex flex-col space-y-4">
-          <button onClick={() => navigate('/Book_manager_home')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
-            <FaHome className="mr-3" /> Add Product
+          <button onClick={() => navigate('/Service_manager_home')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaHome className="mr-3" /> Home
           </button>
-          <button onClick={() => navigate('/addbook')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+          <button onClick={() => navigate('/Service_add')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaPlus className="mr-3" /> Add Product
           </button>
-          <button onClick={() => navigate('/productview')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+          <button onClick={() => navigate('/Service_view')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaEye className="mr-3" /> View Products
           </button>
-          <button onClick={() => navigate('/orderconfirm')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+          <button onClick={() => navigate('/Service_order_confirm')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaCheckCircle className="mr-3" /> View Confirm Orders
           </button>
         </nav>

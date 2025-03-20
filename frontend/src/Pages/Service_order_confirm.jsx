@@ -3,7 +3,7 @@ import axios from 'axios';
 import { FaHome, FaCheckCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-export default function Order_confirm() {
+export default function Service_order_confirm() {
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
 
@@ -35,16 +35,16 @@ export default function Order_confirm() {
           </div>
         </div>
         <nav className="mt-6 flex flex-col space-y-4">
-          <button onClick={() => navigate('/Book_manager_home')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+          <button onClick={() => navigate('/Service_manager_home')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaHome className="mr-3" /> Home
+          </button>
+          <button onClick={() => navigate('/Service_add')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaHome className="mr-3" /> Add Product
           </button>
-          <button onClick={() => navigate('/addbook')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
-            <FaHome className="mr-3" /> Add Product
-          </button>
-          <button onClick={() => navigate('/productview')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+          <button onClick={() => navigate('/Service_view')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaCheckCircle className="mr-3" /> View Products
           </button>
-          <button onClick={() => navigate('/orderconfirm')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+          <button onClick={() => navigate('/Service_order_confirm')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaCheckCircle className="mr-3" /> View Confirm Orders
           </button>
         </nav>
