@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FaRecycle, FaDollarSign, FaStar, FaClock, FaCheckCircle, FaEye, FaPlus, FaHome } from 'react-icons/fa'; // Changed Icons
 
-export default function View_product() {
+export default function Service_view() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -56,16 +56,16 @@ export default function View_product() {
           </div>
         </div>
         <nav className="mt-6 flex flex-col space-y-4">
-          <button onClick={() => navigate('/Book_manager_home')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
-                                <FaHome  className="mr-3" /> Add Product
+          <button onClick={() => navigate('/Service_manager_home')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+                                <FaHome  className="mr-3" /> Add Home
           </button>
-          <button onClick={() => navigate('/addbook')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+          <button onClick={() => navigate('/Service_add')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaPlus className="mr-3" /> Add Product
           </button>
-          <button onClick={() => navigate('/productview')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+          <button onClick={() => navigate('/Service_view')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaEye className="mr-3" /> View Products
           </button>
-          <button onClick={() => navigate('/orderconfirm')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+          <button onClick={() => navigate('/Service_order_confirm')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaCheckCircle className="mr-3" /> View Confirm Orders
           </button>
         </nav>
