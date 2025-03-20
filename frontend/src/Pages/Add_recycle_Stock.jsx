@@ -20,8 +20,6 @@ export default function Add_product() {
   const serviceCategories = {
     "Waste Collection": ["Residential Collection", "Commercial Collection", "Bulk Waste Pickup", "Special Waste Collection"],
     "Recycling Services": ["Plastic Recycling", "Paper Recycling", "Metal Recycling", "Electronic Waste Recycling", "Glass Recycling"],
-    "Composting": ["Organic Waste Composting", "Garden Waste Composting"],
-    "Product Creation": ["Recycled Plastic Products", "Upcycled Wooden Products", "Eco-Friendly Household Goods"],
   };
 
   const handleSubmit = async (e) => {
