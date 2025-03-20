@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUsers, FaUserPlus, FaClipboardList } from "react-icons/fa";
+import axios from "axios";
 
 export default function Admin_Home() {
   const navigate = useNavigate();
   const [userCount, setUserCount] = useState(0);
   const [employeeCount, setEmployeeCount] = useState(0);
+  const [orders, setOrders] = useState([]);
+  const [loadingOrders, setLoadingOrders] = useState(true);
+  const [errorOrders, setErrorOrders] = useState(null);
 
   useEffect(() => {
     // Fetch the user count from the backend
@@ -32,8 +36,21 @@ export default function Admin_Home() {
       }
     };
 
+    // Fetch current orders
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/payment");
+        setOrders(response.data.data);
+      } catch (error) {
+        setErrorOrders("Error fetching order details");
+      } finally {
+        setLoadingOrders(false);
+      }
+    };
+
     fetchUserCount();
     fetchEmployeeCount();
+    fetchOrders();
   }, []);
 
   return (
@@ -43,7 +60,7 @@ export default function Admin_Home() {
         {/* Profile Section */}
         <div className="p-6 border-b border-indigo-400">
           <div className="flex items-center space-x-4">
-          <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center">
+            <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center">
               <img
                 src="src/images/profilelogo.png"
                 alt="Profile Icon"
@@ -166,18 +183,19 @@ export default function Admin_Home() {
             </div>
           </div>
 
-          {/* View Orders Card */}
-          <div
-            className="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 cursor-pointer"
-            onClick={() => navigate("/order")}
-          >
+          {/* Current Orders Card */}
+          <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-transform transform hover:scale-105">
             <div className="flex items-center space-x-4">
               <FaClipboardList className="text-purple-500 text-4xl" />
               <div>
-                <h3 className="text-xl font-bold text-gray-800">View Orders</h3>
+                <h3 className="text-xl font-bold text-gray-800">Current Orders</h3>
                 <p className="text-gray-600 mt-2">
-                  Monitor and manage customer orders effectively.
+                  <strong className="text-4xl text-purple-600 font-extrabold">
+                    {loadingOrders ? "Loading..." : orders.length}
+                  </strong>
+                  <span className="text-lg ml-2">Orders</span>
                 </p>
+                {errorOrders && <p className="text-red-500">{errorOrders}</p>}
               </div>
             </div>
           </div>
