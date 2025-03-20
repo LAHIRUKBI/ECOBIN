@@ -81,8 +81,8 @@ export default function Add_product() {
       {/* Main Content */}
       <main className="flex-1 flex flex-col items-center justify-center w-full py-12 px-6">
         <div className="w-full max-w-3xl bg-white rounded-2xl shadow-lg p-10 border border-green-400">
-          <h1 className="text-4xl font-bold text-center text-green-900 mb-6">🌿 Add New Service</h1>
-          <p className="text-center text-green-700 mb-6">Contribute to a greener future with SmartBIN.</p>
+          <h1 className="text-4xl font-bold text-center text-green-900 mb-6">Add New Service</h1>
+          <p className="text-center text-green-700 mb-6">Contribute to a greener future with EcoBIN.</p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -141,7 +141,16 @@ export default function Add_product() {
               <input type="file" accept="image/*" onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })} className="w-full p-3 border rounded-lg focus:ring-green-500" />
             </div>
 
-            <button type="submit" className="w-full bg-green-700 text-white py-3 rounded-lg font-bold text-lg shadow-lg hover:bg-green-800 transition-all">Add Service</button>
+            <button 
+  type="submit" 
+  className={`w-full py-3 rounded-lg font-bold text-lg shadow-lg transition-all 
+    ${Object.values(formData).some(val => val === '' || val === null) ? 
+    'bg-gray-400 cursor-not-allowed' : 'bg-green-700 text-white hover:bg-green-800'}`}
+  disabled={Object.values(formData).some(val => val === '' || val === null)}
+>
+  Add Service
+</button>
+
           </form>
         </div>
       </main>
