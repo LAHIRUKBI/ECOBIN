@@ -32,7 +32,7 @@ export default function Service_order_confirm() {
             <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
           </div>
           <div>
-          <h2 className="text-xl font-semibold">Welcome, {staffName}</h2>
+            <h2 className="text-xl font-semibold">Welcome, {staffName}</h2>
             <p className="text-gray-300 text-sm">Dashboard</p>
           </div>
         </div>
@@ -54,36 +54,36 @@ export default function Service_order_confirm() {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col items-center justify-center w-full py-12 px-6">
-        <div className="max-w-5xl w-full">
+        <div className="max-w-full w-full">
           <h1 className="text-4xl font-extrabold text-gray-800 mb-8">Order Confirmation</h1>
           {orders.length > 0 ? (
-            <div className="w-full max-w-7xl overflow-x-auto p-6 bg-white shadow-md rounded-lg">
+            <div className="w-full overflow-x-auto p-6 bg-white shadow-md rounded-lg">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-gray-100 text-gray-800 uppercase text-sm leading-normal">
-                    <th className="border-b border-gray-200 p-4">Customer Email</th>
-                    <th className="border-b border-gray-200 p-4">Services Title</th>
-                    <th className="border-b border-gray-200 p-4">Customer Name</th>
-                    <th className="border-b border-gray-200 p-4">Address</th>
-                    <th className="border-b border-gray-200 p-4">Phone</th>
-                    <th className="border-b border-gray-200 p-4">Total Price</th>
-                    <th className="border-b border-gray-200 p-4">Bank Name</th>
-                    <th className="border-b border-gray-200 p-4">Actions</th>
+                  <tr className="bg-teal-100 text-gray-800 uppercase text-sm leading-normal">
+                    <th className="border-b border-gray-200 p-6">Customer Email</th>
+                    <th className="border-b border-gray-200 p-6">Services Title</th>
+                    <th className="border-b border-gray-200 p-6">Customer Name</th>
+                    <th className="border-b border-gray-200 p-6">Address</th>
+                    <th className="border-b border-gray-200 p-6">Phone</th>
+                    <th className="border-b border-gray-200 p-6">Total Price</th>
+                    <th className="border-b border-gray-200 p-6">Bank Name</th>
+                    <th className="border-b border-gray-200 p-6">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {orders.map((order) => (
-                    <tr key={order._id} className="hover:bg-gray-50 text-gray-700 text-sm">
-                      <td className="border-b border-gray-200 p-4">{order.customerEmail}</td>
-                      <td className="border-b border-gray-200 p-4">{order.bookTitle}</td>
-                      <td className="border-b border-gray-200 p-4">{order.customerName}</td>
-                      <td className="border-b border-gray-200 p-4">{order.customerAddress}</td>
-                      <td className="border-b border-gray-200 p-4">{order.customerPhone}</td>
-                      <td className="border-b border-gray-200 p-4 font-semibold">${order.totalPrice.toFixed(2)}</td>
-                      <td className="border-b border-gray-200 p-4">{order.bankName}</td>
-                      <td className="border-b border-gray-200 p-4">
+                    <tr key={order._id} className="hover:bg-teal-50 text-gray-700 text-sm">
+                      <td className="border-b border-gray-200 p-6">{order.customerEmail}</td>
+                      <td className="border-b border-gray-200 p-6">{order.bookTitle}</td>
+                      <td className="border-b border-gray-200 p-6">{order.customerName}</td>
+                      <td className="border-b border-gray-200 p-6">{order.customerAddress}</td>
+                      <td className="border-b border-gray-200 p-6">{order.customerPhone}</td>
+                      <td className="border-b border-gray-200 p-6 font-semibold text-teal-600">${order.totalPrice.toFixed(2)}</td>
+                      <td className="border-b border-gray-200 p-6">{order.bankName}</td>
+                      <td className="border-b border-gray-200 p-6">
                         <button
-                          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                          className="px-6 py-3 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition transform hover:scale-105"
                           onClick={() => {
                             // Implement action logic for sending to collector here
                             alert(`Order ${order._id} sent to collector.`);
