@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaHome, FaCheckCircle } from 'react-icons/fa';
+import { FaHome, FaCheckCircle, FaPlus, FaEye } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 export default function Service_order_confirm() {
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
+
+  const staffName = localStorage.getItem('staffName');
 
   useEffect(() => {
     // Fetch all orders from the database
@@ -30,7 +32,7 @@ export default function Service_order_confirm() {
             <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold">Service Manager</h2>
+          <h2 className="text-xl font-semibold">Welcome, {staffName}</h2>
             <p className="text-gray-300 text-sm">Dashboard</p>
           </div>
         </div>
@@ -39,10 +41,10 @@ export default function Service_order_confirm() {
             <FaHome className="mr-3" /> Home
           </button>
           <button onClick={() => navigate('/Service_add')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
-            <FaHome className="mr-3" /> Add Product
+            <FaPlus className="mr-3" /> Add Product
           </button>
           <button onClick={() => navigate('/Service_view')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
-            <FaCheckCircle className="mr-3" /> View Products
+            <FaEye className="mr-3" /> View Products
           </button>
           <button onClick={() => navigate('/Service_order_confirm')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaCheckCircle className="mr-3" /> View Confirm Orders

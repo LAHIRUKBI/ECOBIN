@@ -17,6 +17,8 @@ export default function Service_add() {
 
   const navigate = useNavigate();
 
+  const staffName = localStorage.getItem('staffName');
+
   const serviceCategories = {
     "Waste Collection": ["Residential Collection", "Commercial Collection", "Bulk Waste Pickup", "Special Waste Collection"],
     "Recycling Services": ["Plastic Recycling", "Paper Recycling", "Metal Recycling", "Electronic Waste Recycling", "Glass Recycling"],
@@ -58,7 +60,7 @@ export default function Service_add() {
             <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold">Service Manager</h2>
+          <h2 className="text-xl font-semibold">Welcome, {staffName}</h2>
             <p className="text-gray-300 text-sm">Dashboard</p>
           </div>
         </div>
