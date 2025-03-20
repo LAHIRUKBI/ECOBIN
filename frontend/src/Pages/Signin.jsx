@@ -41,9 +41,7 @@ export default function Signin() {
       setLoading(true);
       const res = await fetch("http://localhost:3000/api/signup/signin", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
@@ -57,7 +55,6 @@ export default function Signin() {
       setError(null);
       localStorage.setItem('email', formData.email);
       localStorage.setItem('userData', JSON.stringify(data.user));
-
       navigate("/");
     } catch (error) {
       console.error("Error:", error.message);
@@ -66,24 +63,20 @@ export default function Signin() {
     }
   };
 
-  // 🔹 Google Sign-In Logic
   const handleGoogleSignin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-
-      // Send user details to MongoDB for verification/registration
       const res = await fetch("http://localhost:3000/api/signup/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: user.email,
-          password: "google-auth", // Google users don't require passwords
+          password: "google-auth",
         }),
       });
 
       const data = await res.json();
-      
       if (!res.ok) {
         setError(data.message || 'Google Sign-in failed. Please try again.');
         return;
@@ -92,7 +85,6 @@ export default function Signin() {
       setError(null);
       localStorage.setItem('email', user.email);
       localStorage.setItem('userData', JSON.stringify(data.user));
-
       navigate("/");
     } catch (error) {
       console.error("Google Signin Error:", error.message);
@@ -101,72 +93,68 @@ export default function Signin() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-t from-[#E8F0F6] to-[#FFFFFF]">
-      <div className="flex justify-center items-center flex-grow p-6 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')" }}>
-        <div className="relative z-10 flex w-full max-w-md bg-white rounded-xl shadow-lg p-8 backdrop-blur-sm">
-          <div className="w-full p-4">
-            <h2 className="text-[#3F4F69] text-3xl font-semibold text-center mb-6">Sign In</h2>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md bg-white shadow-xl rounded-xl p-8">
+        <h2 className="text-3xl font-semibold text-gray-700 text-center mb-6">Welcome Back!</h2>
 
-            {/* Normal Sign-in Form */}
-            <form onSubmit={handleSubmit}>
-              {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
+        {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
 
-              <div className="mb-5">
-                <label className="block text-sm font-medium text-[#4F5B75]" htmlFor="email">Email:</label>
-                <div className="relative">
-                  <input
-                    type="email"
-                    id="email"
-                    placeholder="Email"
-                    className="mt-1 block w-full px-8 py-3 border border-[#C6D1E1] rounded-md shadow-sm bg-[#F9FAFB] text-[#4A4A4A] placeholder-[#A6B2C1] focus:outline-none focus:ring-2 focus:ring-[#A6C7F0] focus:border-[#A6C7F0] sm:text-sm transition-all"
-                    onChange={handleChange}
-                    required
-                  />
-                  <FontAwesomeIcon icon={faEnvelope} className="absolute left-3 top-3 text-[#A6B2C1]" />
-                </div>
-              </div>
-
-              <div className="mb-5">
-                <label className="block text-sm font-medium text-[#4F5B75]" htmlFor="password">Password:</label>
-                <div className="relative">
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="Password"
-                    className="mt-1 block w-full px-8 py-3 border border-[#C6D1E1] rounded-md shadow-sm bg-[#F9FAFB] text-[#4A4A4A] placeholder-[#A6B2C1] focus:outline-none focus:ring-2 focus:ring-[#A6C7F0] focus:border-[#A6C7F0] sm:text-sm transition-all"
-                    onChange={handleChange}
-                    required
-                  />
-                  <FontAwesomeIcon icon={faLock} className="absolute left-3 top-3 text-[#A6B2C1]" />
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                className={`w-full bg-gradient-to-r from-[#67B7F7] to-[#4B99FF] text-white py-3 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#A6C7F0] focus:ring-offset-2 shadow-md transition-all transform hover:scale-105 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                disabled={loading}
-              >
-                {loading ? (
-                  <>
-                    <FontAwesomeIcon icon={faSpinner} spin className="mr-2" />
-                    Signing In...
-                  </>
-                ) : 'Sign In'}
-              </button>
-            </form>
-
-            {/* Google Sign-in Button */}
-            <button onClick={handleGoogleSignin}
-              className="w-full p-3 mt-6 flex items-center justify-center bg-[#4285F4] text-white rounded-lg hover:bg-[#3367D6] transition-all">
-              <FaGoogle className="mr-2" /> Sign In with Google
-            </button>
-
-            {/* Footer Section */}
-            <div className="mt-6 text-center text-sm text-[#A6B2C1]">
-              <p>New to EcoBin? <a href="/signup" className="text-[#4B99FF] hover:underline">Create an Account</a></p>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-gray-600 mb-1" htmlFor="email">Email</label>
+            <div className="relative">
+              <FontAwesomeIcon icon={faEnvelope} className="absolute left-3 top-3 text-gray-400" />
+              <input
+                type="email"
+                id="email"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-400 focus:border-blue-400"
+                placeholder="Enter your email"
+                onChange={handleChange}
+                required
+              />
             </div>
           </div>
+
+          <div>
+            <label className="block text-gray-600 mb-1" htmlFor="password">Password</label>
+            <div className="relative">
+              <FontAwesomeIcon icon={faLock} className="absolute left-3 top-3 text-gray-400" />
+              <input
+                type="password"
+                id="password"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-400 focus:border-blue-400"
+                placeholder="Enter your password"
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className={`w-full py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            disabled={loading}
+          >
+            {loading ? <FontAwesomeIcon icon={faSpinner} spin className="mr-2" /> : 'Sign In'}
+          </button>
+        </form>
+
+        <div className="flex items-center my-4">
+          <hr className="flex-grow border-gray-300" />
+          <span className="mx-3 text-gray-400">or</span>
+          <hr className="flex-grow border-gray-300" />
         </div>
+
+        <button
+          onClick={handleGoogleSignin}
+          className="w-full flex items-center justify-center gap-2 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200"
+        >
+          <FaGoogle /> Sign In with Google
+        </button>
+
+        <p className="mt-4 text-center text-sm text-gray-500">
+          New to EcoBin? <a href="/signup" className="text-blue-500 hover:underline">Create an Account</a>
+        </p>
       </div>
     </div>
   );
