@@ -10,6 +10,8 @@ export default function Service_view() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  const staffName = localStorage.getItem('staffName');
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -51,13 +53,13 @@ export default function Service_view() {
             <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold">Service Manager</h2>
+          <h2 className="text-xl font-semibold">Welcome, {staffName}</h2>
             <p className="text-gray-300 text-sm">Dashboard</p>
           </div>
         </div>
         <nav className="mt-6 flex flex-col space-y-4">
           <button onClick={() => navigate('/Service_manager_home')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
-                                <FaHome  className="mr-3" /> Add Home
+                                <FaHome  className="mr-3" /> Home
           </button>
           <button onClick={() => navigate('/Service_add')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaPlus className="mr-3" /> Add Product
