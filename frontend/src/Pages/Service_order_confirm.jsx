@@ -5,12 +5,13 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Service_order_confirm() {
   const [orders, setOrders] = useState([]);
+  const [confirmedOrders, setConfirmedOrders] = useState([]);
   const navigate = useNavigate();
 
   const staffName = localStorage.getItem('staffName');
 
   useEffect(() => {
-    // Fetch all orders from the database
+    // Fetch all orders
     const fetchOrders = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/payment');
@@ -20,8 +21,40 @@ export default function Service_order_confirm() {
       }
     };
 
+    // Fetch confirmed orders
+    const fetchConfirmedOrders = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/confirm/confirmed-orders');
+        setConfirmedOrders(response.data.data.map(order => order.orderId));
+      } catch (error) {
+        console.error('Error fetching confirmed orders:', error);
+      }
+    };
+
     fetchOrders();
+    fetchConfirmedOrders();
   }, []);
+
+  const handleConfirmOrder = async (order) => {
+    try {
+      const response = await axios.post('http://localhost:3000/api/confirm/confirm', {
+        orderId: order._id,
+        customerEmail: order.customerEmail,
+        bookTitle: order.bookTitle,
+        customerName: order.customerName,
+        customerAddress: order.customerAddress,
+        customerPhone: order.customerPhone,
+        totalPrice: order.totalPrice,
+        bankName: order.bankName
+      });
+
+      if (response.data.success) {
+        setConfirmedOrders([...confirmedOrders, order._id]);
+      }
+    } catch (error) {
+      console.error('Error confirming order:', error);
+    }
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -82,15 +115,11 @@ export default function Service_order_confirm() {
                       <td className="border-b border-gray-200 p-6 font-semibold text-teal-600">${order.totalPrice.toFixed(2)}</td>
                       <td className="border-b border-gray-200 p-6">{order.bankName}</td>
                       <td className="border-b border-gray-200 p-6">
-                        <button
-                          className="px-6 py-3 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition transform hover:scale-105"
-                          onClick={() => {
-                            // Implement action logic for sending to collector here
-                            alert(`Order ${order._id} sent to collector.`);
-                          }}
-                        >
-                          Send to Collector
-                        </button>
+                        {confirmedOrders.includes(order._id) ? (
+                          <button className="px-6 py-3 bg-gray-400 text-white rounded-lg cursor-not-allowed">Done</button>
+                        ) : (
+                          <button onClick={() => handleConfirmOrder(order)} className="px-6 py-3 bg-teal-500 text-white rounded-lg hover:bg-teal-600">Send to Collector</button>
+                        )}
                       </td>
                     </tr>
                   ))}
