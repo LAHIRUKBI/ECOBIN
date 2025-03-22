@@ -14,6 +14,7 @@ export default function My_payments() {
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [messages, setMessages] = useState({});
 
   useEffect(() => {
     const email = localStorage.getItem("email");
@@ -80,6 +81,11 @@ export default function My_payments() {
       });
   };
 
+  const handleSendMessage = (id) => {
+    alert(`Message sent: ${messages[id] || "No message entered"}`);
+    setMessages((prevMessages) => ({ ...prevMessages, [id]: "" }));
+  };
+
   if (loading) {
     return <div className="flex justify-center items-center h-screen text-xl font-semibold text-gray-500">Loading payments...</div>;
   }
@@ -120,6 +126,21 @@ export default function My_payments() {
                 >
                   <FaTrashAlt className="inline mr-2" /> Delete
                 </button>
+                <div className="mt-4">
+                  <input
+                    type="text"
+                    placeholder="Type a message..."
+                    value={messages[payment._id] || ""}
+                    onChange={(e) => setMessages({ ...messages, [payment._id]: e.target.value })}
+                    className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+                  />
+                  <button
+                    onClick={() => handleSendMessage(payment._id)}
+                    className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200 w-full"
+                  >
+                    Send
+                  </button>
+                </div>
               </li>
             ))}
           </ul>

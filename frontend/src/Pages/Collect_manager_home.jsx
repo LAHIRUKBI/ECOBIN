@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { FaHome } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Collect_manager_home() {
-  const [confirmedOrders, setConfirmedOrders] = useState([]);
   const navigate = useNavigate();
+  const [orderCount, setOrderCount] = useState(0);
 
   useEffect(() => {
-    // Fetch confirmed orders from the backend
     const fetchConfirmedOrders = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/confirm/confirmed-orders');
-        setConfirmedOrders(response.data.data);
+        setOrderCount(response.data.data.length);
       } catch (error) {
         console.error('Error fetching confirmed orders:', error);
       }
@@ -35,48 +34,22 @@ export default function Collect_manager_home() {
           </div>
         </div>
         <nav className="mt-6 flex flex-col space-y-4">
-          <button onClick={() => navigate('/Collect_manager_home')} className="flex items-center p-4 hover:bg-blue-600 rounded-md transition">
+          <button onClick={() => navigate('/collectmanagerhome')} className="flex items-center p-4 hover:bg-blue-600 rounded-md transition">
             <FaHome className="mr-3" /> Home
+          </button>
+          <button onClick={() => navigate('/Collect_manager_orders')} className="flex items-center p-4 hover:bg-blue-600 rounded-md transition">
+            <FaHome className="mr-3" /> Orders
           </button>
         </nav>
       </aside>
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col items-center justify-center w-full py-12 px-6">
-        <div className="max-w-full w-full">
-          <h1 className="text-4xl font-extrabold text-gray-800 mb-8">Confirmed Orders</h1>
-          {confirmedOrders.length > 0 ? (
-            <div className="w-full overflow-x-auto p-6 bg-white shadow-md rounded-lg">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-blue-100 text-gray-800 uppercase text-sm leading-normal">
-                    <th className="border-b border-gray-200 p-6">Customer Email</th>
-                    <th className="border-b border-gray-200 p-6">Services Title</th>
-                    <th className="border-b border-gray-200 p-6">Customer Name</th>
-                    <th className="border-b border-gray-200 p-6">Address</th>
-                    <th className="border-b border-gray-200 p-6">Phone</th>
-                    <th className="border-b border-gray-200 p-6">Total Price</th>
-                    <th className="border-b border-gray-200 p-6">Bank Name</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {confirmedOrders.map((order) => (
-                    <tr key={order.orderId} className="hover:bg-blue-50 text-gray-700 text-sm">
-                      <td className="border-b border-gray-200 p-6">{order.customerEmail}</td>
-                      <td className="border-b border-gray-200 p-6">{order.bookTitle}</td>
-                      <td className="border-b border-gray-200 p-6">{order.customerName}</td>
-                      <td className="border-b border-gray-200 p-6">{order.customerAddress}</td>
-                      <td className="border-b border-gray-200 p-6">{order.customerPhone}</td>
-                      <td className="border-b border-gray-200 p-6 font-semibold text-blue-600">${order.totalPrice.toFixed(2)}</td>
-                      <td className="border-b border-gray-200 p-6">{order.bankName}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <p className="text-gray-500 text-lg">No confirmed orders found.</p>
-          )}
+        <h1 className="text-4xl font-extrabold text-gray-800 mb-8">Maneth Home Page</h1>
+        {/* Orders Count Card */}
+        <div className="bg-white shadow-lg rounded-lg p-6 w-80 text-center">
+          <h2 className="text-2xl font-bold text-gray-700">Total Confirmed Orders</h2>
+          <p className="text-3xl font-extrabold text-blue-600 mt-2">{orderCount}</p>
         </div>
       </main>
     </div>
