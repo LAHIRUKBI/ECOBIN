@@ -40,3 +40,21 @@ export const getConfirmedOrders = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error', error });
   }
 };
+
+
+
+// Controller to delete a confirmed order by orderId
+export const deleteConfirmedOrder = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const deletedOrder = await ConfirmOrder.findOneAndDelete({ orderId }); // Use orderId here instead of _id
+
+    if (!deletedOrder) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+
+    res.status(200).json({ success: true, message: 'Order deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error', error });
+  }
+};

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaHome } from 'react-icons/fa';
+import { FaHome, FaBox, FaPlus   } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 export default function Collect_manager_orders() {
@@ -21,15 +21,42 @@ export default function Collect_manager_orders() {
     fetchConfirmedOrders();
   }, []);
 
+  const calculateRemainingTime = (confirmationDate) => {
+    const now = new Date();
+    const confirmationTime = new Date(confirmationDate);
+    const timeDiff = confirmationTime.getTime() + (3 * 24 * 60 * 60 * 1000) - now.getTime(); // 3 days in milliseconds
+
+    if (timeDiff <= 0) {
+      return 'Expired';
+    }
+
+    const days = Math.floor(timeDiff / (1000 * 3600 * 24));
+    const hours = Math.floor((timeDiff % (1000 * 3600 * 24)) / (1000 * 3600));
+    const minutes = Math.floor((timeDiff % (1000 * 3600)) / (1000 * 60));
+
+    return `${days}d ${hours}h ${minutes}m`;
+  };
+
   const handleSendMessage = (orderId) => {
     alert(`Message sent for order ${orderId}: ${messages[orderId]}`);
     setMessages((prev) => ({ ...prev, [orderId]: '' }));
   };
 
+  const handleDeleteOrder = async (orderId) => {
+    try {
+      const response = await axios.delete(`http://localhost:3000/api/confirm/confirmed-orders/${orderId}`);
+      alert('Order deleted successfully');
+      setConfirmedOrders((prevOrders) => prevOrders.filter(order => order.orderId !== orderId));
+    } catch (error) {
+      console.error('Error deleting order:', error);
+      alert('Error deleting order');
+    }
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <aside className="w-72 bg-blue-700 text-white shadow-lg p-6 flex flex-col">
-        <div className="flex items-center space-x-4 border-b border-blue-500 pb-4">
+      <aside className="w-72 bg-green-700 text-white shadow-lg p-6 flex flex-col">
+        <div className="flex items-center space-x-4 border-b border-green-500 pb-4">
           <div className="bg-white rounded-full w-14 h-14 flex items-center justify-center">
             <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
           </div>
@@ -39,11 +66,14 @@ export default function Collect_manager_orders() {
           </div>
         </div>
         <nav className="mt-6 flex flex-col space-y-4">
-          <button onClick={() => navigate('/collectmanagerhome')} className="flex items-center p-4 hover:bg-blue-600 rounded-md transition">
+          <button onClick={() => navigate('/collectmanagerhome')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaHome className="mr-3" /> Home
           </button>
-          <button onClick={() => navigate('/Collect_manager_orders')} className="flex items-center p-4 hover:bg-blue-600 rounded-md transition">
-            <FaHome className="mr-3" /> Orders
+          <button onClick={() => navigate('/Collect_manager_orders')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaBox  className="mr-3" /> Orders
+          </button>
+          <button onClick={() => navigate('/Collect_add_reusable')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+                      <FaPlus  className="mr-3" /> Add Reusables
           </button>
         </nav>
       </aside>
@@ -64,6 +94,8 @@ export default function Collect_manager_orders() {
                     <th className="border-b border-gray-200 p-6">Phone</th>
                     <th className="border-b border-gray-200 p-6">Total Price</th>
                     <th className="border-b border-gray-200 p-6">Bank Name</th>
+                    <th className="border-b border-gray-200 p-6">Remaining Time</th>
+                    <th className="border-b border-gray-200 p-6">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -78,9 +110,18 @@ export default function Collect_manager_orders() {
                         <td className="border-b border-gray-200 p-6">{order.customerPhone}</td>
                         <td className="border-b border-gray-200 p-6 font-semibold text-blue-600">${order.totalPrice.toFixed(2)}</td>
                         <td className="border-b border-gray-200 p-6">{order.bankName}</td>
+                        <td className="border-b border-gray-200 p-6">{calculateRemainingTime(order.confirmationDate)}</td>
+                        <td className="border-b border-gray-200 p-6">
+                          <button
+                            onClick={() => handleDeleteOrder(order.orderId)}
+                            className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
+                          >
+                            Delete
+                          </button>
+                        </td>
                       </tr>
                       <tr>
-                        <td colSpan="8" className="border-b border-gray-200 p-6">
+                        <td colSpan="9" className="border-b border-gray-200 p-6">
                           <div className="flex flex-col items-start space-y-2">
                             <input
                               type="text"
