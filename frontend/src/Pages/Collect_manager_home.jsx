@@ -30,7 +30,7 @@ export default function Collect_manager_home() {
             <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold">Welcome, Collector</h2>
+            <h2 className="text-xl font-semibold">Welcome, Collect Manager</h2>
             <p className="text-gray-300 text-sm">Dashboard</p>
           </div>
         </div>
