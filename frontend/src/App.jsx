@@ -26,12 +26,8 @@ import My_payments from './Pages/My_payments'
 import Service_order_confirm from './Pages/Service_order_confirm'
 import Employee_Update_profile from './Pages/Employee_Update_profile'
 import User_view from './Pages/User_view'
-import Collect_manager_home from './Pages/Collect_manager_home'
 import Product_home from './Pages/Product_home'
-import Collect_manager_orders from './Pages/Collect_manager_orders'
-import Collect_add_reusable from './Pages/Collect_add_reusable'
-import Collect_view_lists from './Pages/Collect_view_lists'
-import Collect_list_update from './Pages/Collect_list_update'
+import Collect_manager_home from './Pages/Collect_manager_home'
 
 export default function App() {
   return (
@@ -64,13 +60,9 @@ export default function App() {
       <Route path="/Service_order_confirm" element={<Service_order_confirm />} />
       <Route path="/employeeupdateprofile" element={<Employee_Update_profile />} />
       <Route path="/userview" element={<User_view />} />
-      <Route path="/collectmanagerhome" element={<Collect_manager_home />} />
       <Route path="/producthome" element={<Product_home />} />
 
-      <Route path="/Collect_manager_orders" element={<Collect_manager_orders />} />
-      <Route path="/Collect_add_reusable" element={<Collect_add_reusable />} />
-      <Route path="/Collect_view_lists" element={<Collect_view_lists />} />
-      <Route path="/Collect_list_update/:id" element={<Collect_list_update />} />
+      <Route path="/Collect_manager_home" element={<Collect_manager_home />} />
 
       
 
