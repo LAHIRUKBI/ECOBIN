@@ -8,6 +8,7 @@ import employeeRouter from './route/employee.route.js';
 import productRouter from './route/product.route.js';
 import paymentRouter from './route/payment.route.js';
 import confirmRouter from './route/confirm.route.js';
+import reuseRoutes from './route/reuse.route.js';
 
 dotenv.config();
 
@@ -34,6 +35,8 @@ app.use('/api/employees', employeeRouter);
 app.use('/api/products', productRouter);
 app.use('/api/payment', paymentRouter);
 app.use('/api/confirm', confirmRouter);
+
+app.use('/api/reuse', reuseRoutes);
 
 
 

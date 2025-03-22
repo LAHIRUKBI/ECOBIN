@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaHome } from 'react-icons/fa';
+import { FaHome, FaBox, FaPlus  } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -23,8 +23,8 @@ export default function Collect_manager_home() {
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-72 bg-blue-700 text-white shadow-lg p-6 flex flex-col">
-        <div className="flex items-center space-x-4 border-b border-blue-500 pb-4">
+      <aside className="w-72 bg-green-700 text-white shadow-lg p-6 flex flex-col">
+        <div className="flex items-center space-x-4 border-b border-green-500 pb-4">
           <div className="bg-white rounded-full w-14 h-14 flex items-center justify-center">
             <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
           </div>
@@ -34,11 +34,14 @@ export default function Collect_manager_home() {
           </div>
         </div>
         <nav className="mt-6 flex flex-col space-y-4">
-          <button onClick={() => navigate('/collectmanagerhome')} className="flex items-center p-4 hover:bg-blue-600 rounded-md transition">
+          <button onClick={() => navigate('/collectmanagerhome')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaHome className="mr-3" /> Home
           </button>
-          <button onClick={() => navigate('/Collect_manager_orders')} className="flex items-center p-4 hover:bg-blue-600 rounded-md transition">
-            <FaHome className="mr-3" /> Orders
+          <button onClick={() => navigate('/Collect_manager_orders')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaBox className="mr-3" /> Orders
+          </button>
+          <button onClick={() => navigate('/Collect_add_reusable')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaPlus  className="mr-3" /> Add Reusables
           </button>
         </nav>
       </aside>

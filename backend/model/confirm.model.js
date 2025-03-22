@@ -9,6 +9,7 @@ const ConfirmSchema = new mongoose.Schema({
   totalPrice: Number,
   bankName: String,
   orderId: { type: mongoose.Schema.Types.ObjectId, required: true, unique: true },
+  confirmationDate: { type: Date, default: Date.now }, // Store the confirmation date
 });
 
 export default mongoose.model('ConfirmOrder', ConfirmSchema);

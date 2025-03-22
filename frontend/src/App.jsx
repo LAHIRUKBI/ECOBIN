@@ -29,6 +29,7 @@ import User_view from './Pages/User_view'
 import Collect_manager_home from './Pages/Collect_manager_home'
 import Product_home from './Pages/Product_home'
 import Collect_manager_orders from './Pages/Collect_manager_orders'
+import Collect_add_reusable from './Pages/Collect_add_reusable'
 
 export default function App() {
   return (
@@ -65,6 +66,8 @@ export default function App() {
       <Route path="/producthome" element={<Product_home />} />
 
       <Route path="/Collect_manager_orders" element={<Collect_manager_orders />} />
+      <Route path="/Collect_add_reusable" element={<Collect_add_reusable />} />
+
       
 
 
