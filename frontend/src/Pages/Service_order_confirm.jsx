@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaHome, FaCheckCircle, FaPlus, FaEye } from 'react-icons/fa';
+import { FaHome, FaCheckCircle, FaPlus, FaEye, FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 export default function Service_order_confirm() {
@@ -56,6 +56,16 @@ export default function Service_order_confirm() {
     }
   };
 
+  const handleDeleteOrder = async (orderId) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/payment/${orderId}`);
+      setOrders(orders.filter(order => order._id !== orderId));
+      setConfirmedOrders(confirmedOrders.filter(id => id !== orderId));
+    } catch (error) {
+      console.error('Error deleting order:', error);
+    }
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
@@ -94,6 +104,7 @@ export default function Service_order_confirm() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-teal-100 text-gray-800 uppercase text-sm leading-normal">
+                    <th className="border-b border-gray-200 p-6">Booking ID</th>
                     <th className="border-b border-gray-200 p-6">Customer Email</th>
                     <th className="border-b border-gray-200 p-6">Services Title</th>
                     <th className="border-b border-gray-200 p-6">Customer Name</th>
@@ -107,6 +118,7 @@ export default function Service_order_confirm() {
                 <tbody>
                   {orders.map((order) => (
                     <tr key={order._id} className="hover:bg-teal-50 text-gray-700 text-sm">
+                      <td className="border-b border-gray-200 p-6">{order.bookId}</td>
                       <td className="border-b border-gray-200 p-6">{order.customerEmail}</td>
                       <td className="border-b border-gray-200 p-6">{order.bookTitle}</td>
                       <td className="border-b border-gray-200 p-6">{order.customerName}</td>
@@ -114,9 +126,14 @@ export default function Service_order_confirm() {
                       <td className="border-b border-gray-200 p-6">{order.customerPhone}</td>
                       <td className="border-b border-gray-200 p-6 font-semibold text-teal-600">${order.totalPrice.toFixed(2)}</td>
                       <td className="border-b border-gray-200 p-6">{order.bankName}</td>
-                      <td className="border-b border-gray-200 p-6">
+                      <td className="border-b border-gray-200 p-6 flex space-x-2">
                         {confirmedOrders.includes(order._id) ? (
-                          <button className="px-6 py-3 bg-gray-400 text-white rounded-lg cursor-not-allowed">Done</button>
+                          <>
+                            <button className="px-6 py-3 bg-gray-400 text-white rounded-lg cursor-not-allowed">Done</button>
+                            <button onClick={() => handleDeleteOrder(order._id)} className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                              <FaTrash />
+                            </button>
+                          </>
                         ) : (
                           <button onClick={() => handleConfirmOrder(order)} className="px-6 py-3 bg-teal-500 text-white rounded-lg hover:bg-teal-600">Send to Collector</button>
                         )}
