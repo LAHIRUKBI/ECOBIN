@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaHome, FaBox, FaPlus  } from 'react-icons/fa';
+import { FaHome, FaBox, FaPlus, FaEye  } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -42,6 +42,9 @@ export default function Collect_manager_home() {
           </button>
           <button onClick={() => navigate('/Collect_add_reusable')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaPlus  className="mr-3" /> Add Reusables
+          </button>
+          <button onClick={() => navigate('/Collect_view_lists')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+            <FaEye  className="mr-3" /> View Reusables
           </button>
         </nav>
       </aside>

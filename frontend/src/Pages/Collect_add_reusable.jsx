@@ -46,22 +46,33 @@ export default function Collect_add_reusable() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if all required fields are filled
     if (!formData.date) {
       alert('Please select a collection date.');
       return;
     }
 
-    try {
-      // Sending the data to the backend
-      const response = await axios.post('http://localhost:3000/api/reuse/add', formData);
-      console.log('Response from server:', response);
-      alert('Data added successfully!');
-    } catch (error) {
-      console.error('Error submitting data:', error);
-      alert('There was an error submitting the data.');
+    for (const category in formData) {
+        if (formData[category].available && (formData[category].amount === '' || formData[category].amount === 0)) {
+            alert(`Please enter a valid amount for ${category} or mark it as Not available.`);
+            return;
+        }
     }
-  };
+
+    try {
+        const response = await axios.post('http://localhost:3000/api/reuse/add', formData);
+        console.log('Response from server:', response);
+        alert('Data added successfully!');
+        
+        // Navigate to Collect Manager Home after successful submission
+        navigate('/collectmanagerhome');
+        
+    } catch (error) {
+        console.error('Error submitting data:', error);
+        alert('There was an error submitting the data.');
+    }
+};
+
+
 
   const getUnitOptions = (category) => {
     switch (category) {

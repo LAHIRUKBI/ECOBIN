@@ -41,3 +41,13 @@ export const addReusable = async (req, res) => {
     }
   };
   
+
+  export const getReusables = async (req, res) => {
+    try {
+      const reusables = await Reuse.find();  // Fetch all reusable data from the database
+      res.status(200).json(reusables);  // Return the list as a JSON response
+    } catch (error) {
+      console.error('Error fetching reusables:', error);
+      res.status(500).json({ message: 'There was an error fetching the data.' });
+    }
+  };
