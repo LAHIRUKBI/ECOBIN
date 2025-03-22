@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaHome, FaBox, FaPlus, FaEye } from 'react-icons/fa';
+import { FaHome, FaBox, FaPlus, FaEye, FaTrash, FaEdit } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 export default function Collect_view_lists() {
@@ -9,7 +9,6 @@ export default function Collect_view_lists() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch the reusable materials data from the backend
     const fetchReusables = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/reuse/list');
@@ -24,9 +23,26 @@ export default function Collect_view_lists() {
     fetchReusables();
   }, []);
 
+  // Handle deletion
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/reuse/delete/${id}`);
+      setReusables(reusables.filter((item) => item._id !== id));
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+  };
+
+
+
+  
+
   if (loading) {
     return <div>Loading...</div>;
   }
+
+
+
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -69,7 +85,7 @@ export default function Collect_view_lists() {
                 <h2 className="text-xl font-semibold text-green-600">Collection Date: {new Date(item.date).toLocaleDateString()}</h2>
                 <div className="mt-4">
                   {Object.keys(item).map((category) => {
-                    if (category !== 'date') {
+                    if (category !== 'date' && category !== '_id' && category !== '__v') {
                       return (
                         <div key={category} className="flex justify-between items-center">
                           <span className="font-medium capitalize">{category}:</span>
@@ -81,6 +97,23 @@ export default function Collect_view_lists() {
                     }
                     return null;
                   })}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex justify-between mt-4">
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    className="bg-red-500 text-white px-4 py-2 rounded-md flex items-center space-x-2 hover:bg-red-600 transition"
+                  >
+                    <FaTrash /> <span>Delete</span>
+                  </button>
+                  <button
+  onClick={() => navigate(`/Collect_list_update/${item._id}`)}
+  className="bg-blue-500 text-white px-4 py-2 rounded-md flex items-center space-x-2 hover:bg-blue-600 transition"
+>
+  <FaEdit /> <span>Update</span>
+</button>
+
                 </div>
               </div>
             ))}

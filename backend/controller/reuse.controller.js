@@ -51,3 +51,35 @@ export const addReusable = async (req, res) => {
       res.status(500).json({ message: 'There was an error fetching the data.' });
     }
   };
+
+
+  export  const deleteItem = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await Reuse.findByIdAndDelete(id);
+        res.status(200).json({ message: 'Item deleted successfully!' });
+    } catch (error) {
+        console.error('Error deleting item:', error);
+        res.status(500).json({ message: 'Error deleting item.' });
+    }
+};
+
+
+export const updateItem = async (req, res) => {
+  try {
+      const { id } = req.params;
+      const updateData = req.body;
+
+      // Ensure valid fields are being updated
+      const updatedItem = await Reuse.findByIdAndUpdate(id, updateData, { new: true });
+
+      if (!updatedItem) {
+          return res.status(404).json({ message: 'Item not found.' });
+      }
+
+      res.status(200).json({ message: 'Item updated successfully!', data: updatedItem });
+  } catch (error) {
+      console.error('Error updating item:', error);
+      res.status(500).json({ message: 'Error updating item.' });
+  }
+};
