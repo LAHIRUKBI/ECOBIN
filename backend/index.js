@@ -7,6 +7,7 @@ import userRouter from "./route/signup.route.js";
 import employeeRouter from './route/employee.route.js';
 import productRouter from './route/product.route.js';
 import paymentRouter from './route/payment.route.js';
+import confirmRouter from './route/confirm.route.js';
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use("/api/signup", userRouter);
 app.use('/api/employees', employeeRouter);
 app.use('/api/products', productRouter);
 app.use('/api/payment', paymentRouter);
+app.use('/api/confirm', confirmRouter);
 
 
 
