@@ -37,7 +37,7 @@ export default function Employee_Update_profile() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-50 to-green-200 py-12 px-6">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br py-12 px-6">
       <div className="bg-white shadow-xl rounded-2xl p-10 w-full max-w-lg border border-green-300">
         {/* Header */}
         <div className="flex items-center justify-center mb-8">
