@@ -120,3 +120,35 @@ export const getEmployeeCount = async (req, res) => {
     res.status(500).json({ message: "Error fetching employee count" });
   }
 };
+
+
+export const getEmployeeById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const employee = await Employee.findById(id);
+    if (!employee) {
+      return res.status(404).json({ success: false, message: 'Employee not found' });
+    }
+    res.status(200).json(employee);
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
+  }
+};
+
+// Update an employee by ID
+export const updateEmployee = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedData = req.body;
+
+    const employee = await Employee.findByIdAndUpdate(id, updatedData, { new: true });
+
+    if (!employee) {
+      return res.status(404).json({ success: false, message: 'Employee not found' });
+    }
+
+    res.status(200).json({ success: true, message: 'Employee updated successfully', data: employee });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
+  }
+};

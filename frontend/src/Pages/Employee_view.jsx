@@ -32,6 +32,11 @@ export default function Employee_view() {
     }
   };
 
+
+  const handleUpdate = (id) => {
+    navigate(`/Employee_update/${id}`);
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
@@ -108,6 +113,12 @@ export default function Employee_view() {
                 >
                   Remove
                 </button>
+                <button
+                      onClick={() => handleUpdate(employee._id)}
+                      className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                    >
+                      Update
+                    </button>
               </div>
             </div>
           ))}

@@ -28,6 +28,7 @@ import Employee_Update_profile from './Pages/Employee_Update_profile'
 import User_view from './Pages/User_view'
 import Product_home from './Pages/Product_home'
 import Collect_manager_home from './Pages/Collect_manager_home'
+import Employee_update from './Pages/Employee_update'
 
 export default function App() {
   return (
@@ -63,6 +64,7 @@ export default function App() {
       <Route path="/producthome" element={<Product_home />} />
 
       <Route path="/Collect_manager_home" element={<Collect_manager_home />} />
+      <Route path="/Employee_update/:id" element={<Employee_update />} />
 
       
 
