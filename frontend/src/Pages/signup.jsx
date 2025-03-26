@@ -36,9 +36,18 @@ export default function Signup() {
   }, []);
 
   const handleChange = (e) => {
+    const { id, value } = e.target;
+  
+    if (id === "phone") {
+      // Allow only numbers and limit to 10 digits
+      if (!/^\d*$/.test(value) || value.length > 10) {
+        return; // Prevent invalid input
+      }
+    }
+  
     setFormData({
       ...formData,
-      [e.target.id]: e.target.value,
+      [id]: value,
     });
   };
 
@@ -120,11 +129,24 @@ export default function Signup() {
               <input type="password" id="password" className="w-full p-3 border rounded text-sm md:text-base"
                 placeholder="Password" onChange={handleChange} required />
             </div>
-            <div className="mb-4 flex items-center">
-              <FaPhoneAlt className="text-gray-600 mr-3 text-lg" />
-              <input type="tel" id="phone" className="w-full p-3 border rounded text-sm md:text-base"
-                placeholder="Phone" onChange={handleChange} required />
-            </div>
+            <div className="mb-4 flex flex-col">
+  <div className="flex items-center">
+    <FaPhoneAlt className="text-gray-600 mr-3 text-lg" />
+    <input
+      type="tel"
+      id="phone"
+      className="w-full p-3 border rounded text-sm md:text-base"
+      placeholder="Phone"
+      value={formData.phone}
+      onChange={handleChange}
+      required
+    />
+  </div>
+  {formData.phone.length > 0 && formData.phone.length < 10 && (
+    <span className="text-red-500 text-sm">Phone number must be exactly 10 digits.</span>
+  )}
+</div>
+
             <div className="mb-4 flex items-center">
               <FaMapMarkedAlt className="text-gray-600 mr-3 text-lg" />
               <input type="text" id="address" className="w-full p-3 border rounded text-sm md:text-base"
