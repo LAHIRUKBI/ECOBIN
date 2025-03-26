@@ -43,8 +43,8 @@ export default function ServiceView() {
         <div className="flex items-center space-x-4 border-b border-green-300 pb-4">
           <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-14 h-14 object-cover" />
           <div>
-            <h2 className="text-xl font-semibold">Welcome, {staffName}</h2>
-            <p className="text-gray-200 text-sm">Dashboard</p>
+          <h2 className="text-xl font-semibold">{staffName}</h2>
+          <p className="text-gray-300 text-sm">Service Manager</p>
           </div>
         </div>
         <nav className="mt-6 flex flex-col space-y-4">

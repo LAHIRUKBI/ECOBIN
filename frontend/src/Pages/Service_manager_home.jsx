@@ -46,8 +46,7 @@ export default function Service_manager_home() {
           </div>
           <div>
           <h2 className="text-xl font-semibold">{staffName}</h2>
-            
-            <p className="text-gray-300 text-sm">Service Manager</p>
+          <p className="text-gray-300 text-sm">Service Manager</p>
           </div>
         </div>
         <nav className="mt-6 flex flex-col space-y-4">
