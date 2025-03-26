@@ -25,7 +25,17 @@ export default function Employee_register() {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "name") {
+      if (!/^[a-zA-Z\s]*$/.test(value)) return; // Allow only letters and spaces
+    }
+
+    if (name === "phoneNumber") {
+      if (!/^\d*$/.test(value) || value.length > 10) return; // Allow only numbers, max length 10
+    }
+
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -46,28 +56,67 @@ export default function Employee_register() {
     <div className="flex min-h-screen bg-green-50">
       {/* Sidebar */}
       <aside className="w-72 bg-green-700 text-white shadow-lg p-6 flex flex-col">
-              <div className="p-6 border-b border-indigo-400">
-                <div className="flex items-center space-x-4">
-                  <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center">
-                    <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
-                  </div>
-                  <div>
-                    <h2 className="text-xl font-semibold">Admin</h2>
-                    <p className="text-gray-300 text-sm">Admin Dashboard</p>
-                  </div>
-                </div>
-              </div>
-      
-              <nav className="mt-6">
-                <ul className="space-y-4">
-                  <li className="flex items-center p-4 hover:bg-green-600 rounded-md transition" onClick={() => navigate("/adminhome")}> <FaUserPlus className="text-white text-lg mr-3" /> <span className="font-medium">Admin Home</span></li>
-                  <li className="flex items-center p-4 bg-green-600 rounded-md transition" onClick={() => navigate("/employeeregister")}> <FaUserPlus className="text-white text-lg mr-3" /> <span className="font-medium">Register Employee</span></li>
-                  <li className="flex items-center p-4 hover:bg-green-600 rounded-md transition" onClick={() => navigate("/employeeview")}> <FaUsers className="text-white text-lg mr-3" /> <span className="font-medium">View Employees</span></li>
-                  <li className="flex items-center p-4 hover:bg-green-600 rounded-md transition" onClick={() => navigate("/userview")}> <FaUsers className="text-white text-lg mr-3" /> <span className="font-medium">View Users</span></li>
-                  <li className="flex items-center p-4 hover:bg-green-600 rounded-md transition" onClick={() => navigate("/order")}> <FaClipboardList className="text-white text-lg mr-3" /> <span className="font-medium">View Orders</span></li>
-                </ul>
-              </nav>
-            </aside>
+        <div className="p-6 border-b border-indigo-400">
+          <div className="flex items-center space-x-4">
+            <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center">
+              <img
+                src="src/images/profilelogo.png"
+                alt="Profile Icon"
+                className="rounded-full w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold">Admin</h2>
+              <p className="text-gray-300 text-sm">Admin Dashboard</p>
+            </div>
+          </div>
+        </div>
+
+        <nav className="mt-6">
+          <ul className="space-y-4">
+            <li
+              className="flex items-center p-4 hover:bg-green-600 rounded-md transition"
+              onClick={() => navigate("/adminhome")}
+            >
+              {" "}
+              <FaUserPlus className="text-white text-lg mr-3" />{" "}
+              <span className="font-medium">Admin Home</span>
+            </li>
+            <li
+              className="flex items-center p-4 bg-green-600 rounded-md transition"
+              onClick={() => navigate("/employeeregister")}
+            >
+              {" "}
+              <FaUserPlus className="text-white text-lg mr-3" />{" "}
+              <span className="font-medium">Register Employee</span>
+            </li>
+            <li
+              className="flex items-center p-4 hover:bg-green-600 rounded-md transition"
+              onClick={() => navigate("/employeeview")}
+            >
+              {" "}
+              <FaUsers className="text-white text-lg mr-3" />{" "}
+              <span className="font-medium">View Employees</span>
+            </li>
+            <li
+              className="flex items-center p-4 hover:bg-green-600 rounded-md transition"
+              onClick={() => navigate("/userview")}
+            >
+              {" "}
+              <FaUsers className="text-white text-lg mr-3" />{" "}
+              <span className="font-medium">View Users</span>
+            </li>
+            <li
+              className="flex items-center p-4 hover:bg-green-600 rounded-md transition"
+              onClick={() => navigate("/order")}
+            >
+              {" "}
+              <FaClipboardList className="text-white text-lg mr-3" />{" "}
+              <span className="font-medium">View Orders</span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
 
       {/* Main Content */}
       <main className="flex-1 p-8">
@@ -113,6 +162,7 @@ export default function Employee_register() {
                     placeholder="Enter Name"
                     className="w-full bg-transparent focus:outline-none focus:ring-2 focus:ring-green-500"
                     onChange={handleChange}
+                    value={formData.name} // Ensure controlled input
                   />
                 </div>
                 <div className="flex items-center gap-4 bg-gray-100 p-3 rounded-md shadow-lg">
@@ -139,6 +189,8 @@ export default function Employee_register() {
                     placeholder="Enter Phone Number"
                     className="w-full bg-transparent focus:outline-none focus:ring-2 focus:ring-green-500"
                     onChange={handleChange}
+                    value={formData.phoneNumber} // Ensure controlled input
+                    maxLength="10"
                   />
                 </div>
                 <div className="flex items-center gap-4 bg-gray-100 p-3 rounded-md shadow-lg">
