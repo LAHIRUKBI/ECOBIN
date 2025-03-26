@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { FaRecycle, FaDollarSign, FaStar, FaClock, FaCheckCircle, FaEye, FaPlus, FaHome, FaTrash } from 'react-icons/fa';
+import { FaRecycle, FaStar, FaClock, FaCheckCircle, FaEye, FaPlus, FaHome, FaTrash } from 'react-icons/fa';
 
 export default function ServiceView() {
   const [products, setProducts] = useState([]);
@@ -52,10 +52,10 @@ export default function ServiceView() {
             <FaHome className="mr-3" /> Home
           </button>
           <button onClick={() => navigate('/Service_add')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
-            <FaPlus className="mr-3" /> Add Product
+            <FaPlus className="mr-3" /> Add Service
           </button>
           <button onClick={() => navigate('/Service_view')} className="flex items-center p-4 bg-green-600 rounded-md transition">
-            <FaEye className="mr-3" /> View Products
+            <FaEye className="mr-3" /> View Services
           </button>
           <button onClick={() => navigate('/Service_order_confirm')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaCheckCircle className="mr-3" /> View Confirm Orders
@@ -91,8 +91,8 @@ export default function ServiceView() {
                     <p className="text-sm text-gray-600 mb-4">{product.introduction}</p>
                     
                     <div className="flex justify-around w-full text-gray-700 mb-4">
-                      <span className="flex items-center font-bold">
-                        <FaDollarSign className="text-green-600 mr-2" /> ${product.price}
+                      <span className="flex items-center font-bold text-lg text-green-700">
+                         RS {product.price}
                       </span>
                       <span className="flex items-center font-semibold">
                         <FaClock className="text-green-600 mr-2" /> {product.serviceTime}

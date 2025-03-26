@@ -70,10 +70,10 @@ export default function Service_add() {
             <FaHome className="mr-3" /> Home
           </button>
           <button onClick={() => navigate('/Service_add')} className="flex items-center p-4 bg-green-600 rounded-md transition">
-            <FaPlus className="mr-3" /> Add Product
+            <FaPlus className="mr-3" /> Add Service
           </button>
           <button onClick={() => navigate('/Service_view')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
-            <FaEye className="mr-3" /> View Products
+            <FaEye className="mr-3" /> View Services
           </button>
           <button onClick={() => navigate('/Service_order_confirm')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaCheckCircle className="mr-3" /> View Confirm Orders
