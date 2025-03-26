@@ -39,64 +39,28 @@ export default function User_view() {
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <aside className="w-72 bg-green-700 text-white shadow-lg p-6 flex flex-col">
-        {/* Profile Section */}
-        <div className="p-6 border-b border-indigo-400">
-          <div className="flex items-center space-x-4">
-          <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center">
-              <img
-                src="src/images/profilelogo.png"
-                alt="Profile Icon"
-                className="rounded-full w-full h-full object-cover"
-              />
-            </div>
-            <div>
-              <h2 className="text-xl font-semibold">Admin</h2>
-              <p className="text-gray-300 text-sm">Admin Dashboard</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Navigation Menu */}
-        <nav className="mt-6">
-          <ul className="space-y-4">
-            <li
-              className="flex items-center p-4 hover:bg-green-600 rounded-md transition"
-              onClick={() => navigate("/adminhome")}
-            >
-              <FaUserPlus className="text-white text-lg mr-3" />
-              <span className="font-medium">Admin Home</span>
-            </li>
-            <li
-              className="flex items-center p-4 hover:bg-green-600 rounded-md transition"
-              onClick={() => navigate("/employeeregister")}
-            >
-              <FaUserPlus className="text-white text-lg mr-3" />
-              <span className="font-medium">Register Employee</span>
-            </li>
-            <li
-              className="flex items-center p-4 hover:bg-green-600 rounded-md transition"
-              onClick={() => navigate("/employeeview")}
-            >
-              <FaUsers className="text-white text-lg mr-3" />
-              <span className="font-medium">View Employees</span>
-            </li>
-            <li
-              className="flex items-center p-4 bg-green-600 rounded-md transition"
-              onClick={() => navigate("/userview")}
-            >
-              <FaUsers className="text-white text-lg mr-3" />
-              <span className="font-medium">View Users</span>
-            </li>
-            <li
-              className="flex items-center p-4 hover:bg-green-600 rounded-md transition"
-              onClick={() => navigate("/order")}
-            >
-              <FaClipboardList className="text-white text-lg mr-3" />
-              <span className="font-medium">View Orders</span>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+              <div className="p-6 border-b border-indigo-400">
+                <div className="flex items-center space-x-4">
+                  <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center">
+                    <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-semibold">Admin</h2>
+                    <p className="text-gray-300 text-sm">Admin Dashboard</p>
+                  </div>
+                </div>
+              </div>
+      
+              <nav className="mt-6">
+                <ul className="space-y-4">
+                  <li className="flex items-center p-4 hover:bg-green-600 rounded-md transition" onClick={() => navigate("/adminhome")}> <FaUserPlus className="text-white text-lg mr-3" /> <span className="font-medium">Admin Home</span></li>
+                  <li className="flex items-center p-4 hover:bg-green-600 rounded-md transition" onClick={() => navigate("/employeeregister")}> <FaUserPlus className="text-white text-lg mr-3" /> <span className="font-medium">Register Employee</span></li>
+                  <li className="flex items-center p-4 hover:bg-green-600 rounded-md transition" onClick={() => navigate("/employeeview")}> <FaUsers className="text-white text-lg mr-3" /> <span className="font-medium">View Employees</span></li>
+                  <li className="flex items-center p-4 bg-green-600 rounded-md transition" onClick={() => navigate("/userview")}> <FaUsers className="text-white text-lg mr-3" /> <span className="font-medium">View Users</span></li>
+                  <li className="flex items-center p-4 hover:bg-green-600 rounded-md transition" onClick={() => navigate("/order")}> <FaClipboardList className="text-white text-lg mr-3" /> <span className="font-medium">View Orders</span></li>
+                </ul>
+              </nav>
+            </aside>
 
       {/* Main Content */}
       <main className="flex-1 p-8">

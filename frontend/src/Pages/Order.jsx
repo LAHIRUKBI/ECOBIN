@@ -93,7 +93,6 @@ export default function Order() {
               <p className="text-gray-600"><strong>Address:</strong> {payment.customerAddress}</p>
               <p className="text-gray-600"><strong>Phone:</strong> {payment.customerPhone}</p>
               <p className="text-gray-600"><strong>Total Price:</strong> ${payment.totalPrice}</p>
-              <p className="text-gray-600"><strong>Quantity:</strong> {payment.quantity}</p>
               <p className="text-gray-600"><strong>Bank Name:</strong> {payment.bankName}</p>
               <div className="mt-4">
                 <button onClick={() => handleDeletePayment(payment._id)} className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md transition-transform transform hover:scale-105">Delete</button>
