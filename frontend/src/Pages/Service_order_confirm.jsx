@@ -89,7 +89,7 @@ export default function Service_order_confirm() {
           <button onClick={() => navigate('/Service_view')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaEye className="mr-3" /> View Products
           </button>
-          <button onClick={() => navigate('/Service_order_confirm')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+          <button onClick={() => navigate('/Service_order_confirm')} className="flex items-center p-4 bg-green-600 rounded-md transition">
             <FaCheckCircle className="mr-3" /> View Confirm Orders
           </button>
         </nav>

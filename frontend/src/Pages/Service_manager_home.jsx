@@ -51,7 +51,7 @@ export default function Service_manager_home() {
           </div>
         </div>
         <nav className="mt-6 flex flex-col space-y-4">
-          <button onClick={() => navigate('/Service_manager_home')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+          <button onClick={() => navigate('/Service_manager_home')} className="flex items-center p-4 bg-green-600 rounded-md transition">
             <FaHome className="mr-3" /> Home
           </button>
           <button onClick={() => navigate('/Service_add')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">

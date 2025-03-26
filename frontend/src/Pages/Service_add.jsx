@@ -68,7 +68,7 @@ export default function Service_add() {
           <button onClick={() => navigate('/Service_manager_home')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
             <FaHome className="mr-3" /> Home
           </button>
-          <button onClick={() => navigate('/Service_add')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+          <button onClick={() => navigate('/Service_add')} className="flex items-center p-4 bg-green-600 rounded-md transition">
             <FaPlus className="mr-3" /> Add Product
           </button>
           <button onClick={() => navigate('/Service_view')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
