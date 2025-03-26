@@ -110,10 +110,22 @@ export default function Service_add() {
             )}
 
             <div className="grid grid-cols-3 gap-4">
-              <div>
-                <label className="text-green-900 font-semibold flex items-center gap-2"><FaDollarSign /> Price ($)</label>
-                <input type="number" className="w-full p-3 border rounded-lg focus:ring-green-500" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} required />
-              </div>
+            <div>
+  <label className="text-green-900 font-semibold flex items-center gap-2"> Price (LKR)</label>
+  <input 
+    type="number" 
+    className="w-full p-3 border rounded-lg focus:ring-green-500" 
+    value={formData.price} 
+    onChange={(e) => {
+      const value = e.target.value;
+      if (value >= 0 || value === '') { // Ensures only non-negative values are set
+        setFormData({ ...formData, price: value });
+      }
+    }} 
+    required 
+  />
+</div>
+
               <div>
                 <label className="text-green-900 font-semibold flex items-center gap-2"><FaClock /> Service Time (Days)</label>
                 <select className="w-full p-3 border rounded-lg focus:ring-green-500" value={formData.serviceTime} onChange={(e) => setFormData({ ...formData, serviceTime: e.target.value })} required>
