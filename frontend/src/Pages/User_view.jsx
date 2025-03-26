@@ -60,35 +60,35 @@ export default function User_view() {
         <nav className="mt-6">
           <ul className="space-y-4">
             <li
-              className="flex items-center p-4 hover:bg-indigo-500 rounded-md cursor-pointer transition-all"
+              className="flex items-center p-4 hover:bg-green-600 rounded-md transition"
               onClick={() => navigate("/adminhome")}
             >
               <FaUserPlus className="text-white text-lg mr-3" />
               <span className="font-medium">Admin Home</span>
             </li>
             <li
-              className="flex items-center p-4 hover:bg-indigo-500 rounded-md cursor-pointer transition-all"
+              className="flex items-center p-4 hover:bg-green-600 rounded-md transition"
               onClick={() => navigate("/employeeregister")}
             >
               <FaUserPlus className="text-white text-lg mr-3" />
               <span className="font-medium">Register Employee</span>
             </li>
             <li
-              className="flex items-center p-4 hover:bg-indigo-500 rounded-md cursor-pointer transition-all"
+              className="flex items-center p-4 hover:bg-green-600 rounded-md transition"
               onClick={() => navigate("/employeeview")}
             >
               <FaUsers className="text-white text-lg mr-3" />
               <span className="font-medium">View Employees</span>
             </li>
             <li
-              className="flex items-center p-4 hover:bg-indigo-500 rounded-md cursor-pointer transition-all"
+              className="flex items-center p-4 bg-green-600 rounded-md transition"
               onClick={() => navigate("/userview")}
             >
               <FaUsers className="text-white text-lg mr-3" />
               <span className="font-medium">View Users</span>
             </li>
             <li
-              className="flex items-center p-4 hover:bg-indigo-500 rounded-md cursor-pointer transition-all"
+              className="flex items-center p-4 hover:bg-green-600 rounded-md transition"
               onClick={() => navigate("/order")}
             >
               <FaClipboardList className="text-white text-lg mr-3" />
