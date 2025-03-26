@@ -75,8 +75,8 @@ export default function Service_order_confirm() {
             <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold">Welcome, {staffName}</h2>
-            <p className="text-gray-300 text-sm">Dashboard</p>
+          <h2 className="text-xl font-semibold">{staffName}</h2>
+          <p className="text-gray-300 text-sm">Service Manager</p>
           </div>
         </div>
         <nav className="mt-6 flex flex-col space-y-4">
