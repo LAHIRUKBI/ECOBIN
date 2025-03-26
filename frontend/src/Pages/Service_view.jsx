@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { FaRecycle, FaDollarSign, FaStar, FaClock, FaCheckCircle, FaEye, FaPlus, FaHome } from 'react-icons/fa';
+import { FaRecycle, FaDollarSign, FaStar, FaClock, FaCheckCircle, FaEye, FaPlus, FaHome, FaTrash } from 'react-icons/fa';
 
 export default function ServiceView() {
   const [products, setProducts] = useState([]);
@@ -24,6 +24,17 @@ export default function ServiceView() {
     };
     fetchProducts();
   }, []);
+
+  const handleDelete = async (productId) => {
+    if (!window.confirm("Are you sure you want to delete this product?")) return;
+
+    try {
+      await axios.delete(`http://localhost:3000/api/products/${productId}`);
+      setProducts(products.filter((product) => product._id !== productId));
+    } catch (error) {
+      alert("Failed to delete the product.");
+    }
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -72,7 +83,7 @@ export default function ServiceView() {
 
                     {/* Product Image */}
                     {product.image && (
-                      <img src={`http://localhost:3000/${product.image}`} alt={product.type} className="w-40 h-40 object-cover rounded-lg mb-4" />
+                      <img src={`http://localhost:3000/${product.image}`} alt={product.type} className="w-70 h-40 object-cover rounded-lg mb-4" />
                     )}
 
                     {/* Details */}
@@ -96,8 +107,11 @@ export default function ServiceView() {
                       <Link to={`/Service_update/${product._id}`} className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold shadow-md transition-all">
                         Update
                       </Link>
-                      <button className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg font-semibold shadow-md transition-all">
-                        Delete
+                      <button 
+                        onClick={() => handleDelete(product._id)}
+                        className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg font-semibold shadow-md transition-all flex items-center justify-center"
+                      >
+                        <FaTrash className="mr-2" /> Delete
                       </button>
                     </div>
                   </div>

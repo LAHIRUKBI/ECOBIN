@@ -20,8 +20,9 @@ export default function Service_add() {
   const staffName = localStorage.getItem('staffName');
 
   const serviceCategories = {
-    "Waste Collection": ["Residential Collection", "Commercial Collection", "Bulk Waste Pickup", "Special Waste Collection"],
-    "Recycling Services": ["Plastic Recycling", "Paper Recycling", "Metal Recycling", "Electronic Waste Recycling", "Glass Recycling"],
+    "Waste Collection Services": ["Residential Collection", "Commercial Collection", "Bulk Waste Pickup", "Special Waste Collection","Medical Waste Disposal","Street & Public Space Waste Collection"],
+    "Recycling Services": ["Plastic Recycling", "Paper Recycling", "Metal Recycling", "Electronic Waste Recycling", "Glass Recycling","Textile Recycling (Clothing, Fabric Waste)","Used Cooking Oil Recycling","Furniture Recycling"],
+    "Special Waste Handling": ["Oil & Grease Trap Cleaning", "Scrap Vehicle Parts and All Vehicle Raw Materials"],
   };
 
   const handleSubmit = async (e) => {
