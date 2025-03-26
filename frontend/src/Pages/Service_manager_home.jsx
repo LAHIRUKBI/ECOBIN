@@ -45,9 +45,9 @@ export default function Service_manager_home() {
             <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
           </div>
           <div>
-          <h2 className="text-xl font-semibold">Welcome, {staffName}</h2>
+          <h2 className="text-xl font-semibold">{staffName}</h2>
             
-            <p className="text-gray-300 text-sm">Dashboard</p>
+            <p className="text-gray-300 text-sm">Service Manager</p>
           </div>
         </div>
         <nav className="mt-6 flex flex-col space-y-4">
@@ -71,7 +71,7 @@ export default function Service_manager_home() {
         <div className="max-w-5xl w-full">
           {/* Overview Section */}
           <section className="text-center mb-16">
-            <h1 className="text-4xl font-bold text-teal-600 mb-4">Welcome to the Service Manager Dashboard</h1>
+            <h1 className="text-4xl font-bold text-teal-600 mb-4">Welcome to the {staffName}'s Dashboard</h1>
             <p className="text-lg text-gray-700">Manage services, add services, and add updates.</p>
           </section>
 
