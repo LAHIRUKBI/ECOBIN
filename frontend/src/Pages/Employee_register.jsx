@@ -71,7 +71,7 @@ export default function Employee_register() {
 
       {/* Main Content */}
       <main className="flex-1 p-8">
-        <div className="bg-white shadow-xl rounded-lg p-10 w-full max-w-5xl mx-auto">
+        <div className="bg-white shadow-2xl rounded-2xl p-10 w-full max-w-4xl mx-auto border-t-8 border-green-500">
           <h1 className="text-3xl font-bold text-green-800 mb-8 text-center border-b pb-4">
             Employee Registration
           </h1>
