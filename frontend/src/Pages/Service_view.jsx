@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { FaRecycle, FaStar, FaClock, FaCheckCircle, FaEye, FaPlus, FaHome, FaTrash } from 'react-icons/fa';
+import { FaRecycle, FaStar, FaClock, FaCheckCircle, FaEye, FaPlus, FaHome, FaTrash, FaSearch, FaFilePdf } from 'react-icons/fa';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export default function ServiceView() {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -16,6 +20,7 @@ export default function ServiceView() {
       try {
         const response = await axios.get('http://localhost:3000/api/products');
         setProducts(response.data.products);
+        setFilteredProducts(response.data.products);
       } catch (error) {
         setError('Error fetching products');
       } finally {
@@ -27,13 +32,44 @@ export default function ServiceView() {
 
   const handleDelete = async (productId) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
-
     try {
       await axios.delete(`http://localhost:3000/api/products/${productId}`);
-      setProducts(products.filter((product) => product._id !== productId));
+      const updatedProducts = products.filter((product) => product._id !== productId);
+      setProducts(updatedProducts);
+      setFilteredProducts(updatedProducts);
     } catch (error) {
       alert("Failed to delete the product.");
     }
+  };
+
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+    setFilteredProducts(products.filter((product) =>
+      product.type.toLowerCase().includes(query)
+    ));
+  };
+
+  const filterByType = (type) => {
+    setFilteredProducts(products.filter((product) => product.type === type));
+  };
+
+  const generateReport = (product) => {
+    const doc = new jsPDF();
+    doc.setFontSize(18);
+    doc.text("Service Report", 80, 10);
+
+    doc.setFontSize(14);
+    doc.text(`Service Type: ${product.type}`, 10, 30);
+    doc.text(`Main Category: ${product.mainCategory}`, 10, 40);
+    doc.text(`Price: RS ${product.price}`, 10, 50);
+    doc.text(`Service Time: ${product.serviceTime}`, 10, 60);
+    doc.text(`Priority: ${product.priority}`, 10, 70);
+    doc.text(`Introduction:`, 10, 80);
+    doc.setFontSize(12);
+    doc.text(product.introduction, 10, 90, { maxWidth: 180 });
+
+    doc.save(`${product.type}_report.pdf`);
   };
 
   return (
@@ -43,8 +79,8 @@ export default function ServiceView() {
         <div className="flex items-center space-x-4 border-b border-green-300 pb-4">
           <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-14 h-14 object-cover" />
           <div>
-          <h2 className="text-xl font-semibold">{staffName}</h2>
-          <p className="text-gray-300 text-sm">Service Manager</p>
+            <h2 className="text-xl font-semibold">{staffName}</h2>
+            <p className="text-gray-300 text-sm">Service Manager</p>
           </div>
         </div>
         <nav className="mt-6 flex flex-col space-y-4">
@@ -66,14 +102,29 @@ export default function ServiceView() {
       {/* Main Content */}
       <main className="flex-1 py-12 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 text-green-700">Company Services</h2>
+          <h2 className="text-4xl font-bold text-center mb-6 text-green-700">Company Services</h2>
+
+          {/* Search Bar */}
+          <div className="mb-6 flex justify-center">
+            <div className="relative w-full max-w-md">
+              <input
+                type="text"
+                placeholder="Search by Service Type..."
+                value={searchQuery}
+                onChange={handleSearch}
+                className="w-full p-3 pl-10 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-green-500"
+              />
+              <FaSearch className="absolute left-3 top-3 text-gray-500" />
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
             {loading ? (
               <p className="text-center text-gray-500">Loading...</p>
             ) : error ? (
               <p className="text-center text-red-500">{error}</p>
-            ) : products.length > 0 ? (
-              products.map((product) => (
+            ) : filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
                 <div key={product._id} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
                   <div className="flex flex-col items-center text-center">
                     {/* Main Category */}
@@ -86,13 +137,18 @@ export default function ServiceView() {
                       <img src={`http://localhost:3000/${product.image}`} alt={product.type} className="w-70 h-40 object-cover rounded-lg mb-4" />
                     )}
 
-                    {/* Details */}
-                    <h4 className="text-xl font-semibold text-gray-800 mb-2">{product.type}</h4>
+                    {/* Clickable Service Type */}
+                    <h4
+                      onClick={() => filterByType(product.type)}
+                      className="text-xl font-semibold text-gray-800 mb-2 cursor-pointer hover:text-green-600"
+                    >
+                      {product.type}
+                    </h4>
                     <p className="text-sm text-gray-600 mb-4">{product.introduction}</p>
-                    
+
                     <div className="flex justify-around w-full text-gray-700 mb-4">
                       <span className="flex items-center font-bold text-lg text-green-700">
-                         RS {product.price}
+                        RS {product.price}
                       </span>
                       <span className="flex items-center font-semibold">
                         <FaClock className="text-green-600 mr-2" /> {product.serviceTime}
@@ -107,11 +163,11 @@ export default function ServiceView() {
                       <Link to={`/Service_update/${product._id}`} className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold shadow-md transition-all">
                         Update
                       </Link>
-                      <button 
-                        onClick={() => handleDelete(product._id)}
-                        className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg font-semibold shadow-md transition-all flex items-center justify-center"
-                      >
+                      <button onClick={() => handleDelete(product._id)} className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg font-semibold shadow-md transition-all">
                         <FaTrash className="mr-2" /> Delete
+                      </button>
+                      <button onClick={() => generateReport(product)} className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-semibold shadow-md transition-all">
+                        <FaFilePdf className="mr-2" /> Report
                       </button>
                     </div>
                   </div>
@@ -126,3 +182,4 @@ export default function ServiceView() {
     </div>
   );
 }
+  
