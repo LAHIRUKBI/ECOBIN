@@ -130,7 +130,7 @@ export default function Admin_Login() {
                   htmlFor="adminName"
                   className="block text-sm font-medium mb-2 text-green-800"
                 >
-                  Name:
+                  Admin Name:
                 </label>
                 <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
                   <FaIdCard className="text-green-400 mr-3" />
@@ -153,7 +153,7 @@ export default function Admin_Login() {
                   htmlFor="institutionID"
                   className="block text-sm font-medium mb-2 text-green-800"
                 >
-                  Institution ID:
+                  Admin ID:
                 </label>
                 <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
                   <FaBuilding className="text-green-400 mr-3" />
@@ -176,7 +176,7 @@ export default function Admin_Login() {
                   htmlFor="nic"
                   className="block text-sm font-medium mb-2 text-green-800"
                 >
-                  NIC Number:
+                  Admin NIC Number:
                 </label>
                 <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
                   <FaKey className="text-green-400 mr-3" />
