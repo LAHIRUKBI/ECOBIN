@@ -6,7 +6,7 @@ import axios from 'axios';
 export default function Service_manager_home() {
   const [totalProducts, setTotalProducts] = useState(0);
   const [outOfStock, setOutOfStock] = useState(0);
-  const [confirmedOrdersCount, setConfirmedOrdersCount] = useState(0);  // New state for confirmed orders count
+  const [confirmedOrdersCount, setConfirmedOrdersCount] = useState(0);  
   const navigate = useNavigate();
 
   const staffName = localStorage.getItem('staffName');

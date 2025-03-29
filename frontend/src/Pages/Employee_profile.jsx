@@ -28,7 +28,7 @@ export default function EmployeeProfile() {
   };
   const cancelLogout = () => setShowLogoutModal(false);
   const handleMyPayments = () => navigate("/mypayments");
-
+  const handleMyOrders = () => navigate("/myOrders");
   if (loading) {
     return <div className="flex items-center justify-center h-screen text-xl font-semibold">Loading...</div>;
   }
@@ -78,6 +78,9 @@ export default function EmployeeProfile() {
           </button>
           <button onClick={handleMyPayments} className="flex-grow px-6 py-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transform transition hover:scale-105">
             My Payments
+          </button>
+          <button onClick={handleMyOrders} className="flex-grow px-6 py-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transform transition hover:scale-105">
+            My Orders
           </button>
           <button onClick={handleLogout} className="flex-grow px-6 py-3 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transform transition hover:scale-105">
             Logout

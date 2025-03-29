@@ -29,6 +29,8 @@ import User_view from './Pages/User_view'
 import Product_home from './Pages/Product_home'
 import Collect_manager_home from './Pages/Collect_manager_home'
 import Employee_update from './Pages/Employee_update'
+import ProductManagerHome from './Pages/ProductManagerHome'
+import ItemAdd from './Pages/ItemAdd'
 
 export default function App() {
   return (
@@ -41,7 +43,7 @@ export default function App() {
       <Route path="/shop_workers_Login" element={<Shop_workers_Login />} />
       <Route path="/adminhome" element={<Admin_Home />} />
       <Route path="/employeeregister" element={<Employee_register />} />
-      
+
       <Route path="/stockmanagerregister" element={<Stockmanager_register />} />
       <Route path="/employeeview" element={<Employee_view />} />
       <Route path="/Service_manager_home" element={<Service_manager_home />} />
@@ -66,9 +68,8 @@ export default function App() {
       <Route path="/Collect_manager_home" element={<Collect_manager_home />} />
       <Route path="/Employee_update/:id" element={<Employee_update />} />
 
-      
-
-
+      <Route path="/ProductManagerHome" element={<ProductManagerHome />} />
+      <Route path="/addItem" element={<ItemAdd />} />
 
       
     </Routes>
