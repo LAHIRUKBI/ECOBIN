@@ -84,16 +84,6 @@ export const companyLogin = async (req, res) => {
   }
 };
 
-// Get all users
-export const getAllUsers = async (req, res) => {
-  try {
-    const users = await User.find();
-    res.status(200).json({ success: true, data: users });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error', error: error.message });
-  }
-};
-
 
 // Delete a user by ID
 export const deleteUser = async (req, res) => {

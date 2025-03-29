@@ -1,5 +1,5 @@
 import express from 'express';
-import { companyLogin, deleteEmployee, deleteUser, getAllEmployees, getAllUsers, getEmployeeById, getEmployeeCount, registerEmployee, updateEmployee } from '../controller/employee.controller.js';
+import { companyLogin, deleteEmployee, deleteUser, getAllEmployees, getEmployeeById, getEmployeeCount, registerEmployee, updateEmployee } from '../controller/employee.controller.js';
 
 const router = express.Router();
 
@@ -14,7 +14,6 @@ router.put('/:id', updateEmployee);
 
 
 // Route to get all users
-router.get('/users', getAllUsers);
 router.delete('/users/:id', deleteUser);
 
 
