@@ -75,7 +75,7 @@ export default function Product_update() {
         {["mainCategory", "type", "price", "introduction"].map((field) => (
           <div key={field} className="mb-4">
             <label htmlFor={field} className="block text-sm font-semibold text-gray-700">
-              {field.charAt(0).toUpperCase() + field.slice(1)}
+              {field.charAt(0).toUpperCase() + field.slice(1)} {field === "mainCategory" || field === "type" ? "(Read only)" : ""}
             </label>
             <input
               type={field === "price" ? "number" : "text"}
