@@ -1,9 +1,6 @@
 import User from '../model/signup.model.js';
 import bcrypt from 'bcrypt';
 
-
-
-
 // Signup method
 export const signup = async (req, res, next) => {
   console.log("Signup request received with data:", req.body);
@@ -56,11 +53,6 @@ export const signin = async (req, res) => {
 };
 
 
-
-
-
-
-
 export const getEmployeeDetailsByEmail = async (req, res) => {
   const { email } = req.params;
 
@@ -74,9 +66,6 @@ export const getEmployeeDetailsByEmail = async (req, res) => {
     res.status(500).json({ message: "Error fetching user details." });
   }
 };
-
-
-
 
 
 export const updateUserProfile = async (req, res) => {
