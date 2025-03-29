@@ -10,7 +10,7 @@ export default function User_view() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/employees/users");
+        const response = await axios.get("http://localhost:3000/api/signup/users");
         setUsers(response.data.data);
       } catch (error) {
         console.error("Error fetching users:", error);
