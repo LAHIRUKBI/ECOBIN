@@ -19,6 +19,10 @@ export default function Employee_Update_profile() {
   }, []);
 
   const handleUpdate = async () => {
+    if (phone.length !== 10) {
+      alert("Phone number must be exactly 10 digits.");
+      return;
+    }
     try {
       const response = await axios.put(
         `http://localhost:3000/api/signup/profile/${employee.email}`,
@@ -69,9 +73,15 @@ export default function Employee_Update_profile() {
               <input
                 type="text"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => {
+                  const input = e.target.value;
+                  if (/^\d{0,10}$/.test(input)) {
+                    setPhone(input);
+                  }
+                }}
                 className="w-full bg-transparent text-green-700 outline-none"
                 placeholder="Enter your phone number"
+                maxLength={10}
               />
             </div>
           </div>
