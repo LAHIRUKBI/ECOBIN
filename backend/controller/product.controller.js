@@ -68,10 +68,10 @@ export const getProducts = async (req, res) => {
   // Update product by ID
   export const updateProduct = async (req, res) => {
     try {
-      const { mainCategory, type, price, weight, introduction } = req.body;
+      const { mainCategory, type, price, weight, introduction,serviceTime } = req.body;
       const product = await Product.findByIdAndUpdate(
         req.params.id,
-        { mainCategory, type, price, weight, introduction },
+        { mainCategory, type, price, weight, introduction, serviceTime },
         { new: true } // Return the updated product
       );
   
