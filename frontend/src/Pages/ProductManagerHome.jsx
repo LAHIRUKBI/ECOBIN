@@ -88,7 +88,7 @@ function ProductManagerHome() {
                   <div className="flex flex-col items-center text-center">
                     {item.image && (
                       <img
-                        src={`http://localhost:3000/${item.image}`}
+                      src={`http://localhost:3000/uploads/${item.image}`}
                         alt={item.name}
                         className="w-70 h-40 object-cover rounded-lg mb-4"
                       />
@@ -98,8 +98,8 @@ function ProductManagerHome() {
                     <h4 className="text-xl font-semibold text-gray-800 mb-2">
                       {item.name}
                     </h4>
-                    <p className="text-sm text-gray-600 mb-4">
-                      {item.description}
+                    <p className="text-sm text-gray-600 mb-4" >
+                      {item.discription}
                     </p>
 
                     <div className="flex justify-around w-full text-gray-700 mb-4">
@@ -111,7 +111,7 @@ function ProductManagerHome() {
                     {/* Buttons */}
                     <div className="flex justify-between w-full space-x-2">
                       <Link
-                        to={`/Service_update/${item._id}`}
+                        to={`/updateItem/${item._id}`}
                         className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold shadow-md transition-all"
                       >
                         Update

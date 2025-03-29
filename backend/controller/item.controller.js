@@ -56,26 +56,53 @@ export const getItem = async (req, res) => {
 };
 
 // Update Item by ID
-export const updateItem = async (req, res) => {
-    try {
-        const { name, discription, price, userEmail } = req.body;
-        const updatedItem = await Item.findByIdAndUpdate(
-            req.params.id,
-            { name, discription, price, userEmail },
-            { new: true }
-        );
+export const updateItem = [
+    upload.single('image'),
+    async (req, res) => {
+        try {
+            const { name, discription, price, userEmail } = req.body;
+            
+            const updateData = {
+                name,
+                discription,
+                price,
+                userEmail
+            };
 
-        if (!updatedItem) {
-            return res.status(404).json({ message: "Item not found" });
+            // If a new image was uploaded
+            if (req.file) {
+                updateData.image = req.file.filename;
+                
+                // Delete the old image if it exists
+                const oldItem = await Item.findById(req.params.id);
+                if (oldItem && oldItem.image) {
+                    const oldImagePath = path.join(uploadsDir, oldItem.image);
+                    if (fs.existsSync(oldImagePath)) {
+                        fs.unlinkSync(oldImagePath);
+                    }
+                }
+            }
+
+            const updatedItem = await Item.findByIdAndUpdate(
+                req.params.id,
+                updateData,
+                { new: true }
+            );
+
+            if (!updatedItem) {
+                return res.status(404).json({ message: "Item not found" });
+            }
+
+            res.status(200).json({ 
+                message: "Item updated successfully", 
+                item: updatedItem 
+            });
+        } catch (error) {
+            console.error("Error updating item:", error);
+            res.status(500).json({ message: "Error updating item", error });
         }
-
-        res.status(200).json({ message: "Item updated successfully", item: updatedItem });
-    } catch (error) {
-        console.error("Error updating item:", error);
-        res.status(500).json({ message: "Error updating item", error });
     }
-};
-
+];
 // Delete Item
 export const deleteItem = async (req, res) => {
     try {

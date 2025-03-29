@@ -31,6 +31,7 @@ import Collect_manager_home from './Pages/Collect_manager_home'
 import Employee_update from './Pages/Employee_update'
 import ProductManagerHome from './Pages/ProductManagerHome'
 import ItemAdd from './Pages/ItemAdd'
+import UpdateItem from './Pages/UpdateItem'
 
 export default function App() {
   return (
@@ -70,7 +71,7 @@ export default function App() {
 
       <Route path="/ProductManagerHome" element={<ProductManagerHome />} />
       <Route path="/addItem" element={<ItemAdd />} />
-
+      <Route path="/updateItem/:id" element={<UpdateItem />} />
       
     </Routes>
     <Footer />
