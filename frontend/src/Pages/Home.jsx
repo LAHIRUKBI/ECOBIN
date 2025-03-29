@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaRecycle } from "react-icons/fa";
@@ -10,7 +11,7 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
-
+  const [resources, setResources] = useState([]);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -22,8 +23,18 @@ export default function Home() {
         setLoading(false);
       }
     };
+    const fetchResources = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/item");
+        setResources(response.data.item);
+      } catch (error) {
+        console.error("Error fetching resources:", error);
+        setError("Error fetching resources");
+      }
+    };
 
     fetchProducts();
+    fetchResources();
     setTimeout(() => {
       window.scrollTo({
         top: document.getElementById("introduction").offsetTop,
@@ -161,57 +172,48 @@ export default function Home() {
             Discover the power of sustainability and eco-friendly solutions
             through our curated educational content.
           </p>
-
-          {/* Card Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "The Importance of Recycling",
-                image: "src/images/pexels-vladvictoria-2682683.jpg",
-                description:
-                  "Learn how recycling contributes to reducing waste, conserving natural resources, and helping the environment.",
-                link: "/The Importance of Recycling",
-              },
-              {
-                title: "Eco-Friendly Living",
-                image: "src/images/Eco-Friendly Living.jpg",
-                description:
-                  "Explore the numerous benefits of adopting an eco-friendly lifestyle and how small changes can make a big impact.",
-                link: "/eco_friendly_living",
-              },
-              {
-                title: "Upcycling: Turning Waste Into Wealth",
-                image: "src/images/Upcycling Turning Waste Into Wealth.jpg",
-                description:
-                  "Discover the art of upcycling and how it can help transform waste materials into valuable, creative products.",
-                link: "/upcycling_waste",
-              },
-            ].map((resource, index) => (
-              <div
-                key={index}
-                className="group relative overflow-hidden rounded-xl shadow-lg bg-white p-6 border border-gray-200 transform transition-transform duration-500 hover:scale-105 hover:shadow-xl"
-              >
-                <div className="relative w-full h-56 overflow-hidden rounded-xl">
-                  <img
-                    src={resource.image}
-                    alt={resource.title}
-                    className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-                <h3 className="mt-6 text-2xl font-semibold text-gray-900 group-hover:text-green-600 transition duration-300">
-                  {resource.title}
-                </h3>
-                <p className="text-gray-600 mt-3 leading-relaxed">
-                  {resource.description}
-                </p>
-                <Link
-                  to={resource.link}
-                  className="mt-6 inline-block bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-full text-lg shadow-md transition-all duration-300 transform hover:-translate-y-1"
-                >
-                  Learn More
-                </Link>
+            {loading ? (
+              <div className="col-span-3 text-center text-gray-700">
+                Loading resources...
               </div>
-            ))}
+            ) : error ? (
+              <div className="col-span-3 text-center text-red-500">{error}</div>
+            ) : resources.length > 0 ? (
+              resources.map((resource) => (
+                <div
+                  key={resource._id}
+                  className="group relative overflow-hidden rounded-xl shadow-lg bg-white p-6 border border-gray-200 transform transition-transform duration-500 hover:scale-105 hover:shadow-xl"
+                >
+                  <div className="relative w-full h-56 overflow-hidden rounded-xl">
+                    <img
+                      src={`http://localhost:3000/uploads/${resource.image}`}
+                      alt={resource.name}
+                      className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  <h3 className="mt-6 text-2xl font-semibold text-gray-900 group-hover:text-green-600 transition duration-300">
+                    {resource.name}
+                  </h3>
+                  <p className="text-gray-600 mt-3 leading-relaxed">
+                    {resource.discription}
+                  </p>
+                  <div className="mt-4 text-lg font-bold text-green-700">
+                    Rs. {resource.price}
+                  </div>
+                  <Link
+                    to={`/product/${resource._id}`} // You might want to create a product detail page
+                    className="mt-6 inline-block bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-full text-lg shadow-md transition-all duration-300 transform hover:-translate-y-1"
+                  >
+                    Order
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-3 text-center text-gray-700">
+                No resources found
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -68,7 +68,7 @@ export default function App() {
 
       <Route path="/Collect_manager_home" element={<Collect_manager_home />} />
       <Route path="/Employee_update/:id" element={<Employee_update />} />
-
+      
       <Route path="/ProductManagerHome" element={<ProductManagerHome />} />
       <Route path="/addItem" element={<ItemAdd />} />
       <Route path="/updateItem/:id" element={<UpdateItem />} />
