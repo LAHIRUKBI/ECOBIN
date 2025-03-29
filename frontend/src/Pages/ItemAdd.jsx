@@ -6,12 +6,10 @@ import { FaClock, FaFlag, FaCamera, FaLayerGroup } from "react-icons/fa";
 import { FaPlus, FaEye } from "react-icons/fa";
 
 function ItemAdd() {
-  const userLogEmail = localStorage.getItem("email");
   const [formData, setFormData] = useState({
     name: "",
     discription: "",
     price: "",
-    userEmail: userLogEmail,
     image: null,
   });
 
@@ -34,7 +32,6 @@ function ItemAdd() {
         name: "",
         discription: "",
         price: "",
-        userEmail: userLogEmail,
         image: null,
       });
       window.location.reload();

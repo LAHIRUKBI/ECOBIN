@@ -22,9 +22,9 @@ export const addItem = [
     upload.single('image'),
     async (req, res) => {
         try {
-            const { name, discription, price, userEmail } = req.body;
+            const { name, discription, price } = req.body;
 
-            if (!name || !discription || !price || !userEmail) {
+            if (!name || !discription || !price ) {
                 return res.status(400).json({ message: 'All fields are required' });
             }
 
@@ -32,7 +32,6 @@ export const addItem = [
                 name,
                 discription,
                 price,
-                userEmail,
                 image: req.file ? req.file.filename : null,
             });
 
@@ -60,13 +59,12 @@ export const updateItem = [
     upload.single('image'),
     async (req, res) => {
         try {
-            const { name, discription, price, userEmail } = req.body;
+            const { name, discription, price} = req.body;
             
             const updateData = {
                 name,
                 discription,
                 price,
-                userEmail
             };
 
             // If a new image was uploaded

@@ -67,12 +67,10 @@ function UpdateItem() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userEmail = localStorage.getItem("userEmail"); // or however you store it
       const data = new FormData();
       data.append("name", formData.name);
       data.append("discription", formData.discription);
       data.append("price", formData.price);
-      data.append("userEmail", userEmail);
 
       if (formData.image instanceof File) {
         data.append("image", formData.image);

@@ -6,7 +6,6 @@ const ItemSchema = new mongoose.Schema(
     discription: { type: String, required: true },
     price: { type: Number, required: true },
     image: { type: String },
-    userEmail: { type: String}
   },
   { timestamps: true }
 );

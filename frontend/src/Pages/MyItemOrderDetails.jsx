@@ -9,24 +9,37 @@ function MyItemOrderDetails() {
 
   useEffect(() => {
     const fetchOrders = async () => {
+      const storedEmail = localStorage.getItem("email");
+      if (!storedEmail) {
+        setError("No user email found in local storage.");
+        setLoading(false);
+        return;
+      }
+  
       try {
         const response = await fetch("http://localhost:3000/api/itemOrder");
         if (!response.ok) {
           throw new Error("Failed to fetch orders");
         }
-
+  
         const result = await response.json();
-        setOrders(result.data);
+        
+        // Filter orders by email
+        const filteredOrders = result.data.filter(
+          (order) => order.customerEmail === storedEmail
+        );
+  
+        setOrders(filteredOrders);
       } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchOrders();
-  }, [navigate]);
-
+  }, []);
+  
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -37,7 +50,7 @@ function MyItemOrderDetails() {
 
   if (error) {
     return (
-      <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mx-auto max-w-md mt-10">
+      <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mx-auto max-w-md mt-10 mb-10">
         <p>Error: {error}</p>
         <button
           onClick={() => window.location.reload()}
@@ -51,7 +64,7 @@ function MyItemOrderDetails() {
 
   if (orders.length === 0) {
     return (
-      <div className="text-center mt-10">
+      <div className="text-center mt-10 mb-10">
         <h2 className="text-2xl font-semibold text-gray-700">
           No Orders Found
         </h2>

@@ -60,7 +60,7 @@ export default function Admin_Login() {
             navigate("/Collect_manager_home");
             break;
           case "Product Manager":
-            navigate("/producthome");
+            navigate("/ProductManagerHome");
             break;
           default:
             setCompanyError("Invalid section selected.");
