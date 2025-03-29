@@ -93,7 +93,7 @@ export default function Signin() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-green-100">
       <div className="w-full max-w-md bg-white shadow-xl rounded-xl p-8">
         <h2 className="text-3xl font-semibold text-gray-700 text-center mb-6">Welcome Back!</h2>
 
