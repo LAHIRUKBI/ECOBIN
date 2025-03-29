@@ -32,6 +32,8 @@ import Employee_update from './Pages/Employee_update'
 import ProductManagerHome from './Pages/ProductManagerHome'
 import ItemAdd from './Pages/ItemAdd'
 import UpdateItem from './Pages/UpdateItem'
+import ItemPayment from './Pages/itemPayment'
+import MyItemOrderDetails from './Pages/MyItemOrderDetails'
 
 export default function App() {
   return (
@@ -72,7 +74,8 @@ export default function App() {
       <Route path="/ProductManagerHome" element={<ProductManagerHome />} />
       <Route path="/addItem" element={<ItemAdd />} />
       <Route path="/updateItem/:id" element={<UpdateItem />} />
-      
+      <Route path="/itemPayment" element={<ItemPayment />} />
+      <Route path="/myItemOrderDetails" element={<MyItemOrderDetails />} />
     </Routes>
     <Footer />
     </BrowserRouter>

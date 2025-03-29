@@ -9,6 +9,7 @@ import productRouter from './route/product.route.js';
 import paymentRouter from './route/payment.route.js';
 import confirmRouter from './route/confirm.route.js';
 import ItemRouter from './route/item.route.js';
+import ItemOrderRouter from './route/item.order.route.js';
 dotenv.config();
 
 mongoose
@@ -35,7 +36,7 @@ app.use('/api/products', productRouter);
 app.use('/api/payment', paymentRouter);
 app.use('/api/confirm', confirmRouter);
 app.use('/api/item', ItemRouter);
-
+app.use('/api/itemOrder', ItemOrderRouter);
 
 
 

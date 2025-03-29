@@ -202,7 +202,17 @@ export default function Home() {
                     Rs. {resource.price}
                   </div>
                   <Link
-                    to={`/product/${resource._id}`} // You might want to create a product detail page
+                    to="/itemPayment"
+                    onClick={() => {
+                      localStorage.setItem(
+                        "selectedProduct",
+                        JSON.stringify({
+                          name: resource.name,
+                          price: resource.price,
+                          id: resource._id,
+                        })
+                      );
+                    }}
                     className="mt-6 inline-block bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-full text-lg shadow-md transition-all duration-300 transform hover:-translate-y-1"
                   >
                     Order

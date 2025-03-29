@@ -28,7 +28,7 @@ export default function EmployeeProfile() {
   };
   const cancelLogout = () => setShowLogoutModal(false);
   const handleMyPayments = () => navigate("/mypayments");
-  const handleMyOrders = () => navigate("/myOrders");
+  const handleMyOrders = () => navigate("/myItemOrderDetails");
   if (loading) {
     return <div className="flex items-center justify-center h-screen text-xl font-semibold">Loading...</div>;
   }
