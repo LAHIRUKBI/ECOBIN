@@ -37,20 +37,34 @@ export default function Employee_update() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+  
+    if (name === "phoneNumber") {
+      if (!/^\d*$/.test(value)) return; // Allow only numeric values
+      if (value.length > 10) return; // Restrict to 10 characters
+    }
+  
     setFormData({ ...formData, [name]: value });
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    if (formData.phoneNumber.length !== 10) {
+      alert("Phone number must be exactly 10 digits.");
+      return;
+    }
+  
     try {
       await axios.put(`http://localhost:3000/api/employees/${id}`, formData);
       alert("Employee updated successfully.");
-      navigate("/employeeview"); // Navigate back to employee view page after success
+      navigate("/employeeview"); 
     } catch (error) {
       console.error("Error updating employee:", error);
       alert("Failed to update employee.");
     }
   };
+  
 
   return (
     <div className="flex min-h-screen bg-gray-100">
