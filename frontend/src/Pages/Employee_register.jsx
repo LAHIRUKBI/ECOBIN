@@ -26,20 +26,27 @@ export default function Employee_register() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
+  
     if (name === "name") {
       if (!/^[a-zA-Z\s]*$/.test(value)) return; // Allow only letters and spaces
     }
-
+  
     if (name === "phoneNumber") {
       if (!/^\d*$/.test(value) || value.length > 10) return; // Allow only numbers, max length 10
     }
-
+  
     setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    // Validate phone number length
+    if (formData.phoneNumber.length !== 10) {
+      alert("Phone number must be exactly 10 digits.");
+      return;
+    }
+  
     try {
       const response = await axios.post(
         "http://localhost:3000/api/employees/register",
