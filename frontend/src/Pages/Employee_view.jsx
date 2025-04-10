@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Importing useNavigate for navigation
 import { FaUserPlus, FaUsers, FaClipboardList } from "react-icons/fa"; // Import icons
+import jsPDF from "jspdf";
 
 export default function Employee_view() {
   const navigate = useNavigate();
@@ -19,6 +20,59 @@ export default function Employee_view() {
 
     fetchEmployees();
   }, []);
+
+
+  const handleGeneratePDF = (employee) => {
+    const doc = new jsPDF();
+  
+    // Add Title
+    doc.setFontSize(20);
+    doc.setFont("times", "bold");
+    doc.text("SERVICE LETTER", 105, 20, null, null, "center");
+  
+    // Add Line under title
+    doc.setLineWidth(0.5);
+    doc.line(20, 25, 190, 25);
+  
+    // Body content
+    doc.setFontSize(12);
+    doc.setFont("times", "normal");
+  
+    const lineSpacing = 10;
+    let y = 40;
+  
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, y - 15);
+  
+    const content = [
+      `To whom it may concern,`,
+      ``,
+      `This is to certify that Mr/Ms. ${employee.name}, holding the Company ID Number ${employee.companyNumber},`,
+      `is a registered employee under the ${employee.section} section of our company.`,
+      ``,
+      `Their contact information and details are as follows:`,
+      ``,
+      `- Address: ${employee.address}`,
+      `- Gender: ${employee.gender}`,
+      `- Phone Number: ${employee.phoneNumber}`,
+      `- Date of Birth: ${new Date(employee.dateOfBirth).toLocaleDateString()}`,
+      ``,
+      `We appreciate the contribution of ${employee.name} to our organization.`,
+      ``,
+      `Sincerely,`,
+      `HR Department`,
+      `SmartBIN Pvt Ltd`
+    ];
+  
+    content.forEach((line) => {
+      doc.text(line, 20, y);
+      y += lineSpacing;
+    });
+  
+    // Save the PDF
+    doc.save(`${employee.name}_Service_Letter.pdf`);
+  };
+  
+  
 
   // Remove employee handler
   const handleRemove = async (id) => {
@@ -119,6 +173,12 @@ export default function Employee_view() {
                     >
                       Update
                     </button>
+                    <button
+    onClick={() => handleGeneratePDF(employee)}
+    className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
+  >
+    Service Letter
+  </button>
               </div>
             </div>
           ))}
