@@ -83,7 +83,7 @@ export default function Home() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            Welcome to EcoBin
+            Welcome To EcoBin
           </motion.h1>
           <p className="text-lg md:text-2xl text-gray-100 drop-shadow-md animate__animated animate__fadeInUp">
             Turning waste into wonders, one step at a time.
