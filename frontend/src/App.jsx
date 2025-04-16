@@ -93,7 +93,7 @@ export default function App() {
         <Route path="/addItem" element={<ItemAdd />} />
         <Route path="/updateItem/:id" element={<UpdateItem />} />
         <Route path="/itemPayment" element={<ItemPayment />} />
-        <Route path="/myItemOrderDetails" element={<MyItemOrderDetails />} />
+        <Route path="/myItemOrderDetails" element={<MyItemOrderDetails />} />z
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -73,6 +73,112 @@ export default function ServiceView() {
     doc.save(`${product.type}_report.pdf`);
   };
 
+
+  const generateAllReports = async () => {
+  const doc = new jsPDF();
+
+  // ===== COVER PAGE =====
+  doc.setFontSize(24);
+  doc.setTextColor(0, 102, 204);
+  doc.text("EcoBIN", 80, 30);
+
+  doc.setFontSize(14);
+  doc.setTextColor(0, 0, 0);
+  doc.setFont(undefined, "italic");
+  doc.text("Turning Trash into Treasure – Creating a Cleaner Tomorrow, Today.", 20, 45);
+
+  doc.setFont(undefined, "normal");
+  let y = 60;
+
+  const institutionDetails = [
+    "Address: 123 Eco Lane, Green City, Earth 10101",
+    "Phone: +94 77 123 4567",
+    "Email: support@smartbin.lk",
+    "Website: www.smartbin.lk",
+    `Report Generated On: ${new Date().toLocaleDateString()}`
+  ];
+
+  institutionDetails.forEach(detail => {
+    doc.text(detail, 20, y);
+    y += 10;
+  });
+
+  doc.setDrawColor(0, 102, 204);
+  doc.line(20, 100, 190, 100);
+
+  doc.setFontSize(16);
+  doc.setTextColor(0, 102, 204);
+  doc.text("All Services Report", 70, 115);
+
+  // ===== SERVICE PAGES =====
+  for (const [index, product] of filteredProducts.entries()) {
+    doc.addPage();
+
+    // Header
+    doc.setFontSize(20);
+    doc.setTextColor(0, 102, 204);
+    doc.text("Service Details", 75, 20);
+
+    let y = 35;
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+
+    const addField = (label, value) => {
+      doc.setFont(undefined, "bold");
+      doc.text(`${label}:`, 20, y);
+      doc.setFont(undefined, "normal");
+      doc.text(`${value}`, 70, y);
+      y += 10;
+    };
+
+    addField("Service Type", product.type);
+    addField("Main Category", product.mainCategory);
+    addField("Price", `RS ${product.price}`);
+    addField("Service Time", product.serviceTime);
+    addField("Priority", product.priority);
+
+    // Add Image (if available)
+    if (product.image) {
+      try {
+        // If image is URL, convert it to base64
+        const base64Img = await toBase64(product.image);
+        doc.addImage(base64Img, 'JPEG', 120, 35, 70, 50); // x, y, width, height
+        y = Math.max(y, 90); // ensure y goes past the image
+      } catch (err) {
+        console.warn("Image couldn't be added:", err);
+      }
+    }
+
+    // Introduction
+    doc.setFont(undefined, "bold");
+    doc.text("Introduction:", 20, y);
+    y += 8;
+
+    doc.setFontSize(12);
+    doc.setFont(undefined, "normal");
+
+    const introLines = doc.splitTextToSize(product.introduction, 170);
+    doc.text(introLines, 20, y);
+  }
+
+  doc.save("all_services_report.pdf");
+};
+
+// Utility: Convert image URL to base64
+const toBase64 = url =>
+  fetch(url)
+    .then(res => res.blob())
+    .then(blob => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    }));
+
+  
+  
+  
+
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
@@ -118,6 +224,16 @@ export default function ServiceView() {
               <FaSearch className="absolute left-3 top-3 text-gray-500" />
             </div>
           </div>
+
+          <div className="flex justify-end mb-4">
+  <button
+    onClick={generateAllReports}
+    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all"
+  >
+    <FaFilePdf className="inline-block mr-2" /> Get All Details
+  </button>
+</div>
+
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
             {loading ? (
