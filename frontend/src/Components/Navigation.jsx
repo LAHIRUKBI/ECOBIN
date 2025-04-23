@@ -16,9 +16,11 @@ export default function Navigation() {
     <nav className="bg-gradient-to-r from-green-600 to-green-500 text-white px-8 py-5 shadow-lg relative">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <a href="/" className="text-2xl font-serif font-bold text-white flex items-center space-x-2">
-          <span>EcoBin</span>
-        </a>
+        <a href="/" className="flex items-center space-x-3 text-white hover:text-eco-300 transition-all duration-300">
+  <FaRecycle className="text-eco-400 text-4xl drop-shadow-md" />
+  <span className="text-3xl font-bold font-serif tracking-wide">Eco<span className="text-eco-400">BIN</span></span>
+</a>
+
 
         {/* Mobile menu toggle */}
         <button
