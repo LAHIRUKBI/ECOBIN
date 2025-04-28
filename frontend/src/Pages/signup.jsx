@@ -37,14 +37,13 @@ export default function Signup() {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-  
+
     if (id === "phone") {
-      // Allow only numbers and limit to 10 digits
       if (!/^\d*$/.test(value) || value.length > 10) {
-        return; // Prevent invalid input
+        return;
       }
     }
-  
+
     setFormData({
       ...formData,
       [id]: value,
@@ -82,13 +81,12 @@ export default function Signup() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Send the Google user data to MongoDB
       const res = await fetch("http://localhost:3000/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: user.email,
-          password: "google-auth",  // Placeholder, since password isn't needed for Google signup
+          password: "google-auth",
           phone: user.phoneNumber || "N/A",
           address: "N/A",
         }),
@@ -110,73 +108,69 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-green-100 px-4">
-      <div className="flex flex-col lg:flex-row w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-100 via-green-200 to-green-300 px-6 py-8">
+      <div className="flex flex-col lg:flex-row w-full max-w-5xl bg-white shadow-2xl rounded-3xl overflow-hidden animate-fade-in-up">
         {/* Left Section */}
-        <div className="w-full lg:w-1/2 p-6 lg:p-12 bg-gray-50">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 text-center">Welcome to EcoBin!</h2>
-          <p className="text-gray-600 text-center mb-6">Join us in making the world a greener place.</p>
+        <div className="w-full lg:w-1/2 p-8 md:p-12 bg-gray-50 flex flex-col justify-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-green-700 mb-4 text-center animate-bounce">Welcome to EcoBin!</h2>
+          <p className="text-gray-600 text-center mb-8 text-sm md:text-base">Join us in making the world a greener place.</p>
 
-          <form onSubmit={handleSubmit}>
-            {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
-            <div className="mb-4 flex items-center">
-              <FaUser className="text-gray-600 mr-3 text-lg" />
-              <input type="email" id="email" className="w-full p-3 border rounded text-sm md:text-base"
-                placeholder="Email" onChange={handleChange} required />
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {error && <div className="text-red-500 text-center text-sm mb-4">{error}</div>}
+            
+            <div className="relative">
+              <FaUser className="absolute top-3 left-4 text-green-600" />
+              <input type="email" id="email" className="w-full pl-12 p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition" placeholder="Email" onChange={handleChange} required />
             </div>
-            <div className="mb-4 flex items-center">
-              <FaLock className="text-gray-600 mr-3 text-lg" />
-              <input type="password" id="password" className="w-full p-3 border rounded text-sm md:text-base"
-                placeholder="Password" onChange={handleChange} required />
-            </div>
-            <div className="mb-4 flex flex-col">
-  <div className="flex items-center">
-    <FaPhoneAlt className="text-gray-600 mr-3 text-lg" />
-    <input
-      type="tel"
-      id="phone"
-      className="w-full p-3 border rounded text-sm md:text-base"
-      placeholder="Phone"
-      value={formData.phone}
-      onChange={handleChange}
-      required
-    />
-  </div>
-  {formData.phone.length > 0 && formData.phone.length < 10 && (
-    <span className="text-red-500 text-sm">Phone number must be exactly 10 digits.</span>
-  )}
-</div>
 
-            <div className="mb-4 flex items-center">
-              <FaMapMarkedAlt className="text-gray-600 mr-3 text-lg" />
-              <input type="text" id="address" className="w-full p-3 border rounded text-sm md:text-base"
-                placeholder="Address" onChange={handleChange} required />
+            <div className="relative">
+              <FaLock className="absolute top-3 left-4 text-green-600" />
+              <input type="password" id="password" className="w-full pl-12 p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition" placeholder="Password" onChange={handleChange} required />
             </div>
+
+            <div className="relative">
+              <FaPhoneAlt className="absolute top-3 left-4 text-green-600" />
+              <input type="tel" id="phone" className="w-full pl-12 p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition" placeholder="Phone" value={formData.phone} onChange={handleChange} required />
+            </div>
+            {formData.phone.length > 0 && formData.phone.length < 10 && (
+              <span className="text-red-500 text-sm ml-1">Phone number must be exactly 10 digits.</span>
+            )}
+
+            <div className="relative">
+              <FaMapMarkedAlt className="absolute top-3 left-4 text-green-600" />
+              <input type="text" id="address" className="w-full pl-12 p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition" placeholder="Address" onChange={handleChange} required />
+            </div>
+
             <button type="submit"
-              className={`w-full p-3 text-white bg-green-600 rounded hover:bg-green-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`w-full p-3 text-white bg-green-600 rounded-xl hover:bg-green-700 transition transform hover:scale-105 duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
               disabled={loading}>
               {loading ? 'Signing Up...' : 'Sign Up'}
             </button>
           </form>
 
+          <div className="flex items-center my-6">
+            <div className="flex-grow h-px bg-gray-300"></div>
+            <span className="mx-3 text-gray-400">or</span>
+            <div className="flex-grow h-px bg-gray-300"></div>
+          </div>
+
           {/* Google Sign Up Button */}
           <button onClick={handleGoogleSignup}
-            className="w-full p-3 mt-4 flex items-center justify-center bg-red-500 text-white rounded hover:bg-red-600">
+            className="w-full p-3 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-xl transition transform hover:scale-105 duration-300">
             <FaGoogle className="mr-2" /> Sign Up with Google
           </button>
         </div>
 
         {/* Right Section */}
-        <div className="flex lg:flex-col w-full lg:w-1/2 bg-green-200 items-center justify-center p-6">
-          <div className="text-center">
-            <div className="mb-4">
-              <div className="bg-green-500 p-6 rounded-full text-white text-3xl">
-                <FaRecycle /> {/* Recycling Icon */}
-              </div>
+        <div className="hidden lg:flex flex-col w-full lg:w-1/2 bg-gradient-to-br from-green-400 via-green-500 to-green-600 items-center justify-center p-10 text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-green-700 opacity-20 mix-blend-overlay"></div>
+          <div className="z-10 flex flex-col items-center space-y-4">
+            <div className="bg-white p-6 rounded-full shadow-lg animate-pulse">
+              <FaRecycle className="text-green-600 text-5xl" />
             </div>
-            <h2 className="text-xl md:text-2xl font-bold text-gray-800">EcoBin</h2>
-            <p className="text-gray-600 text-sm md:text-base">Already have an account?</p>
-            <Link to="/signin" className="text-green-600 mt-2 inline-block hover:underline text-sm md:text-base">Sign In</Link>
+            <h2 className="text-3xl font-bold">EcoBin</h2>
+            <p className="text-white text-center text-sm md:text-base">Already have an account?</p>
+            <Link to="/signin" className="underline hover:text-gray-200 transition">Sign In</Link>
           </div>
         </div>
       </div>
