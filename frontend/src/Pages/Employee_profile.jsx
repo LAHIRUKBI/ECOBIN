@@ -29,42 +29,43 @@ export default function EmployeeProfile() {
   const cancelLogout = () => setShowLogoutModal(false);
   const handleMyPayments = () => navigate("/mypayments");
   const handleMyOrders = () => navigate("/myItemOrderDetails");
+
   if (loading) {
     return <div className="flex items-center justify-center h-screen text-xl font-semibold">Loading...</div>;
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-      <div className="w-full max-w-3xl bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+      <div className="w-full max-w-4xl bg-white rounded-3xl shadow-lg overflow-hidden border border-gray-200">
         {/* Header */}
-        <div className="bg-gradient-to-r from-green-500 to-teal-500 text-white text-center py-10 px-6">
-          <FaUserCircle className="text-7xl mx-auto mb-4" />
-          <h1 className="text-3xl font-bold">Welcome, {employee?.email}!</h1>
-          <p className="text-sm mt-2">Manage your profile details and actions below.</p>
+        <div className="bg-gradient-to-r from-teal-500 to-green-400 text-white text-center py-12 px-6">
+          <FaUserCircle className="text-8xl mx-auto mb-4" />
+          <h1 className="text-3xl font-semibold">Welcome, {employee?.email}!</h1>
+          <p className="text-lg mt-2">Manage your profile and perform actions below.</p>
         </div>
 
         {/* Profile Details */}
-        <div className="p-8 bg-gray-50">
-          <h2 className="text-xl font-semibold border-b pb-3 mb-6">Profile Details</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
-              <FaEnvelope className="text-green-600 text-xl" />
+        <div className="p-10 bg-gray-50">
+          <h2 className="text-2xl font-semibold mb-6 text-teal-600 border-b-2 border-teal-500 pb-3">Profile Details</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="flex items-center gap-6 p-5 bg-white rounded-lg shadow-xl">
+              <FaEnvelope className="text-teal-600 text-2xl" />
               <div>
-                <span className="text-gray-600">Email:</span>
+                <span className="text-gray-600 text-lg">Email:</span>
                 <p className="font-medium text-gray-800">{employee?.email}</p>
               </div>
             </div>
-            <div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
-              <FaPhone className="text-green-600 text-xl" />
+            <div className="flex items-center gap-6 p-5 bg-white rounded-lg shadow-xl">
+              <FaPhone className="text-teal-600 text-2xl" />
               <div>
-                <span className="text-gray-600">Phone:</span>
+                <span className="text-gray-600 text-lg">Phone:</span>
                 <p className="font-medium text-gray-800">{employee?.phone}</p>
               </div>
             </div>
-            <div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
-              <FaMapMarkerAlt className="text-red-600 text-xl" />
+            <div className="flex items-center gap-6 p-5 bg-white rounded-lg shadow-xl">
+              <FaMapMarkerAlt className="text-red-600 text-2xl" />
               <div>
-                <span className="text-gray-600">Address:</span>
+                <span className="text-gray-600 text-lg">Address:</span>
                 <p className="font-medium text-gray-800">{employee?.address}</p>
               </div>
             </div>
@@ -72,17 +73,17 @@ export default function EmployeeProfile() {
         </div>
 
         {/* Action Buttons */}
-        <div className="p-8 bg-white flex flex-col sm:flex-row justify-evenly gap-6 border-t">
-          <button onClick={() => navigate("/employeeupdateprofile")} className="flex-grow px-6 py-3 bg-teal-500 text-white rounded-lg shadow-md hover:bg-teal-600 transform transition hover:scale-105">
+        <div className="p-8 bg-white flex flex-col sm:flex-row justify-evenly gap-6 border-t-4 border-teal-500">
+          <button onClick={() => navigate("/employeeupdateprofile")} className="px-6 py-4 bg-teal-500 text-white rounded-full shadow-md hover:bg-teal-600 transition duration-300 transform hover:scale-105">
             Update Profile
           </button>
-          <button onClick={handleMyPayments} className="flex-grow px-6 py-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transform transition hover:scale-105">
+          <button onClick={handleMyPayments} className="px-6 py-4 bg-green-500 text-white rounded-full shadow-md hover:bg-green-600 transition duration-300 transform hover:scale-105">
             My Payments
           </button>
-          <button onClick={handleMyOrders} className="flex-grow px-6 py-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transform transition hover:scale-105">
+          <button onClick={handleMyOrders} className="px-6 py-4 bg-green-500 text-white rounded-full shadow-md hover:bg-green-600 transition duration-300 transform hover:scale-105">
             My Orders
           </button>
-          <button onClick={handleLogout} className="flex-grow px-6 py-3 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transform transition hover:scale-105">
+          <button onClick={handleLogout} className="px-6 py-4 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 transition duration-300 transform hover:scale-105">
             Logout
           </button>
         </div>
@@ -91,14 +92,14 @@ export default function EmployeeProfile() {
       {/* Logout Modal */}
       {showLogoutModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-80 text-center">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-96 text-center">
             <h2 className="text-2xl font-semibold text-gray-700 mb-4">Confirm Logout</h2>
             <p className="text-gray-600 mb-6">Are you sure you want to log out?</p>
             <div className="flex justify-between">
-              <button onClick={confirmLogout} className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transform transition hover:scale-105">
+              <button onClick={confirmLogout} className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition transform hover:scale-105">
                 Yes
               </button>
-              <button onClick={cancelLogout} className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transform transition hover:scale-105">
+              <button onClick={cancelLogout} className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition transform hover:scale-105">
                 No
               </button>
             </div>
