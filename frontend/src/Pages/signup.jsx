@@ -108,69 +108,85 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-100 via-green-200 to-green-300 px-6 py-8">
-      <div className="flex flex-col lg:flex-row w-full max-w-5xl bg-white shadow-2xl rounded-3xl overflow-hidden animate-fade-in-up">
-        {/* Left Section */}
-        <div className="w-full lg:w-1/2 p-8 md:p-12 bg-gray-50 flex flex-col justify-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-green-700 mb-4 text-center animate-bounce">Welcome to EcoBin!</h2>
-          <p className="text-gray-600 text-center mb-8 text-sm md:text-base">Join us in making the world a greener place.</p>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-100 via-green-200 to-green-300 px-4 py-10">
+      <div className="flex flex-col lg:flex-row shadow-2xl bg-white rounded-3xl overflow-hidden w-full max-w-6xl">
+        {/* Left Panel */}
+        <div className="w-full lg:w-1/2 px-8 py-12 space-y-6 bg-white">
+          <div className="text-center">
+            <FaRecycle className="text-green-600 text-5xl mx-auto mb-2 animate-spin-slow" />
+            <h1 className="text-3xl font-extrabold text-green-700">Join EcoBin</h1>
+            <p className="text-gray-500 text-sm mt-1">Recycle, Reuse, Reinvent.</p>
+          </div>
+
+          {error && <div className="text-red-600 text-sm text-center">{error}</div>}
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {error && <div className="text-red-500 text-center text-sm mb-4">{error}</div>}
-            
             <div className="relative">
-              <FaUser className="absolute top-3 left-4 text-green-600" />
-              <input type="email" id="email" className="w-full pl-12 p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition" placeholder="Email" onChange={handleChange} required />
+              <FaUser className="absolute left-4 top-3.5 text-green-600" />
+              <input type="email" id="email" placeholder="Email"
+                className="w-full pl-12 p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500"
+                onChange={handleChange} required />
             </div>
 
             <div className="relative">
-              <FaLock className="absolute top-3 left-4 text-green-600" />
-              <input type="password" id="password" className="w-full pl-12 p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition" placeholder="Password" onChange={handleChange} required />
+              <FaLock className="absolute left-4 top-3.5 text-green-600" />
+              <input type="password" id="password" placeholder="Password"
+                className="w-full pl-12 p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500"
+                onChange={handleChange} required />
+              <p className="text-xs text-gray-400 mt-1 ml-1">Use 6+ characters for a stronger password.</p>
             </div>
 
             <div className="relative">
-              <FaPhoneAlt className="absolute top-3 left-4 text-green-600" />
-              <input type="tel" id="phone" className="w-full pl-12 p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition" placeholder="Phone" value={formData.phone} onChange={handleChange} required />
+              <FaPhoneAlt className="absolute left-4 top-3.5 text-green-600" />
+              <input type="tel" id="phone" placeholder="Phone Number"
+                className="w-full pl-12 p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500"
+                value={formData.phone} onChange={handleChange} required />
+              {formData.phone.length > 0 && formData.phone.length < 10 && (
+                <p className="text-xs text-red-500 ml-1">Must be 10 digits</p>
+              )}
             </div>
-            {formData.phone.length > 0 && formData.phone.length < 10 && (
-              <span className="text-red-500 text-sm ml-1">Phone number must be exactly 10 digits.</span>
-            )}
 
             <div className="relative">
-              <FaMapMarkedAlt className="absolute top-3 left-4 text-green-600" />
-              <input type="text" id="address" className="w-full pl-12 p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition" placeholder="Address" onChange={handleChange} required />
+              <FaMapMarkedAlt className="absolute left-4 top-3.5 text-green-600" />
+              <input type="text" id="address" placeholder="Address"
+                className="w-full pl-12 p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500"
+                onChange={handleChange} required />
             </div>
 
             <button type="submit"
-              className={`w-full p-3 text-white bg-green-600 rounded-xl hover:bg-green-700 transition transform hover:scale-105 duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`w-full p-3 text-white font-semibold bg-green-600 rounded-xl hover:bg-green-700 transition transform hover:scale-105 duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
               disabled={loading}>
-              {loading ? 'Signing Up...' : 'Sign Up'}
+              {loading ? "Signing Up..." : "Sign Up"}
             </button>
           </form>
 
-          <div className="flex items-center my-6">
+          <div className="flex items-center gap-3 my-6">
             <div className="flex-grow h-px bg-gray-300"></div>
-            <span className="mx-3 text-gray-400">or</span>
+            <span className="text-gray-400 text-sm">OR</span>
             <div className="flex-grow h-px bg-gray-300"></div>
           </div>
 
-          {/* Google Sign Up Button */}
           <button onClick={handleGoogleSignup}
-            className="w-full p-3 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-xl transition transform hover:scale-105 duration-300">
-            <FaGoogle className="mr-2" /> Sign Up with Google
+            className="w-full flex items-center justify-center gap-3 p-3 bg-red-500 hover:bg-red-600 text-white rounded-xl transition transform hover:scale-105 duration-300">
+            <FaGoogle className="text-lg" /> Sign Up with Google
           </button>
+
+          <p className="text-center text-sm mt-6 text-gray-500">
+            Already have an account?{" "}
+            <Link to="/signin" className="text-green-700 font-medium hover:underline">Sign In</Link>
+          </p>
         </div>
 
-        {/* Right Section */}
-        <div className="hidden lg:flex flex-col w-full lg:w-1/2 bg-gradient-to-br from-green-400 via-green-500 to-green-600 items-center justify-center p-10 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-green-700 opacity-20 mix-blend-overlay"></div>
-          <div className="z-10 flex flex-col items-center space-y-4">
-            <div className="bg-white p-6 rounded-full shadow-lg animate-pulse">
-              <FaRecycle className="text-green-600 text-5xl" />
-            </div>
-            <h2 className="text-3xl font-bold">EcoBin</h2>
-            <p className="text-white text-center text-sm md:text-base">Already have an account?</p>
-            <Link to="/signin" className="underline hover:text-gray-200 transition">Sign In</Link>
+        {/* Right Panel */}
+        <div className="hidden lg:flex w-full lg:w-1/2 bg-gradient-to-br from-green-500 via-green-600 to-green-700 text-white flex-col justify-center items-center relative px-8 py-12">
+          <div className="absolute inset-0 bg-black opacity-10"></div>
+          <div className="z-10 flex flex-col items-center space-y-6 text-center max-w-xs">
+            <FaRecycle className="text-white text-6xl animate-pulse" />
+            <h2 className="text-3xl font-bold">EcoBin Vision</h2>
+            <p className="text-sm leading-relaxed">
+              We believe in a cleaner, greener world where waste becomes worth.
+              Sign up today and be a hero for the environment.
+            </p>
           </div>
         </div>
       </div>
