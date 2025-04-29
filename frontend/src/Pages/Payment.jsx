@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FaShippingFast } from "react-icons/fa";
+import { FaShippingFast, FaLock, FaUserCircle, FaUniversity } from "react-icons/fa";
 
 export default function Payment() {
   const location = useLocation();
@@ -39,12 +39,9 @@ export default function Payment() {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-
-    // Allow only letters and spaces for name and address
     if ((name === "name" || name === "address") && /[^a-zA-Z\s]/.test(value)) {
-      return; // Prevent invalid characters
+      return;
     }
-
     setFormData({
       ...formData,
       [name]: value,
@@ -53,23 +50,10 @@ export default function Payment() {
 
   const handleBankChange = (e) => {
     const { name, value } = e.target;
-
-    // Validate card number (only allow numbers and limit it to 16 digits)
-    if (name === "cardNumber" && /[^0-9]/.test(value)) {
-      return; // Prevent non-numeric characters
-    }
-    if (name === "cardNumber" && value.length > 16) {
-      return; // Prevent more than 16 digits
-    }
-
-    // Validate CVV (only allow numbers and limit it to 3 digits)
-    if (name === "cvv" && /[^0-9]/.test(value)) {
-      return; // Prevent non-numeric characters
-    }
-    if (name === "cvv" && value.length > 3) {
-      return; // Prevent more than 3 digits
-    }
-
+    if (name === "cardNumber" && /[^0-9]/.test(value)) return;
+    if (name === "cardNumber" && value.length > 16) return;
+    if (name === "cvv" && /[^0-9]/.test(value)) return;
+    if (name === "cvv" && value.length > 3) return;
     setBankData({
       ...bankData,
       [name]: value,
@@ -109,50 +93,91 @@ export default function Payment() {
     bankData.cardNumber.length === 16 &&
     bankData.cvv.length === 3;
 
-  if (!bookTitle) return <div className="text-center text-green-600 font-bold text-lg">Loading...</div>;
+  if (!bookTitle)
+    return (
+      <div className="text-center text-green-600 font-bold text-lg">
+        Loading...
+      </div>
+    );
 
   return (
-    <div className="min-h-screen bg-green-50 py-16 flex justify-center items-center">
-      <div className="bg-white p-10 rounded-lg shadow-lg max-w-3xl w-full border border-green-300">
-        <h2 className="text-3xl font-bold text-green-700 text-center mb-4">{bookTitle}</h2>
-        <p className="text-lg text-green-800 text-center font-semibold">Total Price: RS {totalPrice.toFixed(2)}</p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+    <div className="min-h-screen bg-gradient-to-br from-green-100 to-green-50 py-16 px-4 flex justify-center items-center">
+      <div className="bg-white p-8 md:p-12 rounded-3xl shadow-2xl max-w-4xl w-full border border-green-300 space-y-6">
+        <div className="text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-green-700 mb-2 flex justify-center items-center gap-2">
+            <FaShippingFast /> {bookTitle}
+          </h2>
+          <p className="text-xl text-green-800 font-semibold">
+            Total Price: Rs. {totalPrice.toFixed(2)}
+          </p>
+          <p className="text-sm text-gray-500 mt-1 flex justify-center items-center gap-1">
+            <FaLock /> Your payment is 100% secure and encrypted
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          {/* Customer Info */}
           <div>
-            <label className="block text-sm font-semibold text-green-700">Name</label>
-            <input type="text" name="name" value={formData.name} onChange={handleFormChange} className="w-full p-3 border rounded-lg focus:ring-green-500" />
-            <label className="block text-sm font-semibold text-green-700 mt-3">Address</label>
-            <input type="text" name="address" value={formData.address} onChange={handleFormChange} className="w-full p-3 border rounded-lg focus:ring-green-500" />
-            <label className="block text-sm font-semibold text-green-700 mt-3">Phone</label>
-            <input type="text" name="phone" value={formData.phone} className="w-full p-3 border rounded-lg bg-gray-100" readOnly />
-            <label className="block text-sm font-semibold text-green-700 mt-3">Email</label>
-            <input type="email" name="email" value={formData.email} className="w-full p-3 border rounded-lg bg-gray-100" readOnly />
+            <h3 className="text-lg font-semibold text-green-600 mb-4 flex items-center gap-2">
+              <FaUserCircle /> Customer Information
+            </h3>
+            <label className="block text-sm font-semibold text-green-700 mb-1">Name</label>
+            <input type="text" name="name" value={formData.name} onChange={handleFormChange} className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-green-400 outline-none" />
+            
+            <label className="block text-sm font-semibold text-green-700 mt-4 mb-1">Address</label>
+            <input type="text" name="address" value={formData.address} onChange={handleFormChange} className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-green-400 outline-none" />
+            
+            <label className="block text-sm font-semibold text-green-700 mt-4 mb-1">Phone</label>
+            <input type="text" name="phone" value={formData.phone} className="w-full p-3 border rounded-xl bg-gray-100 text-gray-700" readOnly />
+            
+            <label className="block text-sm font-semibold text-green-700 mt-4 mb-1">Email</label>
+            <input type="email" name="email" value={formData.email} className="w-full p-3 border rounded-xl bg-gray-100 text-gray-700" readOnly />
           </div>
 
+          {/* Bank Info */}
           <div>
-            <label className="block text-sm font-semibold text-green-700">Select Bank</label>
-            <select name="bankName" value={bankData.bankName} onChange={handleBankChange} className="w-full p-3 border rounded-lg focus:ring-green-500">
-              <option value="">Select Bank</option>
+            <h3 className="text-lg font-semibold text-green-600 mb-4 flex items-center gap-2">
+              <FaUniversity /> Bank Details
+            </h3>
+            <label className="block text-sm font-semibold text-green-700 mb-1">Select Bank</label>
+            <select name="bankName" value={bankData.bankName} onChange={handleBankChange} className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-green-400 outline-none">
+              <option value="">Choose your Bank</option>
               <option value="BOC">Bank of Ceylon (BOC)</option>
               <option value="HNB">Hatton National Bank (HNB)</option>
               <option value="Sampath">Sampath Bank</option>
               <option value="Commercial">Commercial Bank</option>
               <option value="NDB">NDB Bank</option>
             </select>
-            <label className="block text-sm font-semibold text-green-700 mt-3">Card Number</label>
-            <input type="text" name="cardNumber" value={bankData.cardNumber} onChange={handleBankChange} className="w-full p-3 border rounded-lg focus:ring-green-500" />
-            <label className="block text-sm font-semibold text-green-700 mt-3">Expiry Date</label>
-            <input type="month" name="expiryDate" value={bankData.expiryDate} onChange={handleBankChange} className="w-full p-3 border rounded-lg focus:ring-green-500" />
-            <label className="block text-sm font-semibold text-green-700 mt-3">CVV</label>
-            <input type="text" name="cvv" value={bankData.cvv} onChange={handleBankChange} className="w-full p-3 border rounded-lg focus:ring-green-500" />
+
+            <label className="block text-sm font-semibold text-green-700 mt-4 mb-1">Card Number</label>
+            <input type="text" name="cardNumber" value={bankData.cardNumber} onChange={handleBankChange} className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-green-400 outline-none" />
+
+            <label className="block text-sm font-semibold text-green-700 mt-4 mb-1">Expiry Date</label>
+            <input type="month" name="expiryDate" value={bankData.expiryDate} onChange={handleBankChange} className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-green-400 outline-none" />
+
+            <label className="block text-sm font-semibold text-green-700 mt-4 mb-1">CVV</label>
+            <input type="text" name="cvv" value={bankData.cvv} onChange={handleBankChange} className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-green-400 outline-none" />
           </div>
         </div>
 
-        <div className="flex justify-between mt-6">
-          <button onClick={handlePaymentSubmit} className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg shadow-md flex items-center" disabled={!isFormValid}>
-            <FaShippingFast className="mr-2" /> Proceed to Pay
+        {/* Buttons */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mt-8">
+          <button
+            onClick={handlePaymentSubmit}
+            className={`w-full md:w-auto bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 font-semibold transition duration-200 ${
+              !isFormValid ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={!isFormValid}
+          >
+            <FaShippingFast /> Proceed to Pay
           </button>
-          <button onClick={() => navigate("/")} className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-3 rounded-lg shadow-md">Cancel</button>
+
+          <button
+            onClick={() => navigate("/")}
+            className="w-full md:w-auto bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-3 rounded-xl shadow-md font-semibold transition duration-200"
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </div>
