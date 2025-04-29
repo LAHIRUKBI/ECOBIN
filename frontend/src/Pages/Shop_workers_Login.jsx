@@ -78,27 +78,27 @@ export default function Admin_Login() {
   
 
   return (
-    <div className="bg-green-50 min-h-screen py-12 px-6">
+    <div className="bg-gradient-to-r from-green-50 to-green-100 min-h-screen py-16 px-8">
       {/* Page Introduction */}
       <div className="w-full max-w-7xl mx-auto text-center mb-12">
         {/* Title with refined styling */}
-        <h1 className="text-4xl font-semibold text-green-800 mb-6 text-center leading-tight tracking-tight">
+        <h1 className="text-5xl font-semibold text-green-900 mb-4 text-center leading-tight tracking-tight">
           Welcome to the Login Portal
         </h1>
-
+  
         {/* Instructional Text with improved spacing and contrast */}
-        <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-700 mb-6 max-w-3xl mx-auto leading-relaxed">
           Please select your role from the options below, then log in to access
           the system. Ensure you're using the correct role to avoid any issues.
         </p>
-
+  
         {/* Login Type Selector with refined design */}
-        <div className="mb-6 flex justify-center items-center gap-6">
+        <div className="mb-10 flex justify-center items-center gap-6">
           <div className="w-full max-w-xs">
             <select
               value={loginType}
               onChange={(e) => setLoginType(e.target.value)}
-              className="w-full p-4 bg-white border border-green-300 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 ease-in-out hover:bg-green-50"
+              className="w-full p-4 bg-white border border-green-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 ease-in-out hover:bg-green-50"
             >
               <option value="">Select Login Type</option>
               <option value="Admin" className="flex items-center">
@@ -111,16 +111,16 @@ export default function Admin_Login() {
           </div>
         </div>
       </div>
-
+  
       {/* Login Container (displayed based on selection) */}
       <div className="flex justify-center w-full max-w-7xl mx-auto">
         {/* Show Admin Login Form */}
         {loginType === "Admin" && (
-          <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-            <h2 className="text-3xl text-center font-semibold mb-6 text-green-800 flex items-center justify-center">
-              <FaUserShield className="mr-2" /> Administrator Login
+          <div className="w-full max-w-lg p-10 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+            <h2 className="text-3xl text-center font-semibold mb-8 text-green-900 flex items-center justify-center">
+              <FaUserShield className="mr-3 text-green-500" /> Administrator Login
             </h2>
-
+  
             {error && (
               <div className="text-red-500 mb-4 text-center">{error}</div>
             )}
@@ -132,7 +132,7 @@ export default function Admin_Login() {
                 >
                   Admin Name:
                 </label>
-                <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
+                <div className="flex items-center bg-white p-4 rounded-md border border-green-300">
                   <FaIdCard className="text-green-400 mr-3" />
                   <input
                     type="text"
@@ -155,7 +155,7 @@ export default function Admin_Login() {
                 >
                   Admin ID:
                 </label>
-                <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
+                <div className="flex items-center bg-white p-4 rounded-md border border-green-300">
                   <FaBuilding className="text-green-400 mr-3" />
                   <input
                     type="text"
@@ -178,7 +178,7 @@ export default function Admin_Login() {
                 >
                   Admin NIC Number:
                 </label>
-                <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
+                <div className="flex items-center bg-white p-4 rounded-md border border-green-300">
                   <FaKey className="text-green-400 mr-3" />
                   <input
                     type="text"
@@ -196,19 +196,19 @@ export default function Admin_Login() {
               </div>
               <button
                 type="submit"
-                className="w-full p-3 bg-green-700 text-white rounded-md hover:bg-green-800 focus:outline-none flex items-center justify-center"
+                className="w-full p-4 bg-green-700 text-white rounded-md hover:bg-green-800 focus:outline-none flex items-center justify-center"
               >
                 <MdLogin className="mr-2" /> Admin Login
               </button>
             </form>
           </div>
         )}
-
+  
         {/* Show Staff Login Form */}
         {loginType === "Staff" && (
-          <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-            <h2 className="text-3xl text-center font-semibold mb-6 text-green-800 flex items-center justify-center">
-              <FaBuilding className="mr-2" /> Staff Login
+          <div className="w-full max-w-lg p-10 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+            <h2 className="text-3xl text-center font-semibold mb-8 text-green-900 flex items-center justify-center">
+              <FaBuilding className="mr-3 text-green-500" /> Staff Login
             </h2>
             {companyError && (
               <div className="text-red-500 mb-4 text-center">
@@ -223,7 +223,7 @@ export default function Admin_Login() {
                 >
                   Company Number:
                 </label>
-                <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
+                <div className="flex items-center bg-white p-4 rounded-md border border-green-300">
                   <FaIdCard className="text-green-400 mr-3" />
                   <input
                     type="text"
@@ -246,7 +246,7 @@ export default function Admin_Login() {
                 >
                   Name:
                 </label>
-                <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
+                <div className="flex items-center bg-white p-4 rounded-md border border-green-300">
                   <FaBuilding className="text-green-400 mr-3" />
                   <input
                     type="text"
@@ -269,7 +269,7 @@ export default function Admin_Login() {
                 >
                   Section:
                 </label>
-                <div className="flex items-center bg-white p-3 rounded-md border border-green-300">
+                <div className="flex items-center bg-white p-4 rounded-md border border-green-300">
                   <FaBuilding className="text-green-400 mr-3" />
                   <select
                     id="section"
@@ -291,7 +291,7 @@ export default function Admin_Login() {
               </div>
               <button
                 type="submit"
-                className="w-full p-3 bg-green-700 text-white rounded-md hover:bg-green-800 focus:outline-none flex items-center justify-center"
+                className="w-full p-4 bg-green-700 text-white rounded-md hover:bg-green-800 focus:outline-none flex items-center justify-center"
               >
                 <MdLogin className="mr-2" /> Company Login
               </button>
@@ -299,13 +299,17 @@ export default function Admin_Login() {
           </div>
         )}
       </div>
-
+  
       {/* Customer login link */}
-      <div className="text-center mt-6">
-        <Link to="/customer-login" className="text-green-700">
+      <div className="text-center mt-12">
+        <Link
+          to="/customer-login"
+          className="text-lg text-green-700 hover:text-green-900 font-semibold"
+        >
           Customer Login
         </Link>
       </div>
     </div>
   );
+  
 }
