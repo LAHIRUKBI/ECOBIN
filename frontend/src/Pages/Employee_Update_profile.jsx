@@ -41,81 +41,94 @@ export default function Employee_Update_profile() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br py-12 px-6">
-      <div className="bg-white shadow-xl rounded-2xl p-10 w-full max-w-lg border border-green-300">
-        {/* Header */}
-        <div className="flex items-center justify-center mb-8">
-          <FaUserEdit className="text-5xl text-green-600" />
-          <h2 className="text-3xl font-bold text-green-800 ml-3">Update Profile</h2>
+    <div className="min-h-screen bg-gradient-to-br from-green-100 via-white to-green-200 py-10 px-6 flex items-center justify-center">
+      <div className="bg-white rounded-3xl shadow-2xl flex w-full max-w-5xl overflow-hidden">
+        {/* Left Panel (Visual) */}
+        <div className="hidden md:flex flex-col items-center justify-center bg-green-600 text-white p-10 w-1/2">
+          <FaUserEdit className="text-6xl mb-4" />
+          <h2 className="text-3xl font-bold mb-2">Employee Profile</h2>
+          <p className="text-center text-lg">Update your contact details below</p>
         </div>
 
-        {/* Form Fields */}
-        <div className="space-y-6">
-          {/* Email Field */}
-          <div>
-            <label className="block text-sm font-semibold text-green-700">Email (Read-only)</label>
-            <div className="flex items-center mt-2 bg-green-100 rounded-lg p-3">
-              <FaEnvelope className="text-green-500 mr-3" />
-              <input
-                type="text"
-                value={employee.email}
-                disabled
-                className="w-full bg-transparent text-green-700 outline-none"
-              />
+        {/* Right Panel (Form) */}
+        <div className="w-full md:w-1/2 p-8 sm:p-12">
+          <h3 className="text-2xl font-bold text-green-700 mb-6 text-center">
+            Update Your Profile
+          </h3>
+
+          <div className="space-y-5">
+            {/* Email */}
+            <div>
+              <label className="block text-sm font-medium text-green-800 mb-1">
+                Email (Read-only)
+              </label>
+              <div className="flex items-center bg-green-100 rounded-lg px-4 py-2">
+                <FaEnvelope className="text-green-500 mr-3" />
+                <input
+                  type="text"
+                  value={employee.email}
+                  disabled
+                  className="bg-transparent w-full text-green-800 outline-none"
+                />
+              </div>
+            </div>
+
+            {/* Phone */}
+            <div>
+              <label className="block text-sm font-medium text-green-800 mb-1">
+                Phone
+              </label>
+              <div className="flex items-center bg-green-50 border border-green-300 rounded-lg px-4 py-2">
+                <FaPhone className="text-green-500 mr-3" />
+                <input
+                  type="text"
+                  value={phone}
+                  onChange={(e) => {
+                    const input = e.target.value;
+                    if (/^\d{0,10}$/.test(input)) {
+                      setPhone(input);
+                    }
+                  }}
+                  className="bg-transparent w-full text-green-800 outline-none"
+                  placeholder="Enter your phone number"
+                  maxLength={10}
+                />
+              </div>
+            </div>
+
+            {/* Address */}
+            <div>
+              <label className="block text-sm font-medium text-green-800 mb-1">
+                Address
+              </label>
+              <div className="flex items-center bg-green-50 border border-green-300 rounded-lg px-4 py-2">
+                <FaMapMarkerAlt className="text-green-500 mr-3" />
+                <input
+                  type="text"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  className="bg-transparent w-full text-green-800 outline-none"
+                  placeholder="Enter your address"
+                />
+              </div>
             </div>
           </div>
 
-          {/* Phone Field */}
-          <div>
-            <label className="block text-sm font-semibold text-green-700">Phone</label>
-            <div className="flex items-center mt-2 bg-green-50 border border-green-300 rounded-lg p-3">
-              <FaPhone className="text-green-500 mr-3" />
-              <input
-                type="text"
-                value={phone}
-                onChange={(e) => {
-                  const input = e.target.value;
-                  if (/^\d{0,10}$/.test(input)) {
-                    setPhone(input);
-                  }
-                }}
-                className="w-full bg-transparent text-green-700 outline-none"
-                placeholder="Enter your phone number"
-                maxLength={10}
-              />
-            </div>
+          {/* Action Buttons */}
+          <div className="mt-8 flex justify-between">
+            <button
+              onClick={() => navigate("/employee_profile/:username")}
+              className="w-1/2 mr-2 py-2 rounded-lg bg-gray-200 text-gray-800 hover:bg-gray-300 transition"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleUpdate}
+              className="w-1/2 ml-2 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition shadow"
+            >
+              Update
+            </button>
           </div>
-
-          {/* Address Field */}
-          <div>
-            <label className="block text-sm font-semibold text-green-700">Address</label>
-            <div className="flex items-center mt-2 bg-green-50 border border-green-300 rounded-lg p-3">
-              <FaMapMarkerAlt className="text-green-500 mr-3" />
-              <input
-                type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                className="w-full bg-transparent text-green-700 outline-none"
-                placeholder="Enter your address"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="mt-8 flex justify-between">
-          <button
-            onClick={() => navigate("/employee_profile/:username")}
-            className="px-6 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition duration-200 shadow"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleUpdate}
-            className="px-6 py-2 bg-green-600 text-white rounded-lg shadow-lg hover:bg-green-700 transition duration-200"
-          >
-            Update
-          </button>
         </div>
       </div>
     </div>
