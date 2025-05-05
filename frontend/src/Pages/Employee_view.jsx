@@ -120,70 +120,90 @@ export default function Employee_view() {
 
       {/* Main Content */}
       <main className="flex-1 p-8">
-        <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
-          EMPLOYEE LIST
-        </h1>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {employees.map((employee) => (
-            <div
-              key={employee._id}
-              className="bg-white shadow-lg rounded-lg p-6 transform hover:-translate-y-2 hover:shadow-2xl transition duration-300 flex flex-col items-center justify-between"
-            >
-              {/* Employee Info Section */}
-              <div className="flex flex-col items-start w-full mb-6">
-                {/* Name and Section in the Same Box */}
-                <div className="bg-white bg-opacity-60 shadow-lg text-gray-800 px-6 py-4 rounded-lg w-full mb-6 flex justify-between items-center">
-                  <h2 className="text-2xl font-semibold text-blue-800">
-                    {employee.name}
-                  </h2>
-                  <p className="text-gray-700 font-medium">{employee.section}</p>
-                </div>
-                {/* Additional Employee Info */}
-                <div className="space-y-2 text-gray-600 w-full">
-                  <p>
-                    <strong>Company ID Number:</strong> {employee.companyNumber}
-                  </p>
-                  <p>
-                    <strong>Address:</strong> {employee.address}
-                  </p>
-                  <p>
-                    <strong>Gender:</strong> {employee.gender}
-                  </p>
-                  <p>
-                    <strong>Phone:</strong> {employee.phoneNumber}
-                  </p>
-                  <p>
-                  <strong>Date of Birth:</strong>{" "}
-                  {new Date(employee.dateOfBirth).toLocaleDateString()}
-                </p>
-                </div>
-              </div>
-              {/* Action Buttons */}
-              <div className="flex gap-4">
-                <button
-                  onClick={() => handleRemove(employee._id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded-md shadow hover:bg-red-600 transition"
-                >
-                  Remove
-                </button>
-                <button
-                      onClick={() => handleUpdate(employee._id)}
-                      className="bg-blue-500 text-white px-4 py-2 rounded-md"
-                    >
-                      Update
-                    </button>
-                    <button
-    onClick={() => handleGeneratePDF(employee)}
-    className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
-  >
-    Service Letter
-  </button>
-              </div>
+          <div className="max-w-7xl mx-auto">
+            {/* Header */}
+            <div className="mb-10 text-center">
+              <h1 className="text-3xl font-bold text-green-800 mb-2">Employee Management</h1>
+              <p className="text-gray-600">View and manage all registered employees</p>
             </div>
-          ))}
-        </div>
-      </main>
-    </div>
+
+            {/* Employee Cards */}
+            {employees.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {employees.map((employee) => (
+                  <div
+                    key={employee._id}
+                    className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg"
+                  >
+                    {/* Employee Header */}
+                    <div className="bg-gradient-to-r from-green-600 to-green-500 p-4">
+                      <div className="flex justify-between items-center">
+                        <h2 className="text-xl font-semibold text-white truncate">{employee.name}</h2>
+                        <span className="bg-white/20 px-2 py-1 rounded-full text-xs text-white">
+                          {employee.section}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Employee Details */}
+                    <div className="p-6">
+                      <div className="space-y-3 text-sm">
+                        <div className="flex items-start">
+                          <span className="font-medium text-gray-700 w-28">Company ID:</span>
+                          <span className="text-gray-600">{employee.companyNumber}</span>
+                        </div>
+                        <div className="flex items-start">
+                          <span className="font-medium text-gray-700 w-28">Address:</span>
+                          <span className="text-gray-600">{employee.address}</span>
+                        </div>
+                        <div className="flex items-start">
+                          <span className="font-medium text-gray-700 w-28">Gender:</span>
+                          <span className="text-gray-600">{employee.gender}</span>
+                        </div>
+                        <div className="flex items-start">
+                          <span className="font-medium text-gray-700 w-28">Phone:</span>
+                          <span className="text-gray-600">{employee.phoneNumber}</span>
+                        </div>
+                        <div className="flex items-start">
+                          <span className="font-medium text-gray-700 w-28">Date of Birth:</span>
+                          <span className="text-gray-600">
+                            {new Date(employee.dateOfBirth).toLocaleDateString()}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="mt-6 flex flex-wrap gap-2">
+                        <button
+                          onClick={() => handleUpdate(employee._id)}
+                          className="flex-1 min-w-[100px] py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors duration-200"
+                        >
+                          Update
+                        </button>
+                        <button
+                          onClick={() => handleRemove(employee._id)}
+                          className="flex-1 min-w-[100px] py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors duration-200"
+                        >
+                          Remove
+                        </button>
+                        <button
+                          onClick={() => handleGeneratePDF(employee)}
+                          className="flex-1 min-w-[100px] py-2 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-colors duration-200"
+                        >
+                          Service Letter
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="bg-white rounded-xl shadow-md p-8 text-center">
+                <p className="text-gray-600">No employees found</p>
+              </div>
+            )}
+          </div>
+        </main>
+      </div>
   );
 }
