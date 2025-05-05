@@ -131,107 +131,179 @@ export default function Employee_register() {
           <h1 className="text-3xl font-bold text-green-800 mb-8 text-center border-b pb-4">
             Employee Registration
           </h1>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Left Section */}
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 bg-gray-100 p-3 rounded-md shadow-lg">
-                  <FaIdBadge className="text-teal-600" />
-                  <select
-                    id="section"
-                    name="section"
-                    className="w-full bg-transparent focus:outline-none focus:ring-2 focus:ring-green-500"
-                    onChange={handleChange}
-                  >
-                    <option value="">Select Section</option>
-                    <option value="Service Manager">Service Manager</option>
-                    <option value="Collect Manager">Collect Manager</option>
-                    <option value="Product Manager">Product Manager</option>
-                  </select>
-                </div>
-                <div className="flex items-center gap-4 bg-gray-100 p-3 rounded-md shadow-lg">
-                  <FaIdBadge className="text-teal-600" />
-                  <input
-                    type="text"
-                    id="companyNumber"
-                    name="companyNumber"
-                    placeholder="Enter Company ID"
-                    className="w-full bg-transparent focus:outline-none focus:ring-2 focus:ring-green-500"
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="flex items-center gap-4 bg-gray-100 p-3 rounded-md shadow-lg">
-                  <FaUser className="text-teal-600" />
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Enter Name"
-                    className="w-full bg-transparent focus:outline-none focus:ring-2 focus:ring-green-500"
-                    onChange={handleChange}
-                    value={formData.name} // Ensure controlled input
-                  />
-                </div>
-                <div className="flex items-center gap-4 bg-gray-100 p-3 rounded-md shadow-lg">
-                  <FaHome className="text-teal-600" />
-                  <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    placeholder="Enter Address"
-                    className="w-full bg-transparent focus:outline-none focus:ring-2 focus:ring-green-500"
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
+          <form onSubmit={handleSubmit} className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Left Column */}
+                  <div className="space-y-5">
+                    {/* Section */}
+                    <div className="relative">
+                      <label htmlFor="section" className="block text-sm font-medium text-gray-700 mb-1">
+                        Department
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FaIdBadge className="h-5 w-5 text-green-500" />
+                        </div>
+                        <select
+                          id="section"
+                          name="section"
+                          className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                          onChange={handleChange}
+                          required
+                        >
+                          <option value="">Select Department</option>
+                          <option value="Service Manager">Service Manager</option>
+                          <option value="Collect Manager">Collect Manager</option>
+                          <option value="Product Manager">Product Manager</option>
+                        </select>
+                      </div>
+                    </div>
 
-              {/* Right Section */}
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 bg-gray-100 p-3 rounded-md shadow-lg">
-                  <FaPhoneAlt className="text-teal-600" />
-                  <input
-                    type="text"
-                    id="phoneNumber"
-                    name="phoneNumber"
-                    placeholder="Enter Phone Number"
-                    className="w-full bg-transparent focus:outline-none focus:ring-2 focus:ring-green-500"
-                    onChange={handleChange}
-                    value={formData.phoneNumber} // Ensure controlled input
-                    maxLength="10"
-                  />
+                    {/* Company Number */}
+                    <div className="relative">
+                      <label htmlFor="companyNumber" className="block text-sm font-medium text-gray-700 mb-1">
+                        Company ID
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FaIdBadge className="h-5 w-5 text-green-500" />
+                        </div>
+                        <input
+                          type="text"
+                          id="companyNumber"
+                          name="companyNumber"
+                          placeholder="Company ID"
+                          className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    {/* Name */}
+                    <div className="relative">
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                        Full Name
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FaUser className="h-5 w-5 text-green-500" />
+                        </div>
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          placeholder="Full Name"
+                          className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                          onChange={handleChange}
+                          value={formData.name}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    {/* Address */}
+                    <div className="relative">
+                      <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+                        Address
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FaHome className="h-5 w-5 text-green-500" />
+                        </div>
+                        <input
+                          type="text"
+                          id="address"
+                          name="address"
+                          placeholder="Address"
+                          className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Column */}
+                  <div className="space-y-5">
+                    {/* Phone Number */}
+                    <div className="relative">
+                      <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">
+                        Phone Number
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FaPhoneAlt className="h-5 w-5 text-green-500" />
+                        </div>
+                        <input
+                          type="text"
+                          id="phoneNumber"
+                          name="phoneNumber"
+                          placeholder="Phone Number"
+                          className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                          onChange={handleChange}
+                          value={formData.phoneNumber}
+                          maxLength="10"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    {/* Date of Birth */}
+                    <div className="relative">
+                      <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700 mb-1">
+                        Date of Birth
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FaCalendarAlt className="h-5 w-5 text-green-500" />
+                        </div>
+                        <input
+                          type="date"
+                          id="dateOfBirth"
+                          name="dateOfBirth"
+                          className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    {/* Gender */}
+                    <div className="relative">
+                      <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-1">
+                        Gender
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FaUser className="h-5 w-5 text-green-500" />
+                        </div>
+                        <select
+                          id="gender"
+                          name="gender"
+                          className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                          onChange={handleChange}
+                          required
+                        >
+                          <option value="">Select Gender</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-4 bg-gray-100 p-3 rounded-md shadow-lg">
-                  <FaCalendarAlt className="text-teal-600" />
-                  <input
-                    type="date"
-                    id="dateOfBirth"
-                    name="dateOfBirth"
-                    className="w-full bg-transparent focus:outline-none focus:ring-2 focus:ring-green-500"
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="flex items-center gap-4 bg-gray-100 p-3 rounded-md shadow-lg">
-                  <FaUser className="text-teal-600" />
-                  <select
-                    id="gender"
-                    name="gender"
-                    className="w-full bg-transparent focus:outline-none focus:ring-2 focus:ring-green-500"
-                    onChange={handleChange}
+
+                {/* Submit Button */}
+                <div className="mt-10">
+                  <button
+                    type="submit"
+                    className="w-full py-3 px-4 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200"
                   >
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
+                    Register Employee
+                  </button>
                 </div>
-              </div>
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-green-500 to-teal-500 text-white p-3 rounded-md shadow hover:shadow-lg transition-transform transform hover:scale-105"
-            >
-              Register
-            </button>
-          </form>
+              </form>
         </div>
       </main>
     </div>
