@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Importing useNavigate for navigation
-import { FaUserPlus, FaUsers, FaClipboardList } from "react-icons/fa"; // Import icons
+import { FaUserPlus, FaUsers, FaClipboardList, FaUser, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function User_view() {
   const navigate = useNavigate();
@@ -63,35 +63,76 @@ export default function User_view() {
             </aside>
 
       {/* Main Content */}
+      {/* Main Content */}
       <main className="flex-1 p-8">
-        <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
-          USER LIST
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {users.map((user) => (
-            <div
-              key={user._id}
-              className="bg-white shadow-lg rounded-lg p-6 transform hover:-translate-y-2 hover:shadow-2xl transition duration-300"
-            >
-              <h2 className="text-2xl font-semibold mb-4 text-green-800">
-                {user.email}
-              </h2>
-              <p className="text-gray-600 mb-2">
-                <strong>Phone:</strong> {user.phone}
-              </p>
-              <p className="text-gray-600 mb-4">
-                <strong>Address:</strong> {user.address}
-              </p>
-              <button
-                onClick={() => handleRemoveUser(user._id)}
-                className="mt-4 px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition duration-300"
-              >
-                Drop User
-              </button>
+          <div className="max-w-7xl mx-auto">
+            {/* Header */}
+            <div className="mb-10 text-center">
+              <h1 className="text-3xl font-bold text-green-800 mb-2">User Management</h1>
+              <p className="text-gray-600">View and manage all registered users</p>
             </div>
-          ))}
-        </div>
-      </main>
+
+            {/* User Cards */}
+            {users.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {users.map((user) => (
+                  <div
+                    key={user._id}
+                    className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg"
+                  >
+                    {/* User Header */}
+                    <div className="bg-gradient-to-r from-green-600 to-green-500 p-4">
+                      <div className="flex items-center">
+                        <div className="bg-white/20 p-2 rounded-full mr-3">
+                          <FaUser className="text-white" />
+                        </div>
+                        <h2 className="text-xl font-semibold text-white truncate">{user.email}</h2>
+                      </div>
+                    </div>
+
+                    {/* User Details */}
+                    <div className="p-6">
+                      <div className="space-y-4">
+                        <div className="flex items-start">
+                          <div className="bg-blue-100 p-2 rounded-full mr-3">
+                            <FaPhone className="text-blue-600" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-gray-500">Phone</p>
+                            <p className="text-gray-800">{user.phone}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start">
+                          <div className="bg-green-100 p-2 rounded-full mr-3">
+                            <FaMapMarkerAlt className="text-green-600" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-gray-500">Address</p>
+                            <p className="text-gray-800">{user.address}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Action Button */}
+                      <div className="mt-6">
+                        <button
+                          onClick={() => handleRemoveUser(user._id)}
+                          className="w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors duration-200 flex items-center justify-center"
+                        >
+                          Remove User
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="bg-white rounded-xl shadow-md p-8 text-center">
+                <p className="text-gray-600">No users found</p>
+              </div>
+            )}
+          </div>
+        </main>
     </div>
   );
 }
