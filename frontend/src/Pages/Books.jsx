@@ -43,20 +43,21 @@ export default function EcoBin() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white-50 to-green-200 text-gray-800">
-      <section className="bg-green-800 text-white py-16 text-center rounded-b-3xl shadow-xl">
-        <h1 className="text-5xl font-extrabold mb-4">EcoBin: Eco-Friendly Solutions</h1>
-        <p className="text-xl mb-6">Join the green revolution! Explore sustainable and eco-conscious products.</p>
-        <div className="relative w-4/5 md:w-1/3 mx-auto">
-          <input
-            type="text"
-            placeholder="Search for Eco-Friendly Products..."
-            className="w-full p-4 rounded-full shadow-lg text-gray-800 focus:outline-none focus:ring-4 focus:ring-green-400"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <FaSearch className="absolute top-4 right-4 text-gray-600" />
-        </div>
-      </section>
+      <section className="bg-green-800 text-white py-20 text-center rounded-b-3xl shadow-xl mt-20">
+  <h1 className="text-5xl font-extrabold mb-4">EcoBin: Eco-Friendly Solutions</h1>
+  <p className="text-xl mb-6">Join the green revolution! Explore sustainable and eco-conscious products.</p>
+  <div className="relative w-4/5 md:w-1/3 mx-auto">
+    <input
+      type="text"
+      placeholder="Search for Eco-Friendly Products..."
+      className="w-full p-4 rounded-full shadow-lg text-gray-800 focus:outline-none focus:ring-4 focus:ring-green-400"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+    />
+    <FaSearch className="absolute top-4 right-4 text-gray-600" />
+  </div>
+</section>
+
 
       <section className="py-16">
         <h2 className="text-3xl font-bold text-center text-green-800 mb-10">Eco-Friendly Services</h2>
