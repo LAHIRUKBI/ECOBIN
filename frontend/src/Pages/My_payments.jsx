@@ -7,6 +7,9 @@ import {
   FaBuilding,
   FaBook,
   FaTrashAlt,
+  FaReceipt,
+  FaCalendarAlt,
+  FaInfoCircle,
 } from "react-icons/fa";
 import jsPDF from "jspdf";
 
@@ -14,7 +17,8 @@ export default function My_payments() {
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [messages, setMessages] = useState({});
+  const [filter, setFilter] = useState("all");
+  const [sortBy, setSortBy] = useState("date-desc");
 
   useEffect(() => {
     const email = localStorage.getItem("email");
@@ -65,128 +69,214 @@ export default function My_payments() {
   };
 
   const deletePayment = (id) => {
-    fetch(`http://localhost:3000/api/payment/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          setPayments((prevPayments) =>
-            prevPayments.filter((payment) => payment._id !== id)
-          );
-        } else {
-          setError("Failed to delete the payment.");
-        }
+    if (window.confirm("Are you sure you want to delete this payment record?")) {
+      fetch(`http://localhost:3000/api/payment/${id}`, {
+        method: "DELETE",
       })
-      .catch(() => {
-        setError("An unexpected error occurred. Please try again.");
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            setPayments((prevPayments) =>
+              prevPayments.filter((payment) => payment._id !== id)
+            );
+          } else {
+            setError("Failed to delete the payment.");
+          }
+        })
+        .catch(() => {
+          setError("An unexpected error occurred. Please try again.");
+        });
+    }
   };
 
-  const handleSendMessage = (id) => {
-    alert(`Message sent: ${messages[id] || "No message entered"}`);
-    setMessages((prevMessages) => ({ ...prevMessages, [id]: "" }));
-  };
+  const filteredPayments = payments.filter((payment) => {
+    if (filter === "all") return true;
+    if (filter === "recent") {
+      const paymentDate = new Date(payment.paymentDate);
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      return paymentDate >= thirtyDaysAgo;
+    }
+    return true;
+  });
+
+  const sortedPayments = [...filteredPayments].sort((a, b) => {
+    if (sortBy === "date-desc") {
+      return new Date(b.paymentDate) - new Date(a.paymentDate);
+    } else if (sortBy === "date-asc") {
+      return new Date(a.paymentDate) - new Date(b.paymentDate);
+    } else if (sortBy === "amount-desc") {
+      return b.totalPrice - a.totalPrice;
+    } else {
+      return a.totalPrice - b.totalPrice;
+    }
+  });
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen text-xl font-semibold text-gray-500">
-        Loading payments...
+      <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-green-50 to-blue-50">
+        <div className="w-16 h-16 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
+        <p className="mt-4 text-lg font-medium text-gray-600">Loading your payments...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="text-center text-xl font-semibold text-red-500 mt-10">
-        {error}
+      <div className="flex items-center justify-center h-screen bg-gradient-to-br from-green-50 to-blue-50">
+        <div className="max-w-md p-6 bg-white rounded-xl shadow-md text-center">
+          <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+            <FaInfoCircle className="h-6 w-6 text-red-600" />
+          </div>
+          <h3 className="mt-3 text-lg font-medium text-gray-900">Error</h3>
+          <p className="mt-2 text-sm text-gray-500">{error}</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="p-8 max-w-7xl mx-auto bg-white rounded-xl shadow-lg border border-gray-300">
-      <h2 className="text-3xl font-semibold text-center mb-10 text-green-700">
-        My Payments
-      </h2>
-      {payments.length === 0 ? (
-        <p className="text-center text-lg text-gray-500">No payments found.</p>
-      ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {payments.map((payment, index) => (
-            <div
-              key={index}
-              className="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300 border border-gray-200"
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-bold text-green-700 mb-3">
+            Your Payment History
+          </h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            View, download, and manage all your payment records in one place
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+          <div className="flex items-center space-x-2">
+            <span className="text-sm font-medium text-gray-700">Filter:</span>
+            <select
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
             >
-              <h3 className="text-lg font-semibold text-green-700 mb-4">
-                Book ID: {payment.bookId}
-              </h3>
-              <div className="space-y-3 text-gray-700">
-                <p>
-                  <FaBook className="inline text-green-600 mr-2" />{" "}
-                  <strong>Book Title:</strong> {payment.bookTitle}
-                </p>
-                <p>
-                  <FaUserAlt className="inline text-green-600 mr-2" />{" "}
-                  <strong>Customer:</strong> {payment.customerName}
-                </p>
-                <p>
-                  <FaUserAlt className="inline text-green-600 mr-2" />{" "}
-                  <strong>Email:</strong> {payment.customerEmail}
-                </p>
-                <p>
-                  <FaPhoneAlt className="inline text-green-600 mr-2" />{" "}
-                  <strong>Phone:</strong> {payment.customerPhone}
-                </p>
-                <p>
-                  <FaMapMarkerAlt className="inline text-green-600 mr-2" />{" "}
-                  <strong>Address:</strong> {payment.customerAddress}
-                </p>
-                <p>
-                  <FaBuilding className="inline text-green-600 mr-2" />{" "}
-                  <strong>Bank:</strong> {payment.bankName}
-                </p>
-                <p>
-                  <FaMoneyBillWave className="inline text-green-600 mr-2" />{" "}
-                  <strong>Amount:</strong> ${payment.totalPrice}
-                </p>
-              </div>
-              <div className="mt-6 space-y-4">
-                <button
-                  onClick={() => generatePDF(payment)}
-                  className="bg-green-500 text-white px-6 py-3 rounded-lg w-full hover:bg-green-600 transition duration-200"
-                >
-                  Download Receipt
-                </button>
-                <button
-                  onClick={() => deletePayment(payment._id)}
-                  className="bg-red-500 text-white px-6 py-3 rounded-lg w-full hover:bg-red-600 transition duration-200"
-                >
-                  <FaTrashAlt className="inline mr-2" /> Delete
-                </button>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Type a message..."
-                    value={messages[payment._id] || ""}
-                    onChange={(e) =>
-                      setMessages({ ...messages, [payment._id]: e.target.value })
-                    }
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-                  />
-                  <button
-                    onClick={() => handleSendMessage(payment._id)}
-                    className="bg-blue-500 text-white px-6 py-3 rounded-lg w-full mt-3 hover:bg-blue-600 transition duration-200"
-                  >
-                    Send Message
-                  </button>
+              <option value="all">All Payments</option>
+              <option value="recent">Last 30 Days</option>
+            </select>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className="text-sm font-medium text-gray-700">Sort by:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+              <option value="date-desc">Newest First</option>
+              <option value="date-asc">Oldest First</option>
+              <option value="amount-desc">Amount (High to Low)</option>
+              <option value="amount-asc">Amount (Low to High)</option>
+            </select>
+          </div>
+          <div className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
+            {payments.length} payment{payments.length !== 1 ? "s" : ""} total
+          </div>
+        </div>
+
+        {sortedPayments.length === 0 ? (
+          <div className="bg-white rounded-xl shadow-sm p-8 text-center">
+            <div className="mx-auto h-24 w-24 text-gray-300 mb-4">
+              <svg
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3 className="text-xl font-medium text-gray-700 mb-2">
+              No payments found
+            </h3>
+            <p className="text-gray-500">
+              {filter === "recent"
+                ? "You have no payments in the last 30 days."
+                : "Your payment history will appear here once you make a purchase."}
+            </p>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {sortedPayments.map((payment) => (
+              <div
+                key={payment._id}
+                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-gray-100"
+              >
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold mb-2">
+                        #{payment.bookId}
+                      </span>
+                      <h3 className="text-xl font-bold text-gray-800">
+                        {payment.bookTitle}
+                      </h3>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-green-600">
+                        ${payment.totalPrice}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        <FaCalendarAlt className="inline mr-1" />
+                        {new Date(payment.paymentDate).toLocaleDateString()}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 text-sm text-gray-600 mb-6">
+                    <div className="flex items-start">
+                      <FaUserAlt className="text-green-500 mt-1 mr-2 flex-shrink-0" />
+                      <div>
+                        <div className="font-medium">{payment.customerName}</div>
+                        <div className="text-xs text-gray-400">
+                          {payment.customerEmail}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <FaBuilding className="text-green-500 mr-2 flex-shrink-0" />
+                      <span>{payment.bankName}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <FaPhoneAlt className="text-green-500 mr-2 flex-shrink-0" />
+                      <span>{payment.customerPhone}</span>
+                    </div>
+                    <div className="flex items-start">
+                      <FaMapMarkerAlt className="text-green-500 mt-1 mr-2 flex-shrink-0" />
+                      <span className="text-sm">{payment.customerAddress}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between space-x-3 pt-4 border-t border-gray-100">
+                    <button
+                      onClick={() => generatePDF(payment)}
+                      className="flex-1 flex items-center justify-center px-4 py-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition-colors duration-200"
+                    >
+                      <FaReceipt className="mr-2" />
+                      Receipt
+                    </button>
+                    <button
+                      onClick={() => deletePayment(payment._id)}
+                      className="flex-1 flex items-center justify-center px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors duration-200"
+                    >
+                      <FaTrashAlt className="mr-2" />
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
-  
