@@ -236,65 +236,81 @@ const toBase64 = url =>
 </div>
 
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-            {loading ? (
-              <p className="text-center text-gray-500">Loading...</p>
-            ) : error ? (
-              <p className="text-center text-red-500">{error}</p>
-            ) : filteredProducts.length > 0 ? (
-              filteredProducts.map((product) => (
-                <div key={product._id} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
-                  <div className="flex flex-col items-center text-center">
-                    {/* Main Category */}
-                    <span className="bg-green-100 text-green-600 py-1 px-4 rounded-full font-semibold shadow-sm mb-2">
-                      <FaRecycle className="inline-block mr-2" /> {product.mainCategory}
-                    </span>
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-4 py-6">
+  {loading ? (
+    <p className="text-center text-gray-400 text-lg font-medium">Loading...</p>
+  ) : error ? (
+    <p className="text-center text-red-500 text-lg font-medium">{error}</p>
+  ) : filteredProducts.length > 0 ? (
+    filteredProducts.map((product) => (
+      <div
+        key={product._id}
+        className="bg-gradient-to-br from-white via-green-50 to-green-100 p-5 rounded-3xl shadow-md hover:shadow-2xl transition-all duration-300 border border-green-100"
+      >
+        <div className="flex flex-col items-center text-center space-y-4">
+          {/* Main Category */}
+          <span className="flex items-center bg-green-200 text-green-800 px-4 py-1 rounded-full text-sm font-semibold shadow-sm">
+            <FaRecycle className="mr-2" /> {product.mainCategory}
+          </span>
 
-                    {/* Product Image */}
-                    {product.image && (
-                      <img src={`http://localhost:3000/${product.image}`} alt={product.type} className="w-70 h-40 object-cover rounded-lg mb-4" />
-                    )}
+          {/* Product Image */}
+          {product.image && (
+            <img
+              src={`http://localhost:3000/${product.image}`}
+              alt={product.type}
+              className="w-full h-40 object-cover rounded-xl border border-green-300 shadow-sm"
+            />
+          )}
 
-                    {/* Clickable Service Type */}
-                    <h4
-                      onClick={() => filterByType(product.type)}
-                      className="text-xl font-semibold text-gray-800 mb-2 cursor-pointer hover:text-green-600"
-                    >
-                      {product.type}
-                    </h4>
-                    <p className="text-sm text-gray-600 mb-4">{product.introduction}</p>
+          {/* Service Type (Clickable) */}
+          <h4
+            onClick={() => filterByType(product.type)}
+            className="text-xl font-bold text-green-800 hover:text-green-600 cursor-pointer transition"
+          >
+            {product.type}
+          </h4>
+          <p className="text-sm text-gray-600">{product.introduction}</p>
 
-                    <div className="flex justify-around w-full text-gray-700 mb-4">
-                      <span className="flex items-center font-bold text-lg text-green-700">
-                        RS {product.price}
-                      </span>
-                      <span className="flex items-center font-semibold">
-                        <FaClock className="text-green-600 mr-2" /> {product.serviceTime}
-                      </span>
-                      <span className="flex items-center font-semibold">
-                        <FaStar className="text-green-600 mr-2" /> {product.priority}
-                      </span>
-                    </div>
-
-                    {/* Buttons */}
-                    <div className="flex justify-between w-full space-x-2">
-                      <Link to={`/Service_update/${product._id}`} className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold shadow-md transition-all">
-                        Update
-                      </Link>
-                      <button onClick={() => handleDelete(product._id)} className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg font-semibold shadow-md transition-all">
-                        <FaTrash className="mr-2" /> Delete
-                      </button>
-                      <button onClick={() => generateReport(product)} className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-semibold shadow-md transition-all">
-                        <FaFilePdf className="mr-2" /> Report
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p className="text-center text-gray-500">No products found</p>
-            )}
+          {/* Details */}
+          <div className="flex justify-between items-center w-full text-sm text-gray-700">
+            <span className="font-extrabold text-green-700 text-lg">RS {product.price}</span>
+            <span className="flex items-center">
+              <FaClock className="text-green-600 mr-1" /> {product.serviceTime}
+            </span>
+            <span className="flex items-center">
+              <FaStar className="text-yellow-500 mr-1" /> {product.priority}
+            </span>
           </div>
+
+          {/* Buttons */}
+          <div className="flex flex-col md:flex-row justify-between w-full space-y-2 md:space-y-0 md:space-x-2 mt-4">
+            <Link
+              to={`/Service_update/${product._id}`}
+              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-xl font-semibold text-sm shadow"
+            >
+              Update
+            </Link>
+            <button
+              onClick={() => handleDelete(product._id)}
+              className="w-full bg-rose-500 hover:bg-rose-600 text-white py-2 rounded-xl font-semibold text-sm shadow flex items-center justify-center"
+            >
+              <FaTrash className="mr-2" /> Delete
+            </button>
+            <button
+              onClick={() => generateReport(product)}
+              className="w-full bg-sky-500 hover:bg-sky-600 text-white py-2 rounded-xl font-semibold text-sm shadow flex items-center justify-center"
+            >
+              <FaFilePdf className="mr-2" /> Report
+            </button>
+          </div>
+        </div>
+      </div>
+    ))
+  ) : (
+    <p className="text-center text-gray-500 text-lg font-medium">No products found</p>
+  )}
+</div>
+
         </div>
       </main>
     </div>
