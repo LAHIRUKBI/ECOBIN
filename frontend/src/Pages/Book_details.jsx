@@ -49,10 +49,10 @@ export default function BookDetails() {
         {/* Left Side - Book Info */}
         <div className="md:w-1/2 p-8 space-y-5">
           <h2 className="text-4xl font-extrabold text-green-800 tracking-wide">{book.type}</h2>
-          <div className="inline-flex items-center bg-green-600 text-white px-4 py-2 rounded-full shadow">
+          <div className="inline-flex items-center bg-green-600 text-white px-4 py-2 rounded-full shadow-xl transform transition-all duration-300 hover:scale-105">
             <FaBook className="mr-2" /> {book.mainCategory}
           </div>
-          <p className="text-gray-700 text-md leading-relaxed">{book.introduction}</p>
+          <p className="text-gray-700 text-md leading-relaxed mt-4">{book.introduction}</p>
 
           {book.image && (
             <div className="relative group w-full mt-4">
@@ -77,15 +77,15 @@ export default function BookDetails() {
             <span className="text-yellow-300">RS {book.price}</span>
           </div>
 
-          <div className="flex justify-start gap-6">
-            <FaMoneyBill className="text-3xl hover:text-yellow-400 transition-transform duration-300 hover:scale-110" />
-            <FaCreditCard className="text-3xl hover:text-yellow-400 transition-transform duration-300 hover:scale-110" />
-            <FaPaypal className="text-3xl hover:text-yellow-400 transition-transform duration-300 hover:scale-110" />
+          <div className="flex justify-start gap-6 text-3xl">
+            <FaMoneyBill className="hover:text-yellow-400 transition-transform duration-300 transform hover:scale-110" />
+            <FaCreditCard className="hover:text-yellow-400 transition-transform duration-300 transform hover:scale-110" />
+            <FaPaypal className="hover:text-yellow-400 transition-transform duration-300 transform hover:scale-110" />
           </div>
 
           <button
             onClick={handleBuyClick}
-            className="bg-yellow-400 hover:bg-yellow-500 text-green-900 font-bold text-lg py-3 px-6 rounded-xl shadow-xl transition-all duration-300 transform hover:scale-105"
+            className="bg-yellow-400 hover:bg-yellow-500 text-green-900 font-bold text-lg py-3 px-6 rounded-xl shadow-xl transform transition-all duration-300 hover:scale-105 mt-4"
           >
             Buy Now
           </button>
