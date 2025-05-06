@@ -114,7 +114,7 @@ export default function Service_manager_home() {
               <FaRecycle className="text-white text-2xl" />
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold text-green-800 mb-3">
-              Welcome back, <span className="text-teal-600">{staffName}</span>
+              Welcome, <span className="text-teal-600">{staffName}</span>
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Here's what's happening with your services today
