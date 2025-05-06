@@ -180,7 +180,8 @@ const toBase64 = url =>
   
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-100 mt-20">
+
       {/* Sidebar */}
       <aside className="w-72 bg-gradient-to-b from-green-700 to-green-500 text-white p-6 flex flex-col shadow-lg">
         <div className="flex items-center space-x-4 border-b border-green-300 pb-4">
