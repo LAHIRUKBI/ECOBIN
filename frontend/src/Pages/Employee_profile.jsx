@@ -31,75 +31,73 @@ export default function EmployeeProfile() {
   const handleMyOrders = () => navigate("/myItemOrderDetails");
 
   if (loading) {
-    return <div className="flex items-center justify-center h-screen text-xl font-semibold text-gray-700">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen text-base font-medium text-gray-600">
+        Loading...
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white px-4 flex justify-center items-center">
+      <div className="w-full max-w-4xl">
         {/* Profile Card */}
-        <div className="bg-white rounded-xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
-          {/* Header with gradient */}
-          <div className="bg-gradient-to-r from-indigo-600 to-blue-500 py-12 px-8 text-center">
+        <div className="bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg mx-auto">
+          {/* Header with soft green gradient */}
+          <div className="bg-gradient-to-r from-green-500 to-teal-400 py-10 px-6 text-center">
             <div className="flex justify-center">
-              <FaUserCircle className="text-8xl text-white opacity-90 hover:opacity-100 transition-opacity duration-300" />
+              <FaUserCircle className="text-6xl text-white opacity-90 hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <h1 className="mt-4 text-3xl font-bold text-white tracking-tight">
-              {employee?.name || 'Employee Profile'}
+            <h1 className="mt-3 text-2xl font-semibold text-white tracking-tight">
+              {employee?.name || "Employee Profile"}
             </h1>
-            <p className="mt-2 text-blue-100 text-lg">
-              {employee?.position || 'Your professional dashboard'}
+            <p className="mt-1 text-green-100 text-sm">
+              {employee?.position || "Your professional dashboard"}
             </p>
           </div>
 
-          {/* Profile Details Section */}
-          <div className="px-8 py-10">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-8 pb-2 border-b border-gray-200">
+          {/* Profile Details */}
+          <div className="px-6 py-8">
+            <h2 className="text-lg font-semibold text-gray-700 mb-6 border-b pb-2 border-gray-200">
               Personal Information
             </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Email */}
-              <div className="flex items-start space-x-5 p-5 bg-gray-50 rounded-lg border border-gray-100 hover:border-blue-200 transition-colors duration-300">
-                <div className="flex-shrink-0">
-                  <div className="bg-blue-100 p-3 rounded-full">
-                    <FaEnvelope className="text-blue-600 text-xl" />
-                  </div>
+              <div className="flex items-start space-x-4 p-4 bg-green-50 rounded-lg border border-green-100 hover:border-green-300 transition">
+                <div className="bg-green-200 p-2 rounded-full">
+                  <FaEnvelope className="text-green-700 text-base" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium text-gray-500">Email Address</h3>
-                  <p className="mt-1 text-lg font-medium text-gray-900">
-                    {employee?.email || 'Not provided'}
+                  <h3 className="text-xs font-medium text-gray-500">Email Address</h3>
+                  <p className="mt-1 text-sm font-medium text-gray-800">
+                    {employee?.email || "Not provided"}
                   </p>
                 </div>
               </div>
 
               {/* Phone */}
-              <div className="flex items-start space-x-5 p-5 bg-gray-50 rounded-lg border border-gray-100 hover:border-blue-200 transition-colors duration-300">
-                <div className="flex-shrink-0">
-                  <div className="bg-green-100 p-3 rounded-full">
-                    <FaPhone className="text-green-600 text-xl" />
-                  </div>
+              <div className="flex items-start space-x-4 p-4 bg-green-50 rounded-lg border border-green-100 hover:border-green-300 transition">
+                <div className="bg-green-200 p-2 rounded-full">
+                  <FaPhone className="text-green-700 text-base" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium text-gray-500">Phone Number</h3>
-                  <p className="mt-1 text-lg font-medium text-gray-900">
-                    {employee?.phone || 'Not provided'}
+                  <h3 className="text-xs font-medium text-gray-500">Phone Number</h3>
+                  <p className="mt-1 text-sm font-medium text-gray-800">
+                    {employee?.phone || "Not provided"}
                   </p>
                 </div>
               </div>
 
               {/* Address */}
-              <div className="flex items-start space-x-5 p-5 bg-gray-50 rounded-lg border border-gray-100 hover:border-blue-200 transition-colors duration-300 md:col-span-2">
-                <div className="flex-shrink-0">
-                  <div className="bg-purple-100 p-3 rounded-full">
-                    <FaMapMarkerAlt className="text-purple-600 text-xl" />
-                  </div>
+              <div className="flex items-start space-x-4 p-4 bg-green-50 rounded-lg border border-green-100 hover:border-green-300 transition md:col-span-2">
+                <div className="bg-green-200 p-2 rounded-full">
+                  <FaMapMarkerAlt className="text-green-700 text-base" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium text-gray-500">Address</h3>
-                  <p className="mt-1 text-lg font-medium text-gray-900">
-                    {employee?.address || 'Not provided'}
+                  <h3 className="text-xs font-medium text-gray-500">Address</h3>
+                  <p className="mt-1 text-sm font-medium text-gray-800">
+                    {employee?.address || "Not provided"}
                   </p>
                 </div>
               </div>
@@ -107,31 +105,31 @@ export default function EmployeeProfile() {
           </div>
 
           {/* Action Buttons */}
-          <div className="px-8 py-6 bg-gray-50 border-t border-gray-200">
-            <div className="flex flex-wrap justify-center gap-4">
+          <div className="px-6 py-4 bg-green-50 border-t border-gray-100">
+            <div className="flex flex-wrap justify-center gap-3">
               <button
                 onClick={() => navigate("/employeeupdateprofile")}
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-all duration-300 hover:shadow-md flex items-center"
+                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg shadow transition"
               >
-                <span>Update Profile</span>
+                Update Profile
               </button>
               <button
                 onClick={handleMyPayments}
-                className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition-all duration-300 hover:shadow-md flex items-center"
+                className="px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white text-sm font-medium rounded-lg shadow transition"
               >
-                <span>My Payments</span>
+                My Payments
               </button>
               <button
                 onClick={handleMyOrders}
-                className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg shadow-sm transition-all duration-300 hover:shadow-md flex items-center"
+                className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg shadow transition"
               >
-                <span>My Orders</span>
+                My Orders
               </button>
               <button
                 onClick={handleLogout}
-                className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg shadow-sm transition-all duration-300 hover:shadow-md flex items-center"
+                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg shadow transition"
               >
-                <span>Logout</span>
+                Logout
               </button>
             </div>
           </div>
@@ -140,21 +138,23 @@ export default function EmployeeProfile() {
 
       {/* Logout Modal */}
       {showLogoutModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl transform transition-all duration-300 scale-95 hover:scale-100">
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-sm w-full p-5 shadow-lg transform transition duration-300">
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-gray-800 mb-3">Confirm Logout</h3>
-              <p className="text-gray-600 mb-6">Are you sure you want to sign out of your account?</p>
-              <div className="flex justify-center space-x-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Confirm Logout</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                Are you sure you want to sign out of your account?
+              </p>
+              <div className="flex justify-center space-x-3">
                 <button
                   onClick={cancelLogout}
-                  className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition-colors duration-300"
+                  className="px-4 py-1.5 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm rounded-lg"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={confirmLogout}
-                  className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-300"
+                  className="px-4 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm rounded-lg"
                 >
                   Logout
                 </button>
