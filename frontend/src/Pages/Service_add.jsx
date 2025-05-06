@@ -27,6 +27,9 @@ export default function Service_add() {
 
   const staffName = localStorage.getItem("staffName");
 
+  const [imagePreview, setImagePreview] = useState(null);
+
+
   const serviceCategories = {
     "Waste Collection Services": [
       "Residential Collection",
@@ -126,183 +129,201 @@ export default function Service_add() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col items-center justify-center w-full py-12 px-6">
-        <div className="w-full max-w-3xl bg-white rounded-2xl shadow-lg p-10 border border-green-400">
-          <h1 className="text-4xl font-bold text-center text-green-900 mb-6">
-            Add New Service
-          </h1>
-          <p className="text-center text-green-700 mb-6">
-            Contribute to a greener future with EcoBIN.
-          </p>
+      <main className="flex-1 flex flex-col items-center justify-center w-full py-12 px-6 bg-gradient-to-br from-green-100 via-white to-green-50">
+  <div className="w-full max-w-4xl bg-white rounded-3xl shadow-2xl p-10 border border-green-200 animate-fade-in">
+    <h1 className="text-5xl font-extrabold text-center text-green-800 mb-4">
+      🌿 Add New Service
+    </h1>
+    <p className="text-center text-green-600 text-lg mb-8">
+      Contribute to a greener future with <span className="font-semibold">EcoBIN</span>.
+    </p>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="text-green-900 font-semibold flex items-center gap-2">
-                <FaLayerGroup /> Service Category
-              </label>
-              <select
-                className="w-full p-3 border rounded-lg focus:ring-green-500"
-                value={formData.mainCategory}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    mainCategory: e.target.value,
-                    type: "",
-                  })
-                }
-                required
-              >
-                <option value="" disabled>
-                  Select a category
-                </option>
-                {Object.keys(serviceCategories).map((category, index) => (
-                  <option key={index} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div>
-            {formData.mainCategory && (
-              <div>
-                <label className="text-green-900 font-semibold flex items-center gap-2">
-                  <FaClipboardList /> Service Type
-                </label>
-                <select
-                  className="w-full p-3 border rounded-lg focus:ring-green-500"
-                  value={formData.type}
-                  onChange={(e) =>
-                    setFormData({ ...formData, type: e.target.value })
-                  }
-                  required
-                >
-                  <option value="" disabled>
-                    Select service type
-                  </option>
-                  {serviceCategories[formData.mainCategory].map(
-                    (type, index) => (
-                      <option key={index} value={type}>
-                        {type}
-                      </option>
-                    )
-                  )}
-                </select>
-              </div>
-            )}
+    <form onSubmit={handleSubmit} className="space-y-6 text-green-900">
+      {/* Category */}
+      <div>
+        <label className="font-medium flex items-center gap-2">
+          <FaLayerGroup /> Service Category
+        </label>
+        <select
+          className="w-full p-3 mt-1 border rounded-xl shadow-sm focus:ring-2 focus:ring-green-400"
+          value={formData.mainCategory}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              mainCategory: e.target.value,
+              type: "",
+            })
+          }
+          required
+        >
+          <option value="" disabled>
+            Select a category
+          </option>
+          {Object.keys(serviceCategories).map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
 
-            <div className="grid grid-cols-3 gap-4">
-              <div>
-                <label className="text-green-900 font-semibold flex items-center gap-2">
-                  {" "}
-                  Price (LKR)
-                </label>
-                <input
-                  type="number"
-                  className="w-full p-3 border rounded-lg focus:ring-green-500"
-                  value={formData.price}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (value >= 0 || value === "") {
-                      // Ensures only non-negative values are set
-                      setFormData({ ...formData, price: value });
-                    }
-                  }}
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="text-green-900 font-semibold flex items-center gap-2">
-                  <FaClock /> Service Time (Days)
-                </label>
-                <select
-                  className="w-full p-3 border rounded-lg focus:ring-green-500"
-                  value={formData.serviceTime}
-                  onChange={(e) =>
-                    setFormData({ ...formData, serviceTime: e.target.value })
-                  }
-                  required
-                >
-                  <option value="" disabled>
-                    Select duration
-                  </option>
-                  {["1", "3", "7", "14", "30"].map((day) => (
-                    <option key={day} value={day}>
-                      {day} Days
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="text-green-900 font-semibold flex items-center gap-2">
-                  <FaFlag /> Priority
-                </label>
-                <select
-                  className="w-full p-3 border rounded-lg focus:ring-green-500"
-                  value={formData.priority}
-                  onChange={(e) =>
-                    setFormData({ ...formData, priority: e.target.value })
-                  }
-                  required
-                >
-                  <option value="" disabled>
-                    Select priority
-                  </option>
-                  {["Low", "Medium", "High"].map((level) => (
-                    <option key={level} value={level}>
-                      {level}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label className="text-green-900 font-semibold">
-                Introduction
-              </label>
-              <textarea
-                className="w-full p-3 border rounded-lg focus:ring-green-500"
-                rows="4"
-                placeholder="Briefly describe your service"
-                value={formData.introduction}
-                onChange={(e) =>
-                  setFormData({ ...formData, introduction: e.target.value })
-                }
-                required
-              ></textarea>
-            </div>
-
-            <div>
-              <label className="text-green-900 font-semibold flex items-center gap-2">
-                <FaCamera /> Upload Image
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) =>
-                  setFormData({ ...formData, image: e.target.files[0] })
-                }
-                className="w-full p-3 border rounded-lg focus:ring-green-500"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className={`w-full py-3 rounded-lg font-bold text-lg shadow-lg transition-all 
-    ${
-      Object.values(formData).some((val) => val === "" || val === null)
-        ? "bg-gray-400 cursor-not-allowed"
-        : "bg-green-700 text-white hover:bg-green-800"
-    }`}
-              disabled={Object.values(formData).some(
-                (val) => val === "" || val === null
-              )}
-            >
-              Add Service
-            </button>
-          </form>
+      {/* Service Type */}
+      {formData.mainCategory && (
+        <div>
+          <label className="font-medium flex items-center gap-2">
+            <FaClipboardList /> Service Type
+          </label>
+          <select
+            className="w-full p-3 mt-1 border rounded-xl shadow-sm focus:ring-2 focus:ring-green-400"
+            value={formData.type}
+            onChange={(e) =>
+              setFormData({ ...formData, type: e.target.value })
+            }
+            required
+          >
+            <option value="" disabled>
+              Select service type
+            </option>
+            {serviceCategories[formData.mainCategory].map((type, index) => (
+              <option key={index} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
         </div>
-      </main>
+      )}
+
+      {/* Grid Inputs */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label className="font-medium">💰 Price (LKR)</label>
+          <input
+            type="number"
+            className="w-full mt-1 p-3 border rounded-xl shadow-sm focus:ring-2 focus:ring-green-400"
+            value={formData.price}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value >= 0 || value === "") {
+                setFormData({ ...formData, price: value });
+              }
+            }}
+            required
+          />
+        </div>
+
+        <div>
+          <label className="font-medium flex items-center gap-2">
+            <FaClock /> Service Time (Days)
+          </label>
+          <select
+            className="w-full mt-1 p-3 border rounded-xl shadow-sm focus:ring-2 focus:ring-green-400"
+            value={formData.serviceTime}
+            onChange={(e) =>
+              setFormData({ ...formData, serviceTime: e.target.value })
+            }
+            required
+          >
+            <option value="" disabled>
+              Select duration
+            </option>
+            {["1", "3", "7", "14", "30"].map((day) => (
+              <option key={day} value={day}>
+                {day} Days
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="font-medium flex items-center gap-2">
+            <FaFlag /> Priority
+          </label>
+          <select
+            className="w-full mt-1 p-3 border rounded-xl shadow-sm focus:ring-2 focus:ring-green-400"
+            value={formData.priority}
+            onChange={(e) =>
+              setFormData({ ...formData, priority: e.target.value })
+            }
+            required
+          >
+            <option value="" disabled>
+              Select priority
+            </option>
+            {["Low", "Medium", "High"].map((level) => (
+              <option key={level} value={level}>
+                {level}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Introduction */}
+      <div>
+        <label className="font-medium">📝 Introduction</label>
+        <textarea
+          className="w-full mt-1 p-3 border rounded-xl shadow-sm focus:ring-2 focus:ring-green-400"
+          rows="4"
+          placeholder="Briefly describe your service"
+          value={formData.introduction}
+          onChange={(e) =>
+            setFormData({ ...formData, introduction: e.target.value })
+          }
+          required
+        ></textarea>
+      </div>
+
+      {/* Upload Image */}
+      {/* Upload Image */}
+<div>
+  <label className="font-medium flex items-center gap-2">
+    <FaCamera /> Upload Image
+  </label>
+  <input
+    type="file"
+    accept="image/*"
+    onChange={(e) => {
+      const file = e.target.files[0];
+      if (file) {
+        setFormData({ ...formData, image: file });
+        setImagePreview(URL.createObjectURL(file));
+      }
+    }}
+    className="w-full mt-1 p-3 border rounded-xl shadow-sm focus:ring-2 focus:ring-green-400"
+  />
+
+  {imagePreview && (
+    <div className="mt-4">
+      <p className="text-sm text-gray-500 mb-1">Preview:</p>
+      <img
+        src={imagePreview}
+        alt="Preview"
+        className="rounded-xl shadow-lg max-h-64 object-cover border border-green-300"
+      />
+    </div>
+  )}
+</div>
+
+
+      {/* Submit Button */}
+      <button
+        type="submit"
+        className={`w-full py-3 rounded-2xl font-bold text-xl shadow-md transition-all duration-300 ease-in-out 
+          ${
+            Object.values(formData).some((val) => val === "" || val === null)
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-green-600 text-white hover:bg-green-700"
+          }`}
+        disabled={Object.values(formData).some(
+          (val) => val === "" || val === null
+        )}
+      >
+        ➕ Add Service
+      </button>
+    </form>
+  </div>
+</main>
+
     </div>
   );
 }
