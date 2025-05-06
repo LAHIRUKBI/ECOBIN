@@ -30,6 +30,7 @@ export default function Signup() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [phoneError, setPhoneError] = useState('');
 
   useEffect(() => {
     console.log("Component loaded");
@@ -39,8 +40,19 @@ export default function Signup() {
     const { id, value } = e.target;
 
     if (id === "phone") {
-      if (!/^\d*$/.test(value) || value.length > 10) {
+      // Only allow numbers and limit to 10 digits
+      if (!/^\d*$/.test(value)) {
         return;
+      }
+      if (value.length > 10) {
+        return;
+      }
+      
+      // Update phone error message
+      if (value.length > 0 && value.length < 10) {
+        setPhoneError('Phone number must be 10 digits');
+      } else {
+        setPhoneError('');
       }
     }
 
@@ -52,6 +64,13 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate phone number before submitting
+    if (formData.phone.length !== 10) {
+      setPhoneError('Phone number must be exactly 10 digits');
+      return;
+    }
+    
     try {
       setLoading(true);
       const res = await fetch("http://localhost:3000/api/signup", {
