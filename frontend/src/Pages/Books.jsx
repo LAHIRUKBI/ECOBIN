@@ -43,34 +43,34 @@ export default function EcoBin() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white-50 to-green-200 text-gray-800">
-      <section className="bg-green-800 text-white py-20 text-center rounded-b-3xl shadow-xl mt-20">
-  <h1 className="text-5xl font-extrabold mb-4">EcoBin: Eco-Friendly Solutions</h1>
-  <p className="text-xl mb-6">Join the green revolution! Explore sustainable and eco-conscious products.</p>
-  <div className="relative w-4/5 md:w-1/3 mx-auto">
-    <input
-      type="text"
-      placeholder="Search for Eco-Friendly Products..."
-      className="w-full p-4 rounded-full shadow-lg text-gray-800 focus:outline-none focus:ring-4 focus:ring-green-400"
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
-    />
-    <FaSearch className="absolute top-4 right-4 text-gray-600" />
-  </div>
-</section>
+      <section className="bg-green-800 text-white py-20 text-center rounded-b-3xl shadow-xl mt-20 relative overflow-hidden">
+        <h1 className="text-5xl font-extrabold mb-4 leading-tight">EcoBin: Eco-Friendly Solutions</h1>
+        <p className="text-xl mb-6">Join the green revolution! Explore sustainable and eco-conscious products.</p>
+        <div className="relative w-4/5 md:w-1/3 mx-auto">
+          <input
+            type="text"
+            placeholder="Search for Eco-Friendly Products..."
+            className="w-full p-4 rounded-full shadow-xl text-gray-800 focus:outline-none focus:ring-4 focus:ring-green-400"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <FaSearch className="absolute top-4 right-4 text-gray-600 transition-transform duration-300 ease-in-out hover:scale-110" />
+        </div>
+        <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-green-600 opacity-20"></div>
+      </section>
 
-
-      <section className="py-16">
+      <section className="py-16 px-6">
         <h2 className="text-3xl font-bold text-center text-green-800 mb-10">Eco-Friendly Services</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <div
                 key={product._id}
-                className="bg-white p-6 rounded-3xl shadow-lg transform hover:scale-105 transition duration-300 hover:shadow-2xl"
+                className="bg-white p-6 rounded-3xl shadow-lg transform hover:scale-105 transition duration-300 hover:shadow-2xl overflow-hidden"
               >
                 <div className="flex flex-col items-center text-center">
                   <div className="mb-4">
-                    <span className="inline-block bg-green-200 text-green-800 py-2 px-4 rounded-full text-sm font-semibold">
+                    <span className="inline-block bg-green-200 text-green-800 py-2 px-4 rounded-full text-sm font-semibold tracking-wide">
                       <FaRecycle className="mr-2 inline-block" />
                       {product.mainCategory}
                     </span>
@@ -82,7 +82,7 @@ export default function EcoBin() {
                     <img
                       src={`http://localhost:3000/${product.image}`}
                       alt={product.type}
-                      className="w-full h-48 object-cover rounded-xl mt-4"
+                      className="w-full h-48 object-cover rounded-xl mt-4 mb-4 transition-all duration-300 transform hover:scale-105"
                     />
                   )}
 
@@ -107,7 +107,7 @@ export default function EcoBin() {
 
                   <Link
                     to={`/book_details/${product._id}`}
-                    className="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-full font-semibold shadow-lg mt-4 transition duration-300"
+                    className="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-full font-semibold shadow-lg mt-4 transition duration-300 transform hover:scale-105"
                   >
                     Request Service
                   </Link>
