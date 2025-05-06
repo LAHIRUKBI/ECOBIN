@@ -195,21 +195,39 @@ export default function Service_add() {
 
       {/* Grid Inputs */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div>
-          <label className="font-medium">💰 Price (LKR)</label>
-          <input
-            type="number"
-            className="w-full mt-1 p-3 border rounded-xl shadow-sm focus:ring-2 focus:ring-green-400"
-            value={formData.price}
-            onChange={(e) => {
-              const value = e.target.value;
-              if (value >= 0 || value === "") {
-                setFormData({ ...formData, price: value });
-              }
-            }}
-            required
-          />
-        </div>
+        {/* Price Input */}
+{/* Price Input */}
+<div>
+  <label className="font-medium">💰 Price (LKR)</label>
+  <input
+    type="text"  
+    className="w-full mt-1 p-3 border rounded-xl shadow-sm focus:ring-2 focus:ring-green-400"
+    value={formData.price}
+    onChange={(e) => {
+      const value = e.target.value;
+      // Regex allows:
+      // - Empty string
+      // - Numbers with optional 2 decimal places
+      // - Doesn't allow multiple decimal points
+      if (/^\d*\.?\d{0,2}$/.test(value) || value === "") {
+        setFormData({ ...formData, price: value });
+      }
+    }}
+    onBlur={(e) => {
+      // Format to 2 decimal places when field loses focus
+      const value = e.target.value;
+      if (value && !value.includes(".")) {
+        setFormData({ ...formData, price: `${value}.00` });
+      } else if (value && value.endsWith(".")) {
+        setFormData({ ...formData, price: `${value}00` });
+      } else if (value && value.split(".")[1]?.length === 1) {
+        setFormData({ ...formData, price: `${value}0` });
+      }
+    }}
+    required
+    placeholder="0.00"
+  />
+</div>
 
         <div>
           <label className="font-medium flex items-center gap-2">
