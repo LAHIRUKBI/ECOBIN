@@ -60,7 +60,7 @@ export default function Employee_register() {
   };
 
   return (
-    <div className="flex min-h-screen bg-green-50">
+    <div className="flex min-h-screen bg-gray-100 mt-20">
       {/* Sidebar */}
       <aside className="w-72 bg-green-700 text-white shadow-lg p-6 flex flex-col">
         <div className="p-6 border-b border-indigo-400">

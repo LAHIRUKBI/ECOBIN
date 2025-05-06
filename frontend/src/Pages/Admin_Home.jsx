@@ -51,7 +51,7 @@ export default function Admin_Home() {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-100 mt-20">
       {/* Sidebar */}
       <aside className="w-64 bg-gradient-to-b from-green-700 to-green-600 text-white shadow-xl">
         <div className="p-6 border-b border-green-600">
