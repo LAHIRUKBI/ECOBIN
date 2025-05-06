@@ -148,68 +148,32 @@ export default function ServiceView() {
 
   return (
     <div className="flex min-h-screen bg-gray-100 mt-20">
-      {/* Floating eco elements */}
-      <div className="fixed top-1/4 left-1/5 animate-float">
-        <FaLeaf className="text-green-200 text-xl" />
-      </div>
-      <div className="fixed top-1/3 right-1/4 animate-float-delay">
-        <FaRecycle className="text-green-200 text-lg" />
-      </div>
-
       {/* Sidebar */}
-      <aside className="w-72 bg-gradient-to-b from-green-700 to-green-800 text-white shadow-xl p-6 flex flex-col fixed h-full">
-        <div className="flex items-center space-x-4 border-b border-green-500 pb-4">
-          <div className="bg-white rounded-full w-14 h-14 flex items-center justify-center shadow-md">
-            <img 
-              src="src/images/profilelogo.png" 
-              alt="Profile" 
-              className="rounded-full w-full h-full object-cover border-2 border-green-300"
-            />
-          </div>
-          <div>
-            <h2 className="text-xl font-semibold">{staffName}</h2>
-            <p className="text-green-200 text-sm">Service Manager</p>
-          </div>
-        </div>
-        
-        <nav className="mt-8 flex flex-col space-y-2">
-          <button 
-            onClick={() => navigate('/Service_manager_home')} 
-            className="flex items-center p-3 hover:bg-green-600 rounded-lg transition-all hover:translate-x-1"
-          >
-            <FaHome className="mr-3 text-green-100" /> 
-            <span>Dashboard</span>
-          </button>
-          <button 
-            onClick={() => navigate('/Service_add')} 
-            className="flex items-center p-3 hover:bg-green-600 rounded-lg transition-all hover:translate-x-1"
-          >
-            <FaPlus className="mr-3 text-green-200" /> 
-            <span>Add Service</span>
-          </button>
-          <button 
-            onClick={() => navigate('/Service_view')} 
-            className="flex items-center p-3 bg-green-600 rounded-lg transition-all hover:translate-x-1 shadow-md"
-          >
-            <FaEye className="mr-3 text-green-100" /> 
-            <span>View Services</span>
-          </button>
-          <button 
-            onClick={() => navigate('/Service_order_confirm')} 
-            className="flex items-center p-3 hover:bg-green-600 rounded-lg transition-all hover:translate-x-1"
-          >
-            <FaCheckCircle className="mr-3 text-green-200" /> 
-            <span>Confirmed Orders</span>
-          </button>
-        </nav>
-
-        <div className="mt-auto pt-4 border-t border-green-600">
-          <div className="text-center text-green-300 text-sm">
-            <p>EcoBin Service Portal</p>
-            <p className="text-xs mt-1">v2.0.1</p>
-          </div>
-        </div>
-      </aside>
+      <aside className="w-72 bg-green-700 text-white shadow-lg p-6 flex flex-col">
+              <div className="flex items-center space-x-4 border-b border-green-500 pb-4">
+                <div className="bg-white rounded-full w-14 h-14 flex items-center justify-center">
+                  <img src="src/images/profilelogo.png" alt="Profile Icon" className="rounded-full w-full h-full object-cover" />
+                </div>
+                <div>
+                <h2 className="text-xl font-semibold">{staffName}</h2>
+                <p className="text-gray-300 text-sm">Service Manager</p>
+                </div>
+              </div>
+              <nav className="mt-6 flex flex-col space-y-4">
+                <button onClick={() => navigate('/Service_manager_home')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+                  <FaHome className="mr-3" /> Home
+                </button>
+                <button onClick={() => navigate('/Service_add')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+                  <FaPlus className="mr-3" /> Add Service
+                </button>
+                <button onClick={() => navigate('/Service_view')} className="flex items-center p-4  bg-green-600 rounded-md transition">
+                  <FaEye className="mr-3" /> View Services
+                </button>
+                <button onClick={() => navigate('/Service_order_confirm')} className="flex items-center p-4 hover:bg-green-600 rounded-md transition">
+                  <FaCheckCircle className="mr-3" /> View Confirm Orders
+                </button>
+              </nav>
+            </aside>
 
       {/* Main Content */}
       <main className="flex-1 ml-72 p-8">
