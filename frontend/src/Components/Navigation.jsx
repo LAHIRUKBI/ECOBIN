@@ -116,7 +116,7 @@ export default function Navigation() {
                   title="Worker Login"
                 >
                   <User className="mr-2 h-5 w-5" />
-                  Worker Login
+                  Workers Login
                 </Link>
                 <Link
                   to="/signup"
