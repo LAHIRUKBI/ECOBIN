@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Button, Container, Row, Col, Card, ProgressBar, Spinner, Alert } from 'react-bootstrap';
+import { Button, Spinner, Alert } from 'react-bootstrap';
 import * as tf from '@tensorflow/tfjs';
 import * as mobilenet from '@tensorflow-models/mobilenet';
 
@@ -29,10 +29,8 @@ const Scanner = () => {
 
     loadModel();
 
-    // Cleanup function
     return () => {
       if (model) {
-        // TensorFlow.js models don't need explicit disposal in this case
         console.log('Component unmounted');
       }
     };
@@ -92,7 +90,6 @@ const Scanner = () => {
         percentages[category] = Math.round((value / total) * 100);
       }
     } else {
-      // If no matches found, show equal distribution
       for (const category of Object.keys(composition)) {
         percentages[category] = 20;
       }
@@ -116,16 +113,13 @@ const Scanner = () => {
     setError(null);
     
     try {
-      // Wait for the image to load in the DOM
       if (!imgRef.current) {
         throw new Error('Image element not found');
       }
 
-      // Classify the image
       const predictions = await model.classify(imgRef.current);
       console.log('Predictions:', predictions);
       
-      // Process results for waste categories
       const wasteResults = processPredictions(predictions);
       setAnalysisResults(wasteResults);
     } catch (err) {
@@ -136,104 +130,143 @@ const Scanner = () => {
     }
   };
 
+  // Tailwind color variants for materials
+  const getVariantForMaterial = (material) => {
+    switch(material) {
+      case 'plastic': return 'bg-blue-500';
+      case 'metal': return 'bg-yellow-500';
+      case 'paper': return 'bg-blue-300';
+      case 'glass': return 'bg-green-500';
+      case 'organic': return 'bg-gray-800';
+      default: return 'bg-gray-400';
+    }
+  };
+
   return (
-    <Container className="my-5">
-      <h1 className="text-center mb-4">Waste Composition Scanner</h1>
-      <Row className="justify-content-center">
-        <Col md={8}>
-          <Card>
-            <Card.Body>
-              <Card.Title>Upload Waste Image</Card.Title>
-              <div className="mb-3">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  className="form-control"
-                  id="imageUpload"
-                />
-                <div className="form-text">Upload a clear photo of waste (max 5MB)</div>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-extrabold text-gray-900 mb-2">Waste Composition Scanner</h1>
+          <p className="text-lg text-gray-600">Upload an image to analyze waste composition</p>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="p-6 sm:p-8">
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">Upload Waste Image</h2>
+                <div className="flex items-center justify-center w-full">
+                  <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                      <svg className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                      </svg>
+                      <p className="mb-2 text-sm text-gray-500">
+                        <span className="font-semibold">Click to upload</span> or drag and drop
+                      </p>
+                      <p className="text-xs text-gray-500">PNG or JPG (MAX. 5MB)</p>
+                    </div>
+                    <input 
+                      id="imageUpload" 
+                      type="file" 
+                      accept="image/*" 
+                      onChange={handleImageUpload} 
+                      className="hidden" 
+                    />
+                  </label>
+                </div>
               </div>
-              
+
               {previewImage && (
-                <div className="text-center mb-4">
-                  <img
-                    ref={imgRef}
-                    src={previewImage}
-                    alt="Preview"
-                    style={{ maxWidth: '100%', maxHeight: '400px', borderRadius: '8px' }}
-                    className="img-fluid"
-                    crossOrigin="anonymous" // Important for TensorFlow.js
-                    onLoad={() => console.log('Image loaded')}
-                  />
+                <div className="flex justify-center">
+                  <div className="relative rounded-lg overflow-hidden shadow-md max-w-md">
+                    <img
+                      ref={imgRef}
+                      src={previewImage}
+                      alt="Preview"
+                      className="w-full h-auto object-cover"
+                      crossOrigin="anonymous"
+                      onLoad={() => console.log('Image loaded')}
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center">
+                      {isAnalyzing && (
+                        <div className="bg-white bg-opacity-90 rounded-full p-3 shadow-lg">
+                          <Spinner animation="border" variant="primary" />
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )}
 
-              <div className="text-center">
-                <Button
-                  variant="primary"
+              <div className="flex justify-center">
+                <button
                   onClick={analyzeImage}
                   disabled={isAnalyzing || !selectedImage || !model}
-                  size="lg"
+                  className={`px-6 py-3 rounded-lg font-medium text-white transition-colors ${(!selectedImage || !model || isAnalyzing) ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'}`}
                 >
                   {isAnalyzing ? (
-                    <>
-                      <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-                      <span className="ms-2">Analyzing...</span>
-                    </>
+                    <span className="flex items-center">
+                      <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="mr-2" />
+                      Analyzing...
+                    </span>
                   ) : (
                     'Scan Now'
                   )}
-                </Button>
+                </button>
               </div>
 
               {error && (
-                <Alert variant="danger" className="mt-3">
-                  <Alert.Heading>Error</Alert.Heading>
-                  <p>{error}</p>
-                </Alert>
+                <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <svg className="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <h3 className="text-sm font-medium text-red-800">Error</h3>
+                      <div className="mt-2 text-sm text-red-700">
+                        <p>{error}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               )}
-            </Card.Body>
-          </Card>
+            </div>
+          </div>
 
           {analysisResults && (
-            <Card className="mt-4">
-              <Card.Body>
-                <Card.Title>Analysis Results</Card.Title>
-                <p>Composition of waste materials:</p>
-                
+            <div className="bg-gray-50 px-6 py-8 sm:px-8 border-t border-gray-200">
+              <h3 className="text-2xl font-bold text-gray-800 mb-6">Analysis Results</h3>
+              <p className="text-gray-600 mb-6">Composition of waste materials:</p>
+              
+              <div className="space-y-5">
                 {Object.entries(analysisResults).map(([material, percentage]) => (
-                  <div key={material} className="mb-3">
-                    <div className="d-flex justify-content-between mb-1">
-                      <span className="text-capitalize fw-bold">{material}</span>
-                      <span className="fw-bold">{percentage}%</span>
+                  <div key={material} className="space-y-2">
+                    <div className="flex justify-between text-sm font-medium text-gray-700">
+                      <span className="capitalize">{material}</span>
+                      <span>{percentage}%</span>
                     </div>
-                    <ProgressBar 
-                      now={percentage} 
-                      label={`${percentage}%`} 
-                      variant={getVariantForMaterial(material)}
-                      animated 
-                    />
+                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                      <div 
+                        className={`h-2.5 rounded-full ${getVariantForMaterial(material)}`} 
+                        style={{ width: `${percentage}%` }}
+                      ></div>
+                    </div>
                   </div>
                 ))}
-              </Card.Body>
-            </Card>
+              </div>
+            </div>
           )}
-        </Col>
-      </Row>
-    </Container>
-  );
-};
+        </div>
 
-const getVariantForMaterial = (material) => {
-  switch(material) {
-    case 'plastic': return 'primary';
-    case 'metal': return 'warning';
-    case 'paper': return 'info';
-    case 'glass': return 'success';
-    case 'organic': return 'dark';
-    default: return 'secondary';
-  }
+        <div className="mt-8 text-center text-sm text-gray-500">
+          <p>Powered by TensorFlow.js and MobileNet</p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Scanner;
