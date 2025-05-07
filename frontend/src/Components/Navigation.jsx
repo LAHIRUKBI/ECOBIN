@@ -125,6 +125,7 @@ export default function Navigation() {
                   <User className="mr-2 h-5 w-5" />
                   Sign Up
                 </Link>
+                <Link to="/scanner" className="nav-link">Image Scan</Link>
               </div>
             )}
           </div>
