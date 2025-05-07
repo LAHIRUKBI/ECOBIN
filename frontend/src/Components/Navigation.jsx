@@ -93,6 +93,15 @@ export default function Navigation() {
           <div className="hidden lg:flex lg:items-center lg:space-x-3">
             {email ? (
               <div className="flex items-center space-x-3">
+                {email && (
+                  <Link
+                    to="/scanner"
+                    className="px-4 py-2.5 mx-1 rounded-full text-base font-medium text-white hover:text-green-100 hover:bg-white/15 flex items-center transition-all duration-300"
+                  >
+                    <Recycle className="mr-2 h-5 w-5" />
+                    Image Scan
+                  </Link>
+                )}
                 <button
                   onClick={() => navigate(`/employee_profile/${email}`)}
                   className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-white/15 hover:bg-white/25 text-white hover:text-green-100 transition-all duration-300 backdrop-blur-sm"
@@ -125,7 +134,6 @@ export default function Navigation() {
                   <User className="mr-2 h-5 w-5" />
                   Sign Up
                 </Link>
-                <Link to="/scanner" className="nav-link">Image Scan</Link>
               </div>
             )}
           </div>
@@ -179,6 +187,16 @@ export default function Navigation() {
             >
               <Recycle className="mr-3 h-6 w-6" />
               Recycling Order
+            </Link>
+          )}
+          {email && (
+            <Link
+              to="/scanner"
+              className="w-full px-5 py-4 rounded-xl text-center text-xl font-medium text-white hover:text-green-100 hover:bg-white/15 flex items-center justify-center transition-all duration-300"
+              onClick={() => setMenuOpen(false)}
+            >
+              <Recycle className="mr-3 h-6 w-6" />
+              Image Scan
             </Link>
           )}
           <Link
