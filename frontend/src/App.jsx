@@ -34,6 +34,7 @@ import ItemAdd from "./Pages/ItemAdd";
 import UpdateItem from "./Pages/UpdateItem";
 import ItemPayment from "./Pages/itemPayment";
 import MyItemOrderDetails from "./Pages/MyItemOrderDetails";
+import Scanner from "./Pages/Scanner";
 
 export default function App() {
   return (
@@ -93,7 +94,8 @@ export default function App() {
         <Route path="/addItem" element={<ItemAdd />} />
         <Route path="/updateItem/:id" element={<UpdateItem />} />
         <Route path="/itemPayment" element={<ItemPayment />} />
-        <Route path="/myItemOrderDetails" element={<MyItemOrderDetails />} />z
+        <Route path="/myItemOrderDetails" element={<MyItemOrderDetails />} />
+        <Route path="/Scanner" element={<Scanner />} />
       </Routes>
       <Footer />
     </BrowserRouter>

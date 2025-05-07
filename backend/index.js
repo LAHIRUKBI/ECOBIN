@@ -10,6 +10,7 @@ import paymentRouter from './route/payment.route.js';
 import confirmRouter from './route/confirm.route.js';
 import ItemRouter from './route/item.route.js';
 import ItemOrderRouter from './route/item.order.route.js';
+import scannerRouter from './route/scanner.route.js';
 dotenv.config();
 
 mongoose
@@ -37,9 +38,24 @@ app.use('/api/payment', paymentRouter);
 app.use('/api/confirm', confirmRouter);
 app.use('/api/item', ItemRouter);
 app.use('/api/itemOrder', ItemOrderRouter);
+app.use('/api/scanner', scannerRouter);
 
-
-
+// Add to your index.js
+app.get('/api/test-credentials', (req, res) => {
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const credPath = path.join(__dirname, 'backend/config/google-cloud-credentials.json');
+    const exists = fs.existsSync(credPath);
+    res.json({
+      exists,
+      path: credPath,
+      env: process.env.GOOGLE_APPLICATION_CREDENTIALS
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 
 
