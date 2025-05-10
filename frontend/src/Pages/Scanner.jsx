@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button, Container, Row, Col, Card, ProgressBar, Spinner, Alert } from 'react-bootstrap';
 import * as tf from '@tensorflow/tfjs';
 import * as mobilenet from '@tensorflow-models/mobilenet';
+import { useNavigate } from 'react-router-dom';
 
 const Scanner = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -11,6 +12,7 @@ const Scanner = () => {
   const [error, setError] = useState(null);
   const [model, setModel] = useState(null);
   const imgRef = useRef(null);
+  const navigate = useNavigate();
 
   // Load the TensorFlow.js model when component mounts
   useEffect(() => {
@@ -216,6 +218,14 @@ const Scanner = () => {
                   ) : (
                     'Scan Now'
                   )}
+                </button>
+
+                {/* Add this new button */}
+                <button
+                  onClick={() => navigate('/Books')}
+                  className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                >
+                  Request Services
                 </button>
               </div>
 

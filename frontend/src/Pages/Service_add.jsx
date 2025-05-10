@@ -37,6 +37,7 @@ export default function Service_add() {
       "Bulk Waste Pickup",
       "Special Waste Collection",
       "Medical Waste Disposal",
+      "Organic Waste Collection",
       "Street & Public Space Waste Collection",
     ],
     "Recycling Services": [
