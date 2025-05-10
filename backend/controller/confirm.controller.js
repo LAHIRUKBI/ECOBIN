@@ -1,6 +1,7 @@
 import ConfirmOrder from '../model/confirm.model.js';
 
-export const confirmOrder = async (req, res) => {
+// Create new confirmed order
+export const createConfirmOrder = async (req, res) => {
   try {
     const { orderId, customerEmail, bookTitle, customerName, customerAddress, customerPhone, totalPrice, bankName } = req.body;
 
@@ -26,35 +27,55 @@ export const confirmOrder = async (req, res) => {
     res.status(201).json({ success: true, message: 'Order sent to collector successfully' });
 
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error', error });
+    console.error('Create confirm order error:', error);
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
   }
 };
 
-
-
-export const getConfirmedOrders = async (req, res) => {
+// Get all confirmed orders
+export const getConfirmOrders = async (req, res) => {
   try {
-    const confirmedOrders = await ConfirmOrder.find();
-    res.status(200).json({ success: true, data: confirmedOrders });
+    const orders = await ConfirmOrder.find();
+    res.status(200).json({ success: true, data: orders });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error', error });
+    console.error('Get confirmed orders error:', error);
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
   }
 };
 
-
-
-// Controller to delete a confirmed order by orderId
-export const deleteConfirmedOrder = async (req, res) => {
+// Get single confirmed order by ID
+export const getConfirmOrderById = async (req, res) => {
   try {
     const { orderId } = req.params;
-    const deletedOrder = await ConfirmOrder.findOneAndDelete({ orderId }); // Use orderId here instead of _id
+    console.log('Looking for order with ID:', orderId); // Debug log
+    
+    const order = await ConfirmOrder.findOne({ orderId });
+    console.log('Found order:', order); // Debug log
+    
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
 
+    res.status(200).json({ success: true, data: order });
+  } catch (error) {
+    console.error('Get confirm order by ID error:', error);
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
+  }
+};
+
+// Delete confirmed order
+export const deleteConfirmOrder = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const deletedOrder = await ConfirmOrder.findOneAndDelete({ orderId });
+    
     if (!deletedOrder) {
       return res.status(404).json({ success: false, message: 'Order not found' });
     }
 
     res.status(200).json({ success: true, message: 'Order deleted successfully' });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error', error });
+    console.error('Delete confirm order error:', error);
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
   }
 };
