@@ -2,15 +2,25 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
-
 import userRouter from "./route/signup.route.js";
 import employeeRouter from './route/employee.route.js';
 import productRouter from './route/product.route.js';
 import paymentRouter from './route/payment.route.js';
 import confirmRouter from './route/confirm.route.js';
+import separationRouter from './route/separation.routes.js';
 
+// Load environment variables
 dotenv.config();
 
+// Create Express app
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static('uploads'));
+
+// MongoDB Connection
 mongoose
   .connect(process.env.MONGO)
   .then(() => {
@@ -20,26 +30,13 @@ mongoose
     console.log(err);
   });
 
-const app = express();
-
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use('/uploads', express.static('uploads'));
-
-
-// Routes path
+// Routes
 app.use("/api/signup", userRouter);
 app.use('/api/employees', employeeRouter);
 app.use('/api/products', productRouter);
 app.use('/api/payment', paymentRouter);
 app.use('/api/confirm', confirmRouter);
-
-
-
-
-
-
+app.use('/api/separation', separationRouter);
 
 // Error handler
 app.use((err, req, res, next) => {
@@ -48,6 +45,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ success: false, statusCode, message });
 });
 
+// Start server
 app.listen(3000, () => {
   console.log('Server running on port 3000!');
 });
